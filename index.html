@@ -2,47 +2,45 @@
 <html lang="en">
 
 <head>
+
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="desc.css"> -->
-    <link rel="stylesheet" href="/background/back.css">
-
-    <style>
-        iframe{
-            width:100%;
-            height:50vh;
-        }
-        .col{
-            /* height:100vh; */
-            height: 100%;
-        }
-
-    </style>
-
+    <link rel="stylesheet" href="index.css">
+    <!-- <link rel="stylesheet" href="desc.css">  -->
+    <link rel="stylesheet" href="background/back.css">
 
     <title>Document</title>
 </head>
 
 <body>
-    <div class="container">
-
-        <!-- Create Background Pattern -->
-        <canvas id="animation-pattern"></canvas>
-
-        <!-- Create Background Dots -->
-        <canvas id="animation-dots"></canvas>
-
+    <div class="area">
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
     </div>
     <div class="container">
-        <div class="row">
-            <div class="col-sm align-self-center">
-                <iframe src="/desc.html" class="align-self-center">
+        <div class="row cent">
+            <div class="col-sm d-flex justify-content-center">
+                <iframe src="desc.html" class="d-flex justify-content-center">
             </div>
         </div>
     </div>
-    <script src="background/back.js"></script>
+    
+    
 
 </body>
 
