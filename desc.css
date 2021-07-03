@@ -61,7 +61,8 @@ a i:hover{
     width:20px
 }
 a{
-    color:rgb(100, 102, 255);
+    color:rgb(255, 0, 0);
+    font-weight: 600;
 }
 a:hover{
     color:rgb(105, 73, 248);
