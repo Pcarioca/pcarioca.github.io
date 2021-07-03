@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: #212331;
+        }
+        #lang{
+            position: absolute;
+            top:0%;
+            right:20px;
+            color:white;
+        }
+        #active{
+            background-color: rgba(221, 0, 0, 0.685);
+            padding:2px 5px;
+            border-radius: 10%;
+            cursor:pointer;
+            transition: 0.3s;
+
+        }
+        #active:hover{
+            background-color: rgb(221, 0, 0);
+        }
+        #pasive{
+            padding:2px 5px ;
+            border-radius: 10%;
+            cursor:pointer;
+            transition: 0.3s;
+        }
+        #pasive:hover{
+            background-color: rgba(161, 0, 0, 0.507);
+        }
+        a{
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <p id="lang"> <a id="active">EN</a> / <a id="pasive">RO</a></p>
+</body>
+</html>
