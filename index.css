@@ -132,6 +132,17 @@ iframe{
         max-width: 99999px;
     }
     iframe{
+        height:80vh;
+        
+    }
+} 
+@media screen and (max-width:552px){
+    
+    .container{
+        margin:0px;
+        max-width: 99999px;
+    }
+    iframe{
         height:90vh;
         
     }
