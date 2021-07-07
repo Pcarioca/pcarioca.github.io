@@ -2,6 +2,9 @@
     color:rgb(241, 244, 246);
     font-weight: 500;
 }
+.padd{
+    padding-top: 3%;
+}
 #headshot{
     width:90%;
     margin-top: 10%;
@@ -72,6 +75,9 @@ a:hover{
 @media (min-width:768px){
     .hide{
         display: none;
+    }
+    #hide2{
+        display:none;
     }
     
 }

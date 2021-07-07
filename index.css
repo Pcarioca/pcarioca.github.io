@@ -3,7 +3,7 @@ body{
 }
 iframe{
     width:90%;
-    height:40vh;
+    height:41vh;
     border: none;
 }
 .col{
@@ -37,7 +37,7 @@ iframe{
 @media screen and (max-height:935px){
     iframe{
         width:90%;
-        height:45vh;
+        height:49vh;
         
     }
     .cent{
@@ -47,7 +47,7 @@ iframe{
  @media screen and (max-height:834px){
      iframe{
         width:90%;
-        height:50vh;
+        height:57vh;
         
     }
     .cent{
@@ -67,14 +67,14 @@ iframe{
 @media screen and (max-height:717px){
     iframe{
         
-        height:65vh;
+        height:60vh;
         
     }
 }
 @media screen and (max-height:623px){
     iframe{
        width:90%;
-       height:65vh;
+       height:71vh;
        
    }
    .cent{
@@ -88,7 +88,7 @@ iframe{
 @media screen and (max-height:573px){
     iframe{
        width:90%;
-       height:70vh;
+       height:77vh;
        
    }
    .cent{
@@ -98,7 +98,7 @@ iframe{
 @media screen and (max-height:529px){
     iframe{
        width:90%;
-       height:80vh;
+       height:87vh;
        
    }
    .cent{
@@ -108,7 +108,7 @@ iframe{
 @media screen and (max-height:465px){
     iframe{
        width:90%;
-       height:90vh;
+       height:93vh;
        
    }
    .cent{
@@ -132,7 +132,7 @@ iframe{
         max-width: 99999px;
     }
     iframe{
-        height:80vh;
+        height:81vh;
         
     }
 } 
@@ -143,7 +143,7 @@ iframe{
         max-width: 99999px;
     }
     iframe{
-        height:90vh;
+        height:94vh;
         
     }
 } 
