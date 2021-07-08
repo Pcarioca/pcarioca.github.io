@@ -1,88 +1,123 @@
-*{
-    color:rgb(241, 244, 246);
+* {
+    color: rgb(241, 244, 246);
     font-weight: 500;
+    transition-duration: 0.3s;
 }
-.padd{
+
+.padd {
     padding-top: 3%;
 }
-#headshot{
-    width:90%;
+
+#headshot {
+    width: 90%;
     margin-top: 10%;
-    
+
 }
+
 ::-webkit-scrollbar {
     width: 10px;
-  }
+}
 
-  /* Track */
-  ::-webkit-scrollbar-track {
+/* Track */
+::-webkit-scrollbar-track {
     background: #00000036;
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
     background: rgba(161, 0, 0, 0.507);
     border-radius: 2%;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(221, 0, 0, 0.685); 
-  }
-body{
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(221, 0, 0, 0.685);
+}
+
+body {
     background-color: #00000036;
 }
-#center{
-    margin-top:8%
+
+#center {
+    margin-top: 8%
 }
-a i{
-    color:rgb(234, 238, 241);
+
+a i {
+    color: rgb(234, 238, 241);
 }
-iframe{
+
+iframe {
     border: 0px;
 }
-a i:hover{
+
+a i:hover {
     color: rgb(255, 255, 255);
 }
-.align-center{
+
+.align-center {
     text-align: center;
 }
-.justify{
+
+.justify {
     text-align: justify;
 }
-.one-third{
+
+.one-third {
     width: 30%;
 }
-.big-icon{
+
+.big-icon {
     font-size: 30px;
-    padding:10%
+    padding: 10%
 }
-.block{
-    display:block;
+
+.block {
+    display: block;
 }
-#mag{
-    width:20px
+
+#mag {
+    width: 15px
 }
-a{
-    color:rgba(255, 0, 0, 0.828);
+
+a {
+    color: rgba(255, 0, 0, 0.828);
     font-weight: 600;
 }
-a:hover{
-    color:rgb(255, 0, 0);
+
+a:hover {
+    color: rgb(255, 0, 0);
     text-decoration: none;
     font-weight: 800;
 }
-@media (min-width:768px){
+
+@media (min-width:768px) {
     .hide{
         display: none;
     }
-    #hide2{
-        display:none;
+    .hide2{
+        display: none;
     }
-    
+
+
 }
-@media (max-width:768px){
-    .centerr{
-            text-align: center;
-        }
+
+
+@media (max-width:768px) {
+    .centerr {
+        text-align: center;
+    }
+    .hide2{
+        display: none;
+    }
+    .padd{
+        width:100%;
+    }
+    .one-third {
+        width: 10%;
+    }
+    .big-icon{
+        padding:7.5%;
+    }
+
+
 }

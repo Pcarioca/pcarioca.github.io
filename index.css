@@ -1,10 +1,12 @@
+
 body{
     background-color: #212331;
 }
 iframe{
     width:90%;
-    height:41vh;
+    height:42vh;
     border: none;
+    transition-duration: 0.3s;
 }
 .col{
     /* height:100vh; */
