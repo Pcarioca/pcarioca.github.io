@@ -118,6 +118,9 @@ a:hover {
     .big-icon{
         padding:7.5%;
     }
-
+    #flex{
+        margin-left: 1%;
+        margin-top:3%;
+    }
 
 }

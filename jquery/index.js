@@ -3,20 +3,81 @@
 
 
 $(document).ready(function () {
-    var audioElement = document.createElement('audio');
-    audioElement.setAttribute('id', 'play');
-    audioElement.setAttribute('src', 'audio/a3.mp3');
-    audioElement.setAttribute('autoplay', 'autoplay');
-    $.get();
-    $("#body").append(audioElement);
+    let audioElement1 = document.createElement('audio');
+    audioElement1.setAttribute('id', 'play');
+    audioElement1.setAttribute('src', 'audio/a3.mp3'); //d4
     
-$('#/*').on('hover', function() {
-        audioElement.play();
-    });
-    var audio = $("#play")[0];
-    $("nav a").mouseenter(function() {
-      audio.play();
-    });
+    $.get();
+    $("#body").append(audioElement1);
+    
+    
+    $("#github").mouseenter(function() {
+      audioElement1.play();
+      });
+
+      let audioElement2 = document.createElement('audio');
+    audioElement2.setAttribute('id', 'play');
+    audioElement2.setAttribute('src', 'audio/c3.mp3'); //a3
+    
+    $.get();
+    $("#body").append(audioElement2);
+    
+    
+    $("#mail").mouseenter(function() {
+      audioElement2.play();
+      });
+
+      let audioElement3 = document.createElement('audio');
+    audioElement3.setAttribute('id', 'play');
+    audioElement3.setAttribute('src', 'audio/g3.mp3');//d4
+    
+    $.get();
+    $("#body").append(audioElement3);
+    
+    
+    $("#linkedin").mouseenter(function() {
+      audioElement3.play();
+      });
+
+      let audioElement4 = document.createElement('audio');
+    audioElement4.setAttribute('id', 'play');
+    audioElement4.setAttribute('src', 'audio/d4.mp3');
+    
+    $.get();
+    $("#body").append(audioElement4);
+    
+    
+    $("#facebook").mouseenter(function() {
+      audioElement4.play();
+      });
+
+      let audioElement5 = document.createElement('audio');
+    audioElement5.setAttribute('id', 'play');
+    audioElement5.setAttribute('src', 'audio/e4.mp3');
+    
+    $.get();
+    $("#body").append(audioElement5);
+    
+    
+    $("#instagram").mouseenter(function() {
+      audioElement5.play();
+      });
+
+      let audioElement6 = document.createElement('audio');
+    audioElement6.setAttribute('id', 'play');
+    audioElement6.setAttribute('src', 'audio/d5.mp3');
+    
+    $.get();
+    $("#body").append(audioElement6);
+    
+    
+    $("#wca").mouseenter(function() {
+      audioElement6.play();
+      });
+
+      
+
+
 
 
     

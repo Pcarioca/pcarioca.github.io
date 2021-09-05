@@ -40,7 +40,11 @@ body{
     bottom: -150px;
     
 }
-
+.circles li:hover{
+    
+    
+    background: rgb(255, 255, 255);
+}
 .circles li:nth-child(1){
     left: 25%;
     width: 80px;
