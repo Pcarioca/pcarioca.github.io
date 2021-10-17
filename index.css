@@ -7,15 +7,20 @@ iframe{
     height:42vh;
     border: none;
     transition-duration: 0.3s;
-    
+    backdrop-filter: blur(10px);
 }
+
 .col{
     /* height:100vh; */
     height: 100%;
     margin-top: 40%;
+    
+    
+
 }
 .cent{
     margin-top: 20%;
+    
 }
 @media screen and (max-width:1200px){
     .container{
@@ -40,7 +45,7 @@ iframe{
 @media screen and (max-height:935px){
     iframe{
         width:90%;
-        height:49vh;
+        height:52vh;
         
     }
     .cent{
@@ -50,7 +55,7 @@ iframe{
  @media screen and (max-height:834px){
      iframe{
         width:90%;
-        height:57vh;
+        height:59vh;
         
     }
     .cent{
@@ -70,14 +75,14 @@ iframe{
 @media screen and (max-height:717px){
     iframe{
         
-        height:60vh;
+        height:65vh;
         
     }
 }
 @media screen and (max-height:623px){
     iframe{
        width:90%;
-       height:71vh;
+       height:77vh;
        
    }
    .cent{
@@ -101,7 +106,7 @@ iframe{
 @media screen and (max-height:529px){
     iframe{
        width:90%;
-       height:87vh;
+       height:89vh;
        
    }
    .cent{
@@ -111,7 +116,7 @@ iframe{
 @media screen and (max-height:465px){
     iframe{
        width:90%;
-       height:93vh;
+       height:94vh;
        
    }
    .cent{
