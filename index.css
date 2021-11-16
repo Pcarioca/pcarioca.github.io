@@ -4,7 +4,7 @@ body{
 }
 iframe{
     width:90%;
-    height:42vh;
+    height:44vh;
     border: none;
     transition-duration: 0.3s;
     backdrop-filter: blur(10px);
@@ -22,11 +22,25 @@ iframe{
     margin-top: 20%;
     
 }
+ @media screen and (min-height:935px){
+    iframe{
+        width:90%;
+        height:44vh;
+        overflow:none;
+        
+    }
+} 
+@media screen and (max-width:2000px){
+    iframe{
+        overflow: hidden;
+    }
+}
 @media screen and (max-width:1200px){
     .container{
         margin:0px;
         max-width: 99999px;
     }
+    
 }
 @media screen and (max-width:1022px){
     .container{
@@ -39,6 +53,7 @@ iframe{
     iframe{
         width:97%;
         
+        
     }
 }
  
@@ -46,6 +61,7 @@ iframe{
     iframe{
         width:90%;
         height:52vh;
+        overflow:none;
         
     }
     .cent{
