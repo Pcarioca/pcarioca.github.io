@@ -98,7 +98,8 @@ iframe{
 @media screen and (max-height:623px){
     iframe{
        width:90%;
-       height:77vh;
+       height:70vh;
+       margin-top: 5vh;
        
    }
    .cent{
@@ -111,8 +112,9 @@ iframe{
 } 
 @media screen and (max-height:573px){
     iframe{
+        margin-top: 2vh;
        width:90%;
-       height:77vh;
+       height:70vh;
        
    }
    .cent{
@@ -167,7 +169,7 @@ iframe{
         max-width: 99999px;
     }
     iframe{
-        height:94vh;
+        height:86vh;
         
     }
 } 
