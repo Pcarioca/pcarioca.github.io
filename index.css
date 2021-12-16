@@ -25,8 +25,8 @@ iframe{
  @media screen and (min-height:935px){
     iframe{
         width:90%;
-        height:44vh;
-        overflow:none;
+        height:45vh;
+        overflow:hidden;
         
     }
 } 
