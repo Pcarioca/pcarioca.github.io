@@ -38,12 +38,13 @@ body{
     background: rgba(255, 255, 255, 0.383);
     animation: animate 25s linear infinite;
     bottom: -150px;
-    
+    opacity:1;
 }
 .circles li:hover{
     
     
-    background: rgb(255, 255, 255);
+    background: rgba(255, 255, 255);
+    opacity:1;
 }
 .circles li:nth-child(1){
     left: 25%;
@@ -132,10 +133,16 @@ body{
         border-radius: 0;
     }
 
-    100%{
-        transform: translateY(-1000px) rotate(920deg);
-        opacity: 0;
-        border-radius: 50%;
+    70%{
+        background: rgb(255, 255, 255);
     }
+
+    100%{
+        transform: translateY(-1000px) rotate(500deg);
+        opacity:0.1;
+        border-radius: 50%;
+        background: rgb(255, 0, 0);
+    }
+    
 
 }
