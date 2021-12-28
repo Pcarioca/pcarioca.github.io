@@ -74,12 +74,4 @@ $(document).ready(function () {
     $("#wca").mouseenter(function() {
       audioElement6.play();
       });
-
-      
-
-
-
-
-    
-
 });
