@@ -140,8 +140,8 @@ body{
     100%{
         transform: translateY(-1000px) rotate(500deg);
         opacity:0.1;
-        border-radius: 50%;
-        background: rgb(255, 0, 0);
+        border-radius: 45%;
+        background: #ffc0c0;
     }
     
 
