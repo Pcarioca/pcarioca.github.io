@@ -5,7 +5,7 @@
     color:white;
     z-index: 99999999;
 }
-#active{
+.active{
     background-color: rgba(221, 0, 0, 0.685);
     padding:2px 5px ;
     border-radius: 10%;
@@ -14,12 +14,12 @@
     color:white;
     text-decoration: none;
 }
-#active:hover{
+.active:hover{
     background-color: rgb(221, 0, 0);
     text-decoration: none;
     color:white;
 }
-#pasive{
+.pasive{
     padding:2px 5px ;
     border-radius: 10%;
     cursor:pointer;
@@ -27,7 +27,7 @@
     text-decoration: none;
     color:white;
 }
-#pasive:hover{
+.pasive:hover{
     background-color: rgba(161, 0, 0, 0.507);
     text-decoration: none;
     color:white;
