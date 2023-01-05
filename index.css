@@ -26,12 +26,15 @@ iframe{
     iframe{
         width:90%;
         height:45vh;
+        max-height: 500px;
         overflow:hidden;
         
     }
 } 
 @media screen and (max-width:2000px){
     iframe{
+        width:90%;
+        max-height: 500px;
         overflow: hidden;
     }
 }
@@ -60,7 +63,7 @@ iframe{
 @media screen and (max-height:935px){
     iframe{
         width:90%;
-        height:52vh;
+        height:minmax(52vh, 500px);
         overflow:none;
         
     }
@@ -169,7 +172,8 @@ iframe{
         max-width: 99999px;
     }
     iframe{
-        height:86vh;
+        height:70vh;
+        max-height: initial;
         
     }
 } 
