@@ -6,7 +6,7 @@
     z-index: 99999999;
 }
 .active{
-    background-color: rgba(221, 0, 0, 0.685);
+    background-color: #013d7da2;
     padding:2px 5px ;
     border-radius: 10%;
     cursor:pointer;
@@ -15,7 +15,7 @@
     text-decoration: none;
 }
 .active:hover{
-    background-color: rgb(221, 0, 0);
+    background-color: #013d7d;
     text-decoration: none;
     color:white;
 }
@@ -28,7 +28,7 @@
     color:white;
 }
 .pasive:hover{
-    background-color: rgba(161, 0, 0, 0.507);
+    background-color: #013d7d6c;
     text-decoration: none;
     color:white;
 }
