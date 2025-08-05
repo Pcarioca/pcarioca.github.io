@@ -6,7 +6,7 @@
     z-index: 99999999;
 }
 .active{
-    background-color: #013d7da2;
+    background-color: rgb(46, 46, 180);
     padding:2px 5px ;
     border-radius: 10%;
     cursor:pointer;
@@ -15,7 +15,7 @@
     text-decoration: none;
 }
 .active:hover{
-    background-color: #013d7d;
+    background-color: rgb(37, 37, 155);
     text-decoration: none;
     color:white;
 }

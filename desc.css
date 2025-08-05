@@ -45,15 +45,19 @@ body {
     margin-top: 8%
 }
 
-a i {
-    color: rgb(234, 238, 241);
+i:hover {
+    color: rgb(255, 255, 255);
+    text-shadow: 0 0 1px rgb(255, 255, 255), 0 0 5px #ffffff;
+}
+i{
+    text-shadow: none;
 }
 
 iframe {
     border: 0px;
 }
 
-a i:hover {
+div.centerr > i:hover{
     color: rgb(255, 255, 255);
 }
 
@@ -83,12 +87,14 @@ a i:hover {
 }
 
 a {
-    color: #094f99;
-    font-weight: 800;
+    color: rgb(46, 46, 180);
+    text-shadow: 0 0 1px rgb(88, 88, 245), 0 0 5px #0000FF;
+
+    font-weight: 600;
 }
 
 a:hover {
-    color: #013d7d;
+    color: rgb(14, 14, 117);
     text-decoration: none;
     font-weight: 900;
 }
