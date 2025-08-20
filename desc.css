@@ -12,7 +12,56 @@
     width: 90%;
     margin-top: 10%;
 
+      transition: transform .3s ease, filter .3s ease, box-shadow .3s ease;
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+
 }
+
+#flex::after{
+  content: "";
+  position: absolute;
+  inset: -14px;                /* a bit bigger than the img */
+  border-radius: 16px;
+  background: radial-gradient(120% 120% at 35% 25%,
+              rgba(255,255,255,.45),
+              rgba(106,169,255,.35) 35%,
+              transparent 60%);
+  filter: blur(22px) saturate(140%);
+  opacity: 0;
+  transform: scale(.98);
+  transition: opacity .35s ease, transform .35s ease;
+  pointer-events: none;
+}
+
+#flex::after{
+  content: "";
+  position: absolute;
+  inset: -14px;                /* a bit bigger than the img */
+  border-radius: 16px;
+  background: radial-gradient(120% 120% at 35% 25%,
+              rgba(255,255,255,.45),
+              rgba(106,169,255,.35) 35%,
+              transparent 60%);
+  filter: blur(22px) saturate(140%);
+  opacity: 0;
+  transform: scale(.98);
+  transition: opacity .35s ease, transform .35s ease;
+  pointer-events: none;
+}
+
+#flex:hover #headshot,
+#flex:focus-within #headshot{
+  transform: translateY(-3px) scale(1.02);
+  filter: brightness(1.06) contrast(1.05);
+  box-shadow: 0 12px 30px rgba(0,0,0,.35);
+}
+
+#flex:hover::after,
+#flex:focus-within::after{
+  opacity: 1;
+  transform: scale(1);
+}
+
 
 ::-webkit-scrollbar {
     width: 10px;
@@ -37,7 +86,8 @@
 body {
     background-color: #00000036;
     overflow: none;
-    
+
+
 }
 
 
@@ -85,6 +135,13 @@ div.centerr > i:hover{
 #mag {
     width: 15px
 }
+
+#facebook, #instagram {
+    visibility: hidden;
+    /* display: none; */
+}
+
+
 
 a {
     color: rgb(46, 46, 180);

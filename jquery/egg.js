@@ -1,0 +1,146 @@
+
+(() => {
+  const LINES = [
+    "Back already?",
+    "Focus mode on.",
+    "We move.",
+    "Ship it.",
+    "Stay crispy.",
+    "Push to main.",
+    "Refactor day.",
+    "Write tests first.",
+    "Typecheck everything.",
+    "Lint, then drink.",
+    "Nulls bite back.",
+    "Cache me outside.",
+    "Off-by-one gremlin.",
+    "Merge conflicts vanquished.",
+    "Compile. Run. Smile.",
+    "One more commit.",
+    "Feature flagged safely.",
+    "Docs or it didn't.",
+    "Automate the boring.",
+    "Open to work.",
+    "Hire me maybe.",
+    "Timezones are boss.",
+    "Let's talk roles.",
+    "Premature optimization? Nah.",
+    "Recruiters welcome.",
+    "Fail fast, learn.",
+    "Interview me please.",
+    "CI is green.",
+    "Rollback is ready.",
+    "Logs never lie.",
+    "Observability saves nights.",
+    "Hiring signal strong.",
+    "Code reviews heal.",
+    "Naming things hard.",
+    "State machines win.",
+    "Pure functions please.",
+    "Immutability feels safe.",
+    "Side effects tamed.",
+    "Errors are data.",
+    "UTF-8 always.",
+    "Use feature toggles.",
+    "Dark mode shipped.",
+    "Keyboard > mouse.",
+    "Vim fingers loaded.",
+    "Git bisect hero.",
+    "Rebase responsibly.",
+    "Squash with care.",
+    "Commit messages matter.",
+    "Semantic versioning forever.",
+    "Continuous learning on.",
+    "Build it clean.",
+    "Architecture over accidents.",
+    "Latency loves budgets.",
+    "Backpressure respected.",
+    "Threads behave today.",
+    "Race condition dodged.",
+    "Debounce that input.",
+    "Accessibility first, always.",
+    "Ship for humans.",
+    "Pixels with purpose.",
+    "Hydrate, then iterate.",
+    "Coffee then compile.",
+    "Tea then tests.",
+    "Rubber duck ready.",
+    "Docs save futures.",
+    "Delete dead code.",
+    "Logs to dashboards.",
+    "Send the offer.",
+    "Edge cases lurking.",
+    "Happy path boring.",
+    "Chaos tested okay.",
+    "Secure by default.",
+    "Hash, salt, sleep.",
+    "Secrets aren't strings.",
+    "Rotate keys regularly.",
+    "Encrypt at rest.",
+    "Backups actually tested.",
+    "Restore day practiced.",
+    "SRE angels singing.",
+    "Pager silent bliss.",
+    "99.9% today.",
+    "Latency under budget.",
+    "Throughput looks healthy.",
+    "SLA met, yay.",
+    "UX > ego.",
+    "Microservices behave today.",
+    "Monoliths aren't evil.",
+    "Schedule the interview.",
+    "Team fit ready.",
+    "Hardware time, go.",
+    "Soldering session booked.",
+    "Oscilloscope says hi.",
+    "UART chirps happily.",
+    "SPI handshake clean.",
+    "I2C behaves, finally.",
+    "Debounce the switch.",
+    "Ground first, always.",
+    "Ohm sweet Ohm.",
+    "Tomi approves.",
+    "Available for hire.",
+    "Available for hire.",
+    "Available for hire.",
+"Available for hire.",
+"Available for hire.",
+"Available for hire.",
+"Available for hire.",
+"Available for hire.",
+"Available for hire.",
+"Available for hire.",
+"Available for hire.",
+"Available for hire.",
+"Available for hire.",
+"Available for hire.",
+"Available for hire.",
+"Available for hire.",
+"Available for hire.",
+"Available for hire.",
+"Available for hire.",
+
+
+    "Here for the hell of it"
+  ];
+
+ const randIndex = (() => {
+    let last = -1;
+    return () => {
+      if (LINES.length < 2) return 0;
+      let i;
+      do {
+        i = (crypto?.getRandomValues
+              ? crypto.getRandomValues(new Uint32Array(1))[0] % LINES.length
+              : Math.floor(Math.random() * LINES.length));
+      } while (i === last);
+      last = i;
+      return i;
+    };
+  })();
+
+  const update = () => { document.title = LINES[randIndex()]; };
+
+  window.addEventListener('focus', update);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) update(); });
+})();

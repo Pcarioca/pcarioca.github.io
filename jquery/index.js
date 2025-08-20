@@ -1,6 +1,20 @@
 
 
 
+(() => {
+  const LINES = ["Back already?", "Focus time.", "We move.", "Ship it.", "Stay crispy."];
+  let i = 0;
+  const next = () => LINES[(i++) % LINES.length];
+
+  const update = () => { document.title = next(); };
+
+  // fire whenever you return to this tab/window
+  window.addEventListener('focus', update);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) update(); });
+})();
+
+
+
 
 $(document).ready(function () {
     let audioElement1 = document.createElement('audio');
@@ -75,3 +89,6 @@ $(document).ready(function () {
       audioElement6.play();
       });
 });
+
+
+

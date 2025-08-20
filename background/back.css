@@ -29,6 +29,7 @@ body{
     overflow: hidden;
 }
 
+
 .circles li{
     position: absolute;
     display: block;
@@ -39,12 +40,18 @@ body{
     animation: animate 25s linear infinite;
     bottom: -150px;
     opacity:1;
+    transition-duration: 0.5s;
+    box-shadow: 0 0 0 rgba(0,0,0,0);
 }
+
 .circles li:hover{
-    
-    
-    background: rgb(20, 20, 221);
-    opacity:1;
+  background-color: #fff;             /* brighter core */
+  transform: scale(1.1);              /* tiny pop */
+  box-shadow:
+    0 0 10px  #fff,
+    0 0 20px  #fff,
+    0 0 40px  #6aa9ff,
+    0 0 70px  #6aa9ff;                 /* the glow */
 }
 .circles li:nth-child(1){
     left: 25%;
