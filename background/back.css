@@ -50,7 +50,7 @@ body{
   box-shadow:
     0 0 10px  #fff,
     0 0 20px  #fff,
-    0 0 40px  #6aa9ff,
+    0 0 40px  #ffffff,
     0 0 70px  #6aa9ff;                 /* the glow */
 }
 .circles li:nth-child(1){
