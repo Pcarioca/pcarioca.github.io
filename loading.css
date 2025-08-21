@@ -29,7 +29,7 @@ body{
 
 #andrei{
   color: white;
-  font-size: 7vw;
+  font-size: 20vh;
   font-weight: 1000;
   display: inline-block;          /* allow transform */
   transform-origin: center;
