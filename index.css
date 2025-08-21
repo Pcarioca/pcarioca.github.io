@@ -33,176 +33,172 @@ iframe {
 
 /* animatable base angle */
 
+/* 1) make the “gain” animatable */
+@property --g { syntax: '<number>'; inherits: false; initial-value: 0; }
 
-#li1 {
-    border-radius: 16px;
-    /* transition: box-shadow .2s ease; */
-    transition-duration: 5s;
-    /* transi */
+#li1{
+  border-radius:16px;
+  --g:0;
+  animation: orbit 20s linear infinite;
+  background-color: rgba(0,3,1,0);                /* start transparent */
+  transition: --g 1s ease-in-out, background-color 7s ease;  /* <-- add this */
 }
 
-#li1:hover, #li1:active {
-    animation: orbit 20s linear infinite;
-    background-color: rgba(0, 3, 1, 0.699);
-
-
-
-    /* width: 95%; */
-    /* height:55vh; */
+#li1:hover,#li1:active{
+  --g:1;
+  background-color: rgba(0,3,1,0.699);            /* will now fade in/out */
 }
 
+
+/* 2) step-pulse rainbow — alphas scaled by --g so it fades away cleanly */
 @keyframes orbit{
-    0%, 100%{
-        box-shadow: none;
-    }
-  /* RED */
-   6.25%{
+  /* base/dim */
+  0%, 100%{
     box-shadow:
-      0 0 0 1px hsl(0 0% 100% / .28),
-      0 0 12px 6px  hsl(0 0% 100% / .22),
-      0 0 28px 14px hsl(0 0% 100% / .16),
-      0 0 60px 28px hsl(0 0% 100% / .10),
-      0 0 70px 22px hsl(  0 100% 60% / .40);
+      0 0 0 1px     hsl(0 0% 100% / calc(.28 * var(--g))),
+      0 0 12px 6px  hsl(0 0% 100% / calc(.22 * var(--g))),
+      0 0 28px 14px hsl(0 0% 100% / calc(.16 * var(--g))),
+      0 0 60px 28px hsl(0 0% 100% / calc(.10 * var(--g))),
+      0 0 40px 10px hsl(  0 100% 60% / calc(.10 * var(--g)));
+  }
+
+  /* RED bright → dim */
+  6.25%{
+    box-shadow:
+      0 0 0 1px     hsl(0 0% 100% / calc(.28 * var(--g))),
+      0 0 12px 6px  hsl(0 0% 100% / calc(.22 * var(--g))),
+      0 0 28px 14px hsl(0 0% 100% / calc(.16 * var(--g))),
+      0 0 60px 28px hsl(0 0% 100% / calc(.10 * var(--g))),
+      0 0 70px 22px hsl(  0 100% 60% / calc(.40 * var(--g)));
   }
   12.5%{
     box-shadow:
-      0 0 0 1px hsl(0 0% 100% / .28),
-      0 0 12px 6px  hsl(0 0% 100% / .22),
-      0 0 28px 14px hsl(0 0% 100% / .16),
-      0 0 60px 28px hsl(0 0% 100% / .10),
-      0 0 40px 10px hsl(  0 100% 60% / .10);
+      0 0 0 1px     hsl(0 0% 100% / calc(.28 * var(--g))),
+      0 0 12px 6px  hsl(0 0% 100% / calc(.22 * var(--g))),
+      0 0 28px 14px hsl(0 0% 100% / calc(.16 * var(--g))),
+      0 0 60px 28px hsl(0 0% 100% / calc(.10 * var(--g))),
+      0 0 40px 10px hsl(  0 100% 60% / calc(.10 * var(--g)));
   }
 
   /* ORANGE */
   18.75%{
     box-shadow:
-      0 0 0 1px hsl(0 0% 100% / .28),
-      0 0 12px 6px  hsl(0 0% 100% / .22),
-      0 0 28px 14px hsl(0 0% 100% / .16),
-      0 0 60px 28px hsl(0 0% 100% / .10),
-      0 0 70px 22px hsl( 30 100% 60% / .40);
+      0 0 0 1px     hsl(0 0% 100% / calc(.28 * var(--g))),
+      0 0 12px 6px  hsl(0 0% 100% / calc(.22 * var(--g))),
+      0 0 28px 14px hsl(0 0% 100% / calc(.16 * var(--g))),
+      0 0 60px 28px hsl(0 0% 100% / calc(.10 * var(--g))),
+      0 0 70px 22px hsl( 30 100% 60% / calc(.40 * var(--g)));
   }
   25%{
     box-shadow:
-      0 0 0 1px hsl(0 0% 100% / .28),
-      0 0 12px 6px  hsl(0 0% 100% / .22),
-      0 0 28px 14px hsl(0 0% 100% / .16),
-      0 0 60px 28px hsl(0 0% 100% / .10),
-      0 0 40px 10px hsl( 30 100% 60% / .10);
+      0 0 0 1px     hsl(0 0% 100% / calc(.28 * var(--g))),
+      0 0 12px 6px  hsl(0 0% 100% / calc(.22 * var(--g))),
+      0 0 28px 14px hsl(0 0% 100% / calc(.16 * var(--g))),
+      0 0 60px 28px hsl(0 0% 100% / calc(.10 * var(--g))),
+      0 0 40px 10px hsl( 30 100% 60% / calc(.10 * var(--g)));
   }
 
   /* YELLOW */
   31.25%{
     box-shadow:
-      0 0 0 1px hsl(0 0% 100% / .28),
-      0 0 12px 6px  hsl(0 0% 100% / .22),
-      0 0 28px 14px hsl(0 0% 100% / .16),
-      0 0 60px 28px hsl(0 0% 100% / .10),
-      0 0 70px 22px hsl( 60 100% 60% / .40);
+      0 0 0 1px     hsl(0 0% 100% / calc(.28 * var(--g))),
+      0 0 12px 6px  hsl(0 0% 100% / calc(.22 * var(--g))),
+      0 0 28px 14px hsl(0 0% 100% / calc(.16 * var(--g))),
+      0 0 60px 28px hsl(0 0% 100% / calc(.10 * var(--g))),
+      0 0 70px 22px hsl( 60 100% 60% / calc(.40 * var(--g)));
   }
   37.5%{
     box-shadow:
-      0 0 0 1px hsl(0 0% 100% / .28),
-      0 0 12px 6px  hsl(0 0% 100% / .22),
-      0 0 28px 14px hsl(0 0% 100% / .16),
-      0 0 60px 28px hsl(0 0% 100% / .10),
-      0 0 40px 10px hsl( 60 100% 60% / .10);
+      0 0 0 1px     hsl(0 0% 100% / calc(.28 * var(--g))),
+      0 0 12px 6px  hsl(0 0% 100% / calc(.22 * var(--g))),
+      0 0 28px 14px hsl(0 0% 100% / calc(.16 * var(--g))),
+      0 0 60px 28px hsl(0 0% 100% / calc(.10 * var(--g))),
+      0 0 40px 10px hsl( 60 100% 60% / calc(.10 * var(--g)));
   }
 
   /* GREEN */
   43.75%{
     box-shadow:
-      0 0 0 1px hsl(0 0% 100% / .28),
-      0 0 12px 6px  hsl(0 0% 100% / .22),
-      0 0 28px 14px hsl(0 0% 100% / .16),
-      0 0 60px 28px hsl(0 0% 100% / .10),
-      0 0 70px 22px hsl(120 100% 60% / .40);
+      0 0 0 1px     hsl(0 0% 100% / calc(.28 * var(--g))),
+      0 0 12px 6px  hsl(0 0% 100% / calc(.22 * var(--g))),
+      0 0 28px 14px hsl(0 0% 100% / calc(.16 * var(--g))),
+      0 0 60px 28px hsl(0 0% 100% / calc(.10 * var(--g))),
+      0 0 70px 22px hsl(120 100% 60% / calc(.40 * var(--g)));
   }
   50%{
     box-shadow:
-      0 0 0 1px hsl(0 0% 100% / .28),
-      0 0 12px 6px  hsl(0 0% 100% / .22),
-      0 0 28px 14px hsl(0 0% 100% / .16),
-      0 0 60px 28px hsl(0 0% 100% / .10),
-      0 0 40px 10px hsl(120 100% 60% / .10);
+      0 0 0 1px     hsl(0 0% 100% / calc(.28 * var(--g))),
+      0 0 12px 6px  hsl(0 0% 100% / calc(.22 * var(--g))),
+      0 0 28px 14px hsl(0 0% 100% / calc(.16 * var(--g))),
+      0 0 60px 28px hsl(0 0% 100% / calc(.10 * var(--g))),
+      0 0 40px 10px hsl(120 100% 60% / calc(.10 * var(--g)));
   }
 
   /* CYAN */
   56.25%{
     box-shadow:
-      0 0 0 1px hsl(0 0% 100% / .28),
-      0 0 12px 6px  hsl(0 0% 100% / .22),
-      0 0 28px 14px hsl(0 0% 100% / .16),
-      0 0 60px 28px hsl(0 0% 100% / .10),
-      0 0 70px 22px hsl(180 100% 60% / .40);
+      0 0 0 1px     hsl(0 0% 100% / calc(.28 * var(--g))),
+      0 0 12px 6px  hsl(0 0% 100% / calc(.22 * var(--g))),
+      0 0 28px 14px hsl(0 0% 100% / calc(.16 * var(--g))),
+      0 0 60px 28px hsl(0 0% 100% / calc(.10 * var(--g))),
+      0 0 70px 22px hsl(180 100% 60% / calc(.40 * var(--g)));
   }
   62.5%{
     box-shadow:
-      0 0 0 1px hsl(0 0% 100% / .28),
-      0 0 12px 6px  hsl(0 0% 100% / .22),
-      0 0 28px 14px hsl(0 0% 100% / .16),
-      0 0 60px 28px hsl(0 0% 100% / .10),
-      0 0 40px 10px hsl(180 100% 60% / .10);
+      0 0 0 1px     hsl(0 0% 100% / calc(.28 * var(--g))),
+      0 0 12px 6px  hsl(0 0% 100% / calc(.22 * var(--g))),
+      0 0 28px 14px hsl(0 0% 100% / calc(.16 * var(--g))),
+      0 0 60px 28px hsl(0 0% 100% / calc(.10 * var(--g))),
+      0 0 40px 10px hsl(180 100% 60% / calc(.10 * var(--g)));
   }
 
   /* BLUE */
   68.75%{
     box-shadow:
-      0 0 0 1px hsl(0 0% 100% / .28),
-      0 0 12px 6px  hsl(0 0% 100% / .22),
-      0 0 28px 14px hsl(0 0% 100% / .16),
-      0 0 60px 28px hsl(0 0% 100% / .10),
-      0 0 70px 22px hsl(240 100% 60% / .40);
+      0 0 0 1px     hsl(0 0% 100% / calc(.28 * var(--g))),
+      0 0 12px 6px  hsl(0 0% 100% / calc(.22 * var(--g))),
+      0 0 28px 14px hsl(0 0% 100% / calc(.16 * var(--g))),
+      0 0 60px 28px hsl(0 0% 100% / calc(.10 * var(--g))),
+      0 0 70px 22px hsl(240 100% 60% / calc(.40 * var(--g)));
   }
   75%{
     box-shadow:
-      0 0 0 1px hsl(0 0% 100% / .28),
-      0 0 12px 6px  hsl(0 0% 100% / .22),
-      0 0 28px 14px hsl(0 0% 100% / .16),
-      0 0 60px 28px hsl(0 0% 100% / .10),
-      0 0 40px 10px hsl(240 100% 60% / .10);
+      0 0 0 1px     hsl(0 0% 100% / calc(.28 * var(--g))),
+      0 0 12px 6px  hsl(0 0% 100% / calc(.22 * var(--g))),
+      0 0 28px 14px hsl(0 0% 100% / calc(.16 * var(--g))),
+      0 0 60px 28px hsl(0 0% 100% / calc(.10 * var(--g))),
+      0 0 40px 10px hsl(240 100% 60% / calc(.10 * var(--g)));
   }
 
   /* MAGENTA */
   81.25%{
     box-shadow:
-      0 0 0 1px hsl(0 0% 100% / .28),
-      0 0 12px 6px  hsl(0 0% 100% / .22),
-      0 0 28px 14px hsl(0 0% 100% / .16),
-      0 0 60px 28px hsl(0 0% 100% / .10),
-      0 0 70px 22px hsl(300 100% 60% / .40);
+      0 0 0 1px     hsl(0 0% 100% / calc(.28 * var(--g))),
+      0 0 12px 6px  hsl(0 0% 100% / calc(.22 * var(--g))),
+      0 0 28px 14px hsl(0 0% 100% / calc(.16 * var(--g))),
+      0 0 60px 28px hsl(0 0% 100% / calc(.10 * var(--g))),
+      0 0 70px 22px hsl(300 100% 60% / calc(.40 * var(--g)));
   }
   87.5%{
     box-shadow:
-      0 0 0 1px hsl(0 0% 100% / .28),
-      0 0 12px 6px  hsl(0 0% 100% / .22),
-      0 0 28px 14px hsl(0 0% 100% / .16),
-      0 0 60px 28px hsl(0 0% 100% / .10),
-      0 0 40px 10px hsl(300 100% 60% / .10);
+      0 0 0 1px     hsl(0 0% 100% / calc(.28 * var(--g))),
+      0 0 12px 6px  hsl(0 0% 100% / calc(.22 * var(--g))),
+      0 0 28px 14px hsl(0 0% 100% / calc(.16 * var(--g))),
+      0 0 60px 28px hsl(0 0% 100% / calc(.10 * var(--g))),
+      0 0 40px 10px hsl(300 100% 60% / calc(.10 * var(--g)));
   }
 
-  /* back to RED to close the loop */
+  /* close the loop gently */
   93.75%{
     box-shadow:
-      0 0 0 1px hsl(0 0% 100% / .28),
-      0 0 12px 6px  hsl(0 0% 100% / .22),
-      0 0 28px 14px hsl(0 0% 100% / .16),
-      0 0 60px 28px hsl(0 0% 100% / .10),
-      0 0 40px 10px hsl(  0 100% 60% / .10);
+      0 0 0 1px     hsl(0 0% 100% / calc(.28 * var(--g))),
+      0 0 12px 6px  hsl(0 0% 100% / calc(.22 * var(--g))),
+      0 0 28px 14px hsl(0 0% 100% / calc(.16 * var(--g))),
+      0 0 60px 28px hsl(0 0% 100% / calc(.10 * var(--g))),
+      0 0 40px 10px hsl(  0 100% 60% / calc(.10 * var(--g)));
   }
 }
 
-/* optional: hide your mouse aura while on the iframe */
-body:has(#li1:hover) #cursor-glow::before {
-    opacity: 0 !important;
-}
-
-/* accessibility */
-@media (prefers-reduced-motion: reduce) {
-    #li1:hover {
-        animation: none;
-    }
-}
 
 
 
