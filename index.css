@@ -29,6 +29,41 @@ iframe{
       border: 0;
 }
 
+/* animatable base angle */
+@property --a { syntax:'<number>'; inherits:false; initial-value:0; }
+
+#li1{
+  border-radius:16px;
+  /* transition: box-shadow .2s ease; */
+  transition-duration: 1s;
+  /* transi */
+}
+
+#li1:hover{
+  animation: orbit 24s linear infinite;
+
+   box-shadow:
+    0 0 0 1px hsl(0, 0%, 100%),      /* crisp rim */
+    0 0 12px 6px  hsla(0, 0%, 100%, 0.555),  /* near glow */
+    0 0 28px 14px hsla(0, 0%, 100%, 0.452),  /* mid glow  */
+    0 0 60px 28px hsla(0, 0%, 100%, 0.377),  /* far glow  */
+    0 0 90px 50px hsl(36, 100%, 50%);  /* far glow  */
+
+   width:95%;
+   /* height:55vh; */
+}
+
+@keyframes orbit { to { --a: 360; } }
+
+/* optional: hide your mouse aura while on the iframe */
+body:has(#li1:hover) #cursor-glow::before { opacity: 0 !important; }
+
+/* accessibility */
+@media (prefers-reduced-motion: reduce){
+  #li1:hover{ animation:none; }
+}
+
+
 
  @media screen and (min-height:935px){
     iframe{

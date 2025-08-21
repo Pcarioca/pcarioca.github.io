@@ -24,6 +24,7 @@
     <meta name="googlebot" content="noindex">
     <meta name="robots" content="noindex">
     <meta http-equiv="refresh" content="landing_page;url=index.html">
+    <script src="jquery/jquery-3.6.0.js"></script>
     <script src="jquery/egg.js"></script>
     <script src="jquery/index.js"></script>
     <title>Următorul tău angajat</title>
@@ -32,6 +33,7 @@
 </head>
 
 <body>
+    <div id="cursor-glow" aria-hidden="true"></div>
     <div class="area">
         <ul class="circles">
             <li></li>
@@ -51,8 +53,8 @@
 
     <div class="container">
         <div class="row cent">
-            <div class="padd-0 col-xl d-flex justify-content-center">
-                <iframe src="desc_ro.html" allowtransparency="true" class="d-flex justify-content-center">
+            <div class="padd-0 col-xl d-flex justify-content-center" id="blur">
+                <iframe src="desc_ro.html" allowtransparency="true" class="d-flex justify-content-center" id="li1">
             </div>
         </div>
     </div>

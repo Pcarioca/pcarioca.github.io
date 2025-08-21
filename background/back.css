@@ -44,6 +44,8 @@ body{
     box-shadow: 0 0 0 rgba(0,0,0,0);
 }
 
+
+
 .circles li:hover{
   background-color: #fff;             /* brighter core */
   transform: scale(1.1);              /* tiny pop */
@@ -153,3 +155,60 @@ body{
     
 
 }
+
+body:has(iframe:hover) #cursor-glow::before { opacity: 0 !important; }
+
+:root{
+    /* Tweak these to taste */
+    --glow-size: 320px;          /* diameter of the glow */
+    --glow-opacity: .14;         /* how strong the glow is */
+    --glow-color: 2990 95% 95%;   /* HSL (no 'hsl()' here on purpose) */
+
+
+    --blend-mode: soft-light;    /* 'screen' (brighten), 'multiply' (darken), or 'soft-light' */
+  }
+
+  /* Auto-adjust for theme (optional) */
+  @media (prefers-color-scheme: dark){
+    :root{ --glow-opacity: .16; --blend-mode: screen; }
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --glow-opacity: .10; --blend-mode: multiply; }
+  }
+
+  /* The overlay container */
+  #cursor-glow{
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999; /* put it above content; raise if you have sticky headers over it */
+  }
+
+  /* The actual fuzzy spot that follows the cursor */
+  #cursor-glow::before{
+    content: "";
+    position: absolute;
+    width: var(--glow-size);
+    height: var(--glow-size);
+    left: 0; top: 0;
+    translate: calc(var(--mx, 50vw) - 50%) calc(var(--my, 50vh) - 50%);
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      hsl(var(--glow-color) / var(--glow-opacity)) 0%,
+      hsl(var(--glow-color) / 0.0) 60%
+    );
+    filter: blur(30px);
+    mix-blend-mode: var(--blend-mode);
+    opacity: var(--glow-visible, .95);
+    will-change: transform, opacity;
+    transition: opacity .2s ease-out;
+  }
+
+  /* Be nice on touch + accessibility */
+  @media (pointer: coarse), (prefers-reduced-motion: reduce){
+    #cursor-glow{ display: none; }
+  }
+
+  /* Hide when mouse leaves the page */
+  html:not(:hover) #cursor-glow::before{ opacity: 0; }

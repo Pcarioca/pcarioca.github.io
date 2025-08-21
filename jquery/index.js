@@ -1,6 +1,4 @@
-// full JS file - combines your original audio creation + auto-sequencer + "jingle on ordered hover"
-// with a subtle top-center hint (no blocking popup), single unlock for parent+iframe,
-// and message-passing so the iframe never needs its own unlock.
+// full JS file - parent/iframe aware, single subtle hint, GOOD icon sounds, deliberately "bad" background li sounds
 // Requires jQuery
 
 $(document).ready(function () {
@@ -11,6 +9,7 @@ $(document).ready(function () {
   // GLOBAL: audio unlock (top only) + hint pill (top only)
   // -------------------------
   let audioUnlocked = false;
+  let AUDIO_CTX = null; // keep for WebAudio processing
 
   function insertStylesOnce() {
     if (!IS_TOP) return;
@@ -72,10 +71,8 @@ $(document).ready(function () {
         pill.remove();
         return;
       }
-      // clicking the pill itself counts as an "empty spot"
       doUnlock();
     });
-    // auto-fade after a few seconds (non-blocking)
     setTimeout(() => { pill && pill.remove(); }, 8000);
   }
 
@@ -91,8 +88,9 @@ $(document).ready(function () {
       const AC = window.AudioContext || window.webkitAudioContext;
       if (AC) {
         const ctx = new AC();
+        AUDIO_CTX = ctx; // keep for "bad" FX chain
         if (ctx.state === 'suspended') { ctx.resume().catch(()=>{}); }
-        // tiny confirm blip (silent enough not to be annoying)
+        // tiny confirm blip
         try {
           const o = ctx.createOscillator(), g = ctx.createGain();
           o.type = 'sine'; o.frequency.value = 880;
@@ -117,7 +115,6 @@ $(document).ready(function () {
     showHintPill();
     document.addEventListener('click', function onDocClick(e){
       if (audioUnlocked) return;
-      // treat as "empty spot" if not on an obvious control
       const interactive = 'a, button, input, textarea, select, label, iframe, svg, path, audio, video';
       if (!e.target.closest(interactive)) {
         doUnlock();
@@ -126,30 +123,23 @@ $(document).ready(function () {
   }
 
   // -------------------------
-  // Messaging: iframe -> top (forward play requests), top -> iframe (ack if needed)
+  // Messaging: iframe -> top (forward play requests)
   // -------------------------
   if (IS_TOP) {
     window.addEventListener('message', (e) => {
-      if (e.origin !== ORIGIN) return;       // same-origin guard
+      if (e.origin !== ORIGIN) return;
       const data = e.data || {};
       if (data.type === 'PLAY_ID') {
         const el = idToAudio[data.id];
         if (el) tryPlayElement(el);
-      } else if (data.type === 'PLAY_SEQ') {
-        const seq = Array.isArray(data.indices) ? data.indices : [];
-        if (seq.length) playSequence(seq);
-      } else if (data.type === 'UNLOCK_REQUEST') {
-        // iframe asks parent to unlock (parent will show pill / unlock on next empty click)
-        showHintPill();
       }
     });
   } else {
-    // in iframe: ping parent so it can show the hint (not mandatory, just a nudge)
     try { parent.postMessage({ type: 'UNLOCK_REQUEST' }, ORIGIN); } catch {}
   }
 
   function tryPlayElement(el) {
-    if (!IS_TOP) { // in iframe: forward to top
+    if (!IS_TOP) {
       try { parent.postMessage({ type: 'PLAY_ID', id: el && el.dataset && el.dataset.playId }, ORIGIN); } catch {}
       return;
     }
@@ -161,7 +151,7 @@ $(document).ready(function () {
   // Part A: your original audio elements — only create in TOP window
   // -------------------------
   let audioElement1, audioElement2, audioElement3, audioElement4, audioElement5, audioElement6;
-  const idToAudio = {}; // map for message handler
+  const idToAudio = {};
 
   if (IS_TOP) {
     audioElement1 = document.createElement('audio');
@@ -202,7 +192,7 @@ $(document).ready(function () {
 
     audioElement5 = document.createElement('audio');
     audioElement5.setAttribute('id', 'play5');
-    audioElement5.setAttribute('src', 'audio/e3.mp3');
+    audioElement5.setAttribute('src', 'audio/e3.mp3'); // (you preferred e3 here)
     audioElement5.preload = 'auto';
     audioElement5.dataset.playId = 'instagram';
     document.body.appendChild(audioElement5);
@@ -211,14 +201,13 @@ $(document).ready(function () {
 
     audioElement6 = document.createElement('audio');
     audioElement6.setAttribute('id', 'play6');
-    audioElement6.setAttribute('src', 'audio/e3.mp3');
+    audioElement6.setAttribute('src', 'audio/e3.mp3'); // (you preferred e3 here)
     audioElement6.preload = 'auto';
     audioElement6.dataset.playId = 'wca';
     document.body.appendChild(audioElement6);
     $("#wca").on('mouseenter', () => tryPlayElement(audioElement6));
     idToAudio['wca'] = audioElement6;
   } else {
-    // In iframe: forward hovers to top (no local audio, no hint here)
     const forward = (id) => { try { parent.postMessage({ type: 'PLAY_ID', id }, ORIGIN); } catch {} };
     $("#github").on('mouseenter', () => forward('github'));
     $("#mail").on('mouseenter', () => forward('mail'));
@@ -226,12 +215,11 @@ $(document).ready(function () {
     $("#facebook").on('mouseenter', () => forward('facebook'));
     $("#instagram").on('mouseenter', () => forward('instagram'));
     $("#wca").on('mouseenter', () => forward('wca'));
-    // We’re done in the iframe — no sequencer, no hint.
-    return;
+    return; // iframe stops here (parent handles sounds)
   }
 
   // -------------------------
-  // Part B (TOP only): auto-detect all /audio/*.mp3, build sequences, jingle on ordered hover
+  // Part B (TOP only): load all /audio/*.mp3, build sequences, jingle + "bad" FX for background li
   // -------------------------
   (function(){
     function parseMp3FromHtml(html) {
@@ -332,6 +320,7 @@ $(document).ready(function () {
 
       function rndChoice(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 
+      // ---------- GOOD playback (used for icons + jingle) ----------
       function playSequence(indices, done) {
         if (!audioUnlocked) { showHintPill(); if (done) done(); return; }
         let i = 0;
@@ -348,10 +337,90 @@ $(document).ready(function () {
         }
         next();
       }
-      // expose for message handler (top only)
-      window.playSequence = playSequence;
+      window.playSequence = playSequence; // expose if needed
 
-      // ----- JINGLE: ordered hover detection -----
+      // ---------- BAD playback (used for .circles li) ----------
+      function makeDistortionCurve(amount=32) {
+        const n = 44100, curve = new Float32Array(n), deg = Math.PI/180, k = amount;
+        for (let i=0;i<n;i++){ const x = i*2/n - 1; curve[i] = (3+k)*x*20*deg/(Math.PI + k*Math.abs(x)); }
+        return curve;
+      }
+      function playBadNote(baseEl, onEnd, layerWithNeighbor) {
+        if (!audioUnlocked) { showHintPill(); if (onEnd) onEnd(); return; }
+        const clone = baseEl.cloneNode(true);
+        clone.preload = 'auto'; clone.style.display = 'none'; clone.currentTime = 0;
+        clone.volume = 0.6;
+        // slight detune (crusty)
+        clone.playbackRate = 0.9 + Math.random()*0.2; // 0.9–1.1
+        document.body.appendChild(clone);
+
+        // FX chain if AudioContext available
+        try {
+          if (AUDIO_CTX) {
+            const src = AUDIO_CTX.createMediaElementSource(clone);
+            const ws  = AUDIO_CTX.createWaveShaper(); ws.curve = makeDistortionCurve(28 + Math.random()*18);
+            const hp  = AUDIO_CTX.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 500 + Math.random()*400;
+            const lp  = AUDIO_CTX.createBiquadFilter(); lp.type = 'lowpass';  lp.frequency.value = 2200 + Math.random()*400;
+            const gn  = AUDIO_CTX.createGain(); gn.gain.value = 0.7;
+            if (AUDIO_CTX.createStereoPanner) {
+              const pan = AUDIO_CTX.createStereoPanner(); pan.pan.value = (Math.random()*0.6 - 0.3);
+              src.connect(ws); ws.connect(hp); hp.connect(lp); lp.connect(pan); pan.connect(gn); gn.connect(AUDIO_CTX.destination);
+            } else {
+              src.connect(ws); ws.connect(hp); hp.connect(lp); lp.connect(gn); gn.connect(AUDIO_CTX.destination);
+            }
+          }
+        } catch {}
+
+        const cleanup = () => { try{ clone.remove(); }catch{}; if (typeof onEnd==='function') onEnd(); };
+        clone.addEventListener('ended', cleanup);
+        const p = clone.play();
+        if (p && p.catch) p.catch(()=>{ setTimeout(cleanup, 500); });
+
+        // Optional ugly cluster: trigger a neighbor note slightly offset
+        if (layerWithNeighbor && typeof layerWithNeighbor === 'function') {
+          setTimeout(layerWithNeighbor, 40 + Math.random()*60); // 40–100ms smear
+        }
+      }
+
+      function buildBadSequenceIndices() {
+        // choose "unpleasant" intervals: minor seconds (adjacent), tritone-ish (~6 apart), awkward jumps
+        const len = 3 + Math.floor(Math.random()*3); // 3..5
+        const start = Math.floor(Math.random()*N);
+        let seq = [start];
+        for (let i=1;i<len;i++){
+          const roll = Math.random();
+          let nextIdx;
+          if (roll < 0.45) { // cluster (minor 2nd)
+            nextIdx = seq[seq.length-1] + (Math.random()<0.5 ? 1 : -1);
+          } else if (roll < 0.75) { // harsh leap ~ tritone-ish
+            nextIdx = seq[seq.length-1] + (Math.random()<0.5 ? 6 : -6);
+          } else { // awkward up-down
+            nextIdx = seq[seq.length-1] + (Math.random()<0.5 ? 3 : -4);
+          }
+          nextIdx = Math.max(0, Math.min(N-1, nextIdx));
+          seq.push(nextIdx);
+        }
+        return seq;
+      }
+
+      function playBadSequence(indices, done) {
+        let i = 0;
+        function next() {
+          if (i >= indices.length) { if (done) done(); return; }
+          const idx = indices[i++], base = notes[idx];
+          if (!base) { next(); return; }
+          // 50% chance to smear with adjacent neighbor for extra dissonance
+          const neighborIdx = Math.random() > 0.5 ? Math.max(0, Math.min(N-1, idx + (Math.random()<0.5?-1:1))) : null;
+          const layer = neighborIdx !== null ? () => {
+            const nb = notes[neighborIdx];
+            if (nb) playBadNote(nb); // fire-and-forget layer
+          } : null;
+          playBadNote(base, next, layer);
+        }
+        next();
+      }
+
+      // ----- JINGLE: ordered hover detection (still nice as a reward) -----
       const $lis = $('.circles li');
       $lis.each(function(i){ this.dataset.seqIndex = i; });
 
@@ -392,6 +461,7 @@ $(document).ready(function () {
 
         const expectedIndex = hoverProgress;
         if (idx === expectedIndex && hoverProgress < jLen) {
+          // Correct order -> NICE jingle step
           $li.data('playing', true);
           playSingleNoteByIndex(jingleNoteIndices[hoverProgress], () => { $li.data('playing', false); });
           $li.addClass('jingle-step'); setTimeout(()=> $li.removeClass('jingle-step'), 250);
@@ -404,22 +474,117 @@ $(document).ready(function () {
             setTimeout(()=> { $('.circles li').data('playing', false); hoverProgress = 0; }, 4000);
           }
         } else {
+          // Wrong order / casual hover -> BAD/janky sequence (quiet & crunchy)
           hoverProgress = 0;
-          const s = rndChoice(uniq); let playSeq = s.slice(); const v=Math.random();
-          if (v > 0.85) playSeq = playSeq.slice().reverse();
-          if (v > 0.95) playSeq = playSeq.map(i => Math.min(N-1, i+1));
           $li.data('playing', true);
-          playSequence(playSeq, () => $li.data('playing', false));
-          const estMs = (playSeq.reduce((sum, idx) => {
-            const d = (notes[idx] && notes[idx].duration) || 0.6;
-            return sum + (isFinite(d) && d>0 ? d : 0.6);
-          }, 0) * 1000) + 300;
+          const badSeq = buildBadSequenceIndices();
+          playBadSequence(badSeq, () => $li.data('playing', false));
+
+          // safety unflag in case of odd durations
+          const estMs = badSeq.length * 650 + 200; // rough estimate
           setTimeout(()=> $li.data('playing', false), estMs);
         }
       });
 
-      console.log('Sequencer ready — samples:', notes.length, 'sequences:', uniq.length, 'jingleLen:', jLen);
+      console.log('Sequencer ready — samples:', notes.length, 'badSeq palette:', uniq.length, 'jingleLen:', jLen);
     } // end setupSequencer
 
   })(); // end IIFE
 }); // end document ready
+
+
+  (() => {
+    const root = document.documentElement;
+    let x = innerWidth / 2, y = innerHeight / 2, raf = null;
+
+    const commit = () => {
+      root.style.setProperty('--mx', x + 'px');
+      root.style.setProperty('--my', y + 'px');
+      raf = null;
+    };
+
+    addEventListener('mousemove', (e) => {
+      x = e.clientX; y = e.clientY;
+      if (!raf) raf = requestAnimationFrame(commit);
+    }, { passive: true });
+
+    addEventListener('mouseleave', () => {
+      root.style.setProperty('--glow-visible', '0');
+    });
+
+    addEventListener('mouseenter', () => {
+      root.style.setProperty('--glow-visible', '.95');
+    });
+
+    commit(); // set initial position
+  })();
+
+  // jquery/index.js
+document.addEventListener('DOMContentLoaded', () => {
+  const root = document.documentElement;
+
+  // Create overlay once
+  const ring = document.createElement('div');
+  ring.id = 'rgb-iframe-ring';
+  document.body.appendChild(ring);
+
+  let activeFrame = null;
+  let raf = null;
+
+  const positionRing = () => {
+    if (!activeFrame) return;
+    const r = activeFrame.getBoundingClientRect();
+    // Copy the iframe corner radius so the glow hugs it
+    ring.style.borderRadius = getComputedStyle(activeFrame).borderRadius || '16px';
+    ring.style.left   = r.left + 'px';
+    ring.style.top    = r.top  + 'px';
+    ring.style.width  = r.width + 'px';
+    ring.style.height = r.height + 'px';
+    raf = null;
+  };
+
+  const schedulePos = () => { if (!raf) raf = requestAnimationFrame(positionRing); };
+
+  const showRing = (frame) => {
+    activeFrame = frame;
+    schedulePos();
+    ring.classList.add('visible');
+    // Hide global cursor glow to avoid the “stuck aura”
+    root.style.setProperty('--glow-visible', '0');
+    // Debug:
+    // console.log('[rgb-ring] show on', frame);
+  };
+
+  const hideRing = () => {
+    ring.classList.remove('visible');
+    activeFrame = null;
+    root.style.setProperty('--glow-visible', '.95');
+    // console.log('[rgb-ring] hide');
+  };
+
+  // Reliable detection for entering/leaving the <iframe>
+  document.addEventListener('mouseover', (e) => {
+    if (e.target && e.target.tagName === 'IFRAME') showRing(e.target);
+  }, true); // capture
+
+  document.addEventListener('mouseout', (e) => {
+    if (e.target && e.target.tagName === 'IFRAME') hideRing();
+  }, true);
+
+  // Keep the overlay aligned
+  addEventListener('scroll', schedulePos, { passive: true });
+  addEventListener('resize', schedulePos, { passive: true });
+
+  // If the iframe resizes due to responsive layout, keep tracking it
+  const ro = new ResizeObserver(schedulePos);
+  document.querySelectorAll('iframe').forEach(f => ro.observe(f));
+
+  // Safety: if the iframe is already under the mouse when the page finishes loading
+  // (can happen on reload), force a position update.
+  schedulePos();
+});
+
+
+
+
+
