@@ -1,222 +1,389 @@
-
-body{
+body {
     background-color: #212331;
 }
-iframe{
-    width:90%;
-    height:50vh;
+
+iframe {
+    width: 90%;
+    height: 50vh;
     border: none;
     transition-duration: 0.3s;
     backdrop-filter: blur(10px);
 }
 
-.col{
+.col {
     /* height:100vh; */
     height: 100%;
     margin-top: 40%;
-    
-    
+
+
 
 }
-.cent{
+
+.cent {
     margin-top: 20%;
-    
+
 }
+
 #preloader {
-      display: none;
-      width: 0;
-      height: 0;
-      border: 0;
+    display: none;
+    width: 0;
+    height: 0;
+    border: 0;
 }
 
 /* animatable base angle */
-@property --a { syntax:'<number>'; inherits:false; initial-value:0; }
 
-#li1{
-  border-radius:16px;
-  /* transition: box-shadow .2s ease; */
-  transition-duration: 1s;
-  /* transi */
+
+#li1 {
+    border-radius: 16px;
+    /* transition: box-shadow .2s ease; */
+    transition-duration: 5s;
+    /* transi */
 }
 
-#li1:hover{
-  animation: orbit 24s linear infinite;
+#li1:hover, #li1:active {
+    animation: orbit 20s linear infinite;
+    background-color: rgba(0, 3, 1, 0.699);
 
-   box-shadow:
-    0 0 0 1px hsl(0, 0%, 100%),      /* crisp rim */
-    0 0 12px 6px  hsla(0, 0%, 100%, 0.555),  /* near glow */
-    0 0 28px 14px hsla(0, 0%, 100%, 0.452),  /* mid glow  */
-    0 0 60px 28px hsla(0, 0%, 100%, 0.377),  /* far glow  */
-    0 0 90px 50px hsl(36, 100%, 50%);  /* far glow  */
 
-   width:95%;
-   /* height:55vh; */
+
+    /* width: 95%; */
+    /* height:55vh; */
 }
 
-@keyframes orbit { to { --a: 360; } }
+@keyframes orbit{
+    0%, 100%{
+        box-shadow: none;
+    }
+  /* RED */
+   6.25%{
+    box-shadow:
+      0 0 0 1px hsl(0 0% 100% / .28),
+      0 0 12px 6px  hsl(0 0% 100% / .22),
+      0 0 28px 14px hsl(0 0% 100% / .16),
+      0 0 60px 28px hsl(0 0% 100% / .10),
+      0 0 70px 22px hsl(  0 100% 60% / .40);
+  }
+  12.5%{
+    box-shadow:
+      0 0 0 1px hsl(0 0% 100% / .28),
+      0 0 12px 6px  hsl(0 0% 100% / .22),
+      0 0 28px 14px hsl(0 0% 100% / .16),
+      0 0 60px 28px hsl(0 0% 100% / .10),
+      0 0 40px 10px hsl(  0 100% 60% / .10);
+  }
+
+  /* ORANGE */
+  18.75%{
+    box-shadow:
+      0 0 0 1px hsl(0 0% 100% / .28),
+      0 0 12px 6px  hsl(0 0% 100% / .22),
+      0 0 28px 14px hsl(0 0% 100% / .16),
+      0 0 60px 28px hsl(0 0% 100% / .10),
+      0 0 70px 22px hsl( 30 100% 60% / .40);
+  }
+  25%{
+    box-shadow:
+      0 0 0 1px hsl(0 0% 100% / .28),
+      0 0 12px 6px  hsl(0 0% 100% / .22),
+      0 0 28px 14px hsl(0 0% 100% / .16),
+      0 0 60px 28px hsl(0 0% 100% / .10),
+      0 0 40px 10px hsl( 30 100% 60% / .10);
+  }
+
+  /* YELLOW */
+  31.25%{
+    box-shadow:
+      0 0 0 1px hsl(0 0% 100% / .28),
+      0 0 12px 6px  hsl(0 0% 100% / .22),
+      0 0 28px 14px hsl(0 0% 100% / .16),
+      0 0 60px 28px hsl(0 0% 100% / .10),
+      0 0 70px 22px hsl( 60 100% 60% / .40);
+  }
+  37.5%{
+    box-shadow:
+      0 0 0 1px hsl(0 0% 100% / .28),
+      0 0 12px 6px  hsl(0 0% 100% / .22),
+      0 0 28px 14px hsl(0 0% 100% / .16),
+      0 0 60px 28px hsl(0 0% 100% / .10),
+      0 0 40px 10px hsl( 60 100% 60% / .10);
+  }
+
+  /* GREEN */
+  43.75%{
+    box-shadow:
+      0 0 0 1px hsl(0 0% 100% / .28),
+      0 0 12px 6px  hsl(0 0% 100% / .22),
+      0 0 28px 14px hsl(0 0% 100% / .16),
+      0 0 60px 28px hsl(0 0% 100% / .10),
+      0 0 70px 22px hsl(120 100% 60% / .40);
+  }
+  50%{
+    box-shadow:
+      0 0 0 1px hsl(0 0% 100% / .28),
+      0 0 12px 6px  hsl(0 0% 100% / .22),
+      0 0 28px 14px hsl(0 0% 100% / .16),
+      0 0 60px 28px hsl(0 0% 100% / .10),
+      0 0 40px 10px hsl(120 100% 60% / .10);
+  }
+
+  /* CYAN */
+  56.25%{
+    box-shadow:
+      0 0 0 1px hsl(0 0% 100% / .28),
+      0 0 12px 6px  hsl(0 0% 100% / .22),
+      0 0 28px 14px hsl(0 0% 100% / .16),
+      0 0 60px 28px hsl(0 0% 100% / .10),
+      0 0 70px 22px hsl(180 100% 60% / .40);
+  }
+  62.5%{
+    box-shadow:
+      0 0 0 1px hsl(0 0% 100% / .28),
+      0 0 12px 6px  hsl(0 0% 100% / .22),
+      0 0 28px 14px hsl(0 0% 100% / .16),
+      0 0 60px 28px hsl(0 0% 100% / .10),
+      0 0 40px 10px hsl(180 100% 60% / .10);
+  }
+
+  /* BLUE */
+  68.75%{
+    box-shadow:
+      0 0 0 1px hsl(0 0% 100% / .28),
+      0 0 12px 6px  hsl(0 0% 100% / .22),
+      0 0 28px 14px hsl(0 0% 100% / .16),
+      0 0 60px 28px hsl(0 0% 100% / .10),
+      0 0 70px 22px hsl(240 100% 60% / .40);
+  }
+  75%{
+    box-shadow:
+      0 0 0 1px hsl(0 0% 100% / .28),
+      0 0 12px 6px  hsl(0 0% 100% / .22),
+      0 0 28px 14px hsl(0 0% 100% / .16),
+      0 0 60px 28px hsl(0 0% 100% / .10),
+      0 0 40px 10px hsl(240 100% 60% / .10);
+  }
+
+  /* MAGENTA */
+  81.25%{
+    box-shadow:
+      0 0 0 1px hsl(0 0% 100% / .28),
+      0 0 12px 6px  hsl(0 0% 100% / .22),
+      0 0 28px 14px hsl(0 0% 100% / .16),
+      0 0 60px 28px hsl(0 0% 100% / .10),
+      0 0 70px 22px hsl(300 100% 60% / .40);
+  }
+  87.5%{
+    box-shadow:
+      0 0 0 1px hsl(0 0% 100% / .28),
+      0 0 12px 6px  hsl(0 0% 100% / .22),
+      0 0 28px 14px hsl(0 0% 100% / .16),
+      0 0 60px 28px hsl(0 0% 100% / .10),
+      0 0 40px 10px hsl(300 100% 60% / .10);
+  }
+
+  /* back to RED to close the loop */
+  93.75%{
+    box-shadow:
+      0 0 0 1px hsl(0 0% 100% / .28),
+      0 0 12px 6px  hsl(0 0% 100% / .22),
+      0 0 28px 14px hsl(0 0% 100% / .16),
+      0 0 60px 28px hsl(0 0% 100% / .10),
+      0 0 40px 10px hsl(  0 100% 60% / .10);
+  }
+}
 
 /* optional: hide your mouse aura while on the iframe */
-body:has(#li1:hover) #cursor-glow::before { opacity: 0 !important; }
+body:has(#li1:hover) #cursor-glow::before {
+    opacity: 0 !important;
+}
 
 /* accessibility */
-@media (prefers-reduced-motion: reduce){
-  #li1:hover{ animation:none; }
+@media (prefers-reduced-motion: reduce) {
+    #li1:hover {
+        animation: none;
+    }
 }
 
 
 
- @media screen and (min-height:935px){
-    iframe{
-        width:90%;
-        height:45vh;
+@media screen and (min-height:935px) {
+    iframe {
+        width: 90%;
+        height: 45vh;
         max-height: 500px;
-        overflow:hidden;
-        
+        overflow: hidden;
+
     }
-} 
-@media screen and (max-width:2000px){
-    iframe{
-        width:90%;
+}
+
+@media screen and (max-width:2000px) {
+    iframe {
+        width: 90%;
         max-height: 90vh;
         overflow: hidden;
     }
 }
-@media screen and (max-width:1200px){
-    .container{
-        margin:0px;
+
+@media screen and (max-width:1200px) {
+    .container {
+        margin: 0px;
         max-width: 99999px;
     }
-    
+
 }
-@media screen and (max-width:1022px){
-    .container{
-        margin:0px;
+
+@media screen and (max-width:1022px) {
+    .container {
+        margin: 0px;
         max-width: 99999px;
     }
-    .padd-0{
-        padding:0%;
+
+    .padd-0 {
+        padding: 0%;
     }
-    iframe{
-        width:97%;
-        
-        
+
+    iframe {
+        width: 97%;
+
+
     }
 }
- 
-@media screen and (max-height:935px){
-    iframe{
-        width:90%;
-        height:minmax(52vh, 500px);
-        overflow:none;
-        
+
+@media screen and (max-height:935px) {
+    iframe {
+        width: 90%;
+        height: minmax(52vh, 500px);
+        overflow: none;
+
     }
-    .cent{
+
+    .cent {
         margin-top: 15%;
     }
 }
- @media screen and (max-height:834px){
-     iframe{
-        width:90%;
-        height:59vh;
-        
+
+@media screen and (max-height:834px) {
+    iframe {
+        width: 90%;
+        height: 59vh;
+
     }
-    .cent{
+
+    .cent {
         margin-top: 13%;
     }
-} 
-@media screen and (max-height:745px){
-    iframe{
-       width:90%;
-       /* height:90vh; */
-       
-   }
-   .cent{
-       margin-top: 10%;
-   }
-} 
-@media screen and (max-height:717px){
-    iframe{
-        
-        height:65vh;
-        
+}
+
+@media screen and (max-height:745px) {
+    iframe {
+        width: 90%;
+        /* height:90vh; */
+
+    }
+
+    .cent {
+        margin-top: 10%;
     }
 }
-@media screen and (max-height:623px){
-    iframe{
-       width:90%;
-       height:70vh;
-       margin-top: 5vh;
-       
-   }
-   .cent{
-       margin-top: 7%;
-       height: 90vh;
-   }
-   .container{
-       height:90vh;
-   }
-} 
-@media screen and (max-height:573px){
-    iframe{
+
+@media screen and (max-height:717px) {
+    iframe {
+
+        height: 65vh;
+
+    }
+}
+
+@media screen and (max-height:623px) {
+    iframe {
+        width: 90%;
+        height: 70vh;
+        margin-top: 5vh;
+
+    }
+
+    .cent {
+        margin-top: 7%;
+        height: 90vh;
+    }
+
+    .container {
+        height: 90vh;
+    }
+}
+
+@media screen and (max-height:573px) {
+    iframe {
         margin-top: 2vh;
-       width:90%;
-       height:75vh;
-       
-   }
-   .cent{
-       margin-top: 6%;
-   }
-} 
-@media screen and (max-height:529px){
-    iframe{
-       width:90%;
-       height:89vh;
-       
-   }
-   .cent{
-       margin-top: 4%;
-   }
-} 
-@media screen and (max-height:465px){
-    iframe{
-       width:90%;
-       height:94vh;
-       
-   }
-   .cent{
-       margin-top: 3%;
-   }
-} 
-@media screen and (max-height:465px){
-    iframe{
-       width:90%;
-       height:100vh;
-       
-   }
-   .cent{
-       margin-top: 0%;
-   }
-} 
-@media screen and (max-width:851px){
-    
-    .container{
-        margin:0px;
+        width: 90%;
+        height: 75vh;
+
+    }
+
+    .cent {
+        margin-top: 6%;
+    }
+}
+
+@media screen and (max-height:529px) {
+    iframe {
+        width: 90%;
+        height: 89vh;
+
+    }
+
+    .cent {
+        margin-top: 4%;
+    }
+}
+
+@media screen and (max-height:465px) {
+    iframe {
+        width: 90%;
+        height: 94vh;
+
+    }
+
+    .cent {
+        margin-top: 3%;
+    }
+}
+
+@media screen and (max-height:465px) {
+    iframe {
+        width: 90%;
+        height: 100vh;
+
+    }
+
+    .cent {
+        margin-top: 0%;
+    }
+}
+
+@media screen and (max-width:851px) {
+
+    .container {
+        margin: 0px;
         max-width: 99999px;
     }
-    iframe{
-        height:85vh;
-        
+
+    iframe {
+        height: 85vh;
+
     }
-} 
-@media screen and (max-width:552px){
-    
-    .container{
-        margin:0px;
+}
+
+@media screen and (max-width:552px) {
+
+    .container {
+        margin: 0px;
         max-width: 99999px;
     }
-    iframe{
-        height:90vh;
+
+    iframe {
+        height: 90vh;
         max-height: initial;
-        
+
     }
-} 
+}
