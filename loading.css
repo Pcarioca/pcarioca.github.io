@@ -26,61 +26,32 @@ body{
     align-items: center;
     background: rgba(0, 0, 0, 0);
   }
-  .wave {
-    width: 10px;
-    height: 70px;
-    background: #013d7de0;
-    margin: 15px;
-    animation: wave 1.5s ease-in-out infinite;
-    border-radius: 20px;
-  }
-  @media screen and (max-width:851px){
-    .wave {
-      width: 6px;
-      height: 50px;
-      background: #013d7de0;
-      margin: 7px;
-      animation: wave 1.5s ease-in-out infinite;
-      border-radius: 15px;
-    }
-    
-} 
-  .wave:nth-child(2) {
-    animation-delay: 0.1s;
-  }
-  .wave:nth-child(3) {
-    animation-delay: 0.2s;
-  }
-  .wave:nth-child(4) {
-    animation-delay: 0.3s;
-  }
-  .wave:nth-child(5) {
-    animation-delay: 0.4s;
-  }
-  .wave:nth-child(6) {
-    animation-delay: 0.5s;
-  }
-  .wave:nth-child(7) {
-    animation-delay: 0.6s;
-  }
-  .wave:nth-child(8) {
-    animation-delay: 0.7s;
-  }
-  .wave:nth-child(9) {
-    animation-delay: 0.8s;
-  }
-  .wave:nth-child(10) {
-    animation-delay: 0.9s;
-  }
-  
-  @keyframes wave {
-    0% {
-      transform: scale(0);
-    }
-    50% {
-      transform: scale(1);
-    }
-    100% {
-      transform: scale(0);
-    }
-  }
+
+#andrei{
+  color: white;
+  font-size: 7vw;
+  font-weight: 1000;
+  display: inline-block;          /* allow transform */
+  transform-origin: center;
+  will-change: transform, text-shadow;
+  animation: heartbeat 0.8s ease-in-out infinite;
+}
+
+#andrei::selection{
+  background-color: rgba(255, 255, 255, 0);
+}
+
+
+ @keyframes heartbeat {
+  0%   { transform: scale(1);     text-shadow: none; }
+  10%  { transform: scale(1.18);  text-shadow: 0 0 22px rgba(255, 60, 100, .65); }
+  16%  { transform: scale(1.00);  text-shadow: none; }
+  26%  { transform: scale(1.10);  text-shadow: 0 0 14px rgba(255, 60, 100, .45); }
+  42%  { transform: scale(1.00);  text-shadow: none; }
+  100% { transform: scale(1);     text-shadow: none; }
+}
+
+/* be nice to folks who prefer less motion */
+@media (prefers-reduced-motion: reduce){
+  #andrei{ animation: none; }
+}
