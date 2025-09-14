@@ -11,10 +11,12 @@
     container.textContent = 'Loading projects…';
     try {
       // Extract the GitHub username from the host (e.g. pcarioca.github.io → pcarioca).
-      let username = window.location.hostname.split('.')[0];
-      if (!username) {
-        throw new Error('Unable to determine GitHub username from host');
-      }
+      // let username = window.location.hostname.split('.')[0];
+      // if (!username) {
+      //   throw new Error('Unable to determine GitHub username from host');
+      // }
+
+      let username = "pcarioca"
 
       // Query the GitHub API for the user’s public repos.
       const response = await fetch(`https://api.github.com/users/${username}/repos`);

@@ -213,8 +213,6 @@
 "Hot chip energy",
 "Overheated heart"
 
-
-
   ];
 
  const randIndex = (() => {
