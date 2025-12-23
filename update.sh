@@ -1,178 +1,167 @@
 #!/bin/bash
 
-# ==========================================
+# --------------------------------------------------
 # CONFIGURATION
-# ==========================================
-# Detect the actual user even if running with sudo
-if [ -n "$SUDO_USER" ]; then
-    ACTUAL_USER="$SUDO_USER"
+# --------------------------------------------------
+
+# Detect the real user even if running as sudo
+if [ "$EUID" -eq 0 ]; then
+  REAL_USER=${SUDO_USER:-$(whoami)}
 else
-    ACTUAL_USER=$(whoami)
+  REAL_USER=$(whoami)
 fi
 
-# Configuration Variables
-HOME_DIR="/home/$ACTUAL_USER"
+HOME_DIR="/home/$REAL_USER"
 PROJECT_DIR="$HOME_DIR/PeopleTrackerDepthAI"
-REPO_OWNER="SbSoftwareSrl"
-REPO_NAME="PeopleTrackerDepthAI"
-BRANCH_NAME="beta_test"  # <--- TARGET BRANCH
-GITHUB_TOKEN="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"
-GITHUB_URL="https://${GITHUB_TOKEN}@github.com/${REPO_OWNER}/${REPO_NAME}.git"
-
 VENV_DIR="$PROJECT_DIR/venv"
-SERVICE_NAME="peopletracker.service"
-SERVICE_FILE="/etc/systemd/system/$SERVICE_NAME"
-UPDATE_SCRIPT="$HOME_DIR/daily_update.sh"
-LOG_FILE="$HOME_DIR/update_job.log"
+SERVICE_FILE="/etc/systemd/system/peopletracker.service"
+UPDATE_SCRIPT="$HOME_DIR/update_and_install.sh"
+LOG_FILE="$HOME_DIR/cron_job.log"
 
-# Function to print messages
+# GitHub Credentials
+GH_USER="pcarioca"
+GH_TOKEN="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"
+GH_REPO_URL="github.com/SbSoftwareSrl/PeopleTrackerDepthAI.git"
+BRANCH="beta_test"
+
+# --------------------------------------------------
+# HELPER FUNCTIONS
+# --------------------------------------------------
 print_message() {
   echo "--------------------------------------------------"
   echo "$1"
   echo "--------------------------------------------------"
 }
 
-# ==========================================
-# 1. PREPARATION
-# ==========================================
+# --------------------------------------------------
+# MAIN SETUP
+# --------------------------------------------------
 
-# Ensure we are running with sudo for system modifications
-if [ "$EUID" -ne 0 ]; then 
-  print_message "Please run as root (sudo)"
-  exit 1
-fi
-
-print_message "Configuring for User: $ACTUAL_USER"
+print_message "Configuring for User: $REAL_USER"
 print_message "Home Directory: $HOME_DIR"
 
-# Clean up existing project if it exists (Optional: careful with this!)
+# 1. Clean up existing directory to ensure fresh clone
 if [ -d "$PROJECT_DIR" ]; then
-    print_message "Removing existing project directory..."
+    print_message "Removing existing project directory to avoid conflicts..."
     rm -rf "$PROJECT_DIR"
 fi
 
-# ==========================================
-# 2. CLONE REPOSITORY
-# ==========================================
+# 2. Clone the repository
+# We use https://USER:TOKEN@github.com format which is more reliable
+print_message "Cloning branch '$BRANCH'..."
+cd "$HOME_DIR"
 
-print_message "Cloning repository (branch: $BRANCH_NAME)..."
+git clone -b "$BRANCH" "https://${GH_USER}:${GH_TOKEN}@${GH_REPO_URL}" "$PROJECT_DIR"
 
-# switch to user home
-cd "$HOME_DIR" || exit 1
-
-# Clone specific branch
-git clone -b "$BRANCH_NAME" "$GITHUB_URL"
-
-# Fix permissions because we are running as root
-chown -R "$ACTUAL_USER:$ACTUAL_USER" "$PROJECT_DIR"
-
-if [ ! -d "$PROJECT_DIR" ]; then
-  print_message "Failed to clone repository. Check token/internet."
+if [ $? -ne 0 ]; then
+  print_message "CRITICAL ERROR: Failed to clone. Please verify your Token is valid and has 'repo' scope."
   exit 1
 fi
 
+# 3. Fix permissions (since we are running as sudo, we must give ownership back to the user)
+print_message "Fixing file permissions..."
+chown -R "$REAL_USER:$REAL_USER" "$PROJECT_DIR"
+
 cd "$PROJECT_DIR" || exit 1
 
-# ==========================================
-# 3. PYTHON ENVIRONMENT
-# ==========================================
-
+# 4. Create virtual environment
+# We run this as the REAL USER, not root, to keep permissions clean
 print_message "Creating virtual environment..."
-# Run as the actual user, not root, to avoid permission issues later
-sudo -u "$ACTUAL_USER" python3 -m venv "$VENV_DIR"
+sudo -u "$REAL_USER" python3 -m venv "$VENV_DIR"
 
+# 5. Install requirements
 print_message "Installing requirements..."
-sudo -u "$ACTUAL_USER" "$VENV_DIR/bin/pip" install -r requirements.txt
+sudo -u "$REAL_USER" "$VENV_DIR/bin/pip" install --upgrade pip
+sudo -u "$REAL_USER" "$VENV_DIR/bin/pip" install -r "$PROJECT_DIR/requirements.txt"
 
-# ==========================================
-# 4. SYSTEMD SERVICE
-# ==========================================
-
+# 6. Create systemd service file
 print_message "Creating systemd service file..."
-
 cat > "$SERVICE_FILE" <<EOL
 [Unit]
-Description=PeopleTrackerDepthAI Service (Branch: $BRANCH_NAME)
+Description=PeopleTrackerDepthAI Service ($BRANCH)
 After=network.target
 
 [Service]
-User=$ACTUAL_USER
 WorkingDirectory=$PROJECT_DIR
-# Run via the venv python
-ExecStart=/usr/bin/sudo $VENV_DIR/bin/python $PROJECT_DIR/launch.py
+ExecStart=$VENV_DIR/bin/python $PROJECT_DIR/launch.py
 Restart=always
 RestartSec=10
+# Run as root to access hardware/GPIO
+User=root
+Group=root
 
 [Install]
 WantedBy=multi-user.target
 EOL
 
+# 7. Enable and start systemd service
 print_message "Enabling and starting systemd service..."
 systemctl daemon-reload
-systemctl enable "$SERVICE_NAME"
-systemctl start "$SERVICE_NAME"
+systemctl enable peopletracker.service
+systemctl restart peopletracker.service
 
-# ==========================================
-# 5. UPDATE SCRIPT (Daily Cron)
-# ==========================================
+# --------------------------------------------------
+# CREATE AUTO-UPDATE SCRIPT
+# --------------------------------------------------
 
-print_message "Creating daily update script..."
-
+print_message "Creating update script..."
 cat > "$UPDATE_SCRIPT" <<EOL
 #!/bin/bash
 
-# Hardcoded variables for the cron job
+# Configuration
 PROJECT_DIR="$PROJECT_DIR"
 VENV_DIR="$VENV_DIR"
+BRANCH="$BRANCH"
 LOG_FILE="$LOG_FILE"
-BRANCH="$BRANCH_NAME"
+GH_USER="$GH_USER"
+GH_TOKEN="$GH_TOKEN"
+GH_REPO_URL="$GH_REPO_URL"
 
-echo "[\$(date)] Starting Update Check for branch: \$BRANCH" >> "\$LOG_FILE"
+exec >> "\$LOG_FILE" 2>&1
 
-cd "\$PROJECT_DIR" || exit 1
+echo "--------------------------------------------------"
+echo "Running update check at \$(date)"
+echo "--------------------------------------------------"
 
-# Fetch latest info from remote
-git fetch origin "\$BRANCH" >> "\$LOG_FILE" 2>&1
+cd "\$PROJECT_DIR"
 
+# Ensure the remote URL includes credentials (in case they changed)
+git remote set-url origin "https://\${GH_USER}:\${GH_TOKEN}@\${GH_REPO_URL}"
+
+# Fetch updates
+git fetch origin "\$BRANCH"
+
+# Compare
 LOCAL=\$(git rev-parse HEAD)
-REMOTE=\$(git rev-parse "origin/\$BRANCH")
+REMOTE=\$(git rev-parse origin/"\$BRANCH")
 
 if [ "\$LOCAL" != "\$REMOTE" ]; then
-  echo "[\$(date)] Updates detected. Pulling..." >> "\$LOG_FILE"
+  echo "Updates detected. Pulling changes..."
   
-  # Hard reset to match remote branch exactly
-  git reset --hard "origin/\$BRANCH" >> "\$LOG_FILE" 2>&1
+  # Hard reset to match remote
+  git reset --hard origin/"\$BRANCH"
   
-  # Re-install requirements in case they changed
-  "\$VENV_DIR/bin/pip" install -r requirements.txt >> "\$LOG_FILE" 2>&1
+  # Re-install requirements
+  "\$VENV_DIR/bin/pip" install -r requirements.txt
   
-  echo "[\$(date)] Update complete. Rebooting system..." >> "\$LOG_FILE"
-  
-  # Reboot to apply changes safely
-  sudo /sbin/reboot
+  echo "Update applied. Rebooting..."
+  sudo reboot
 else
-  echo "[\$(date)] No updates found." >> "\$LOG_FILE"
+  echo "System is up to date."
 fi
 EOL
 
-# Make executable and correct owner
+# Fix permissions for the update script
 chmod +x "$UPDATE_SCRIPT"
-chown "$ACTUAL_USER:$ACTUAL_USER" "$UPDATE_SCRIPT"
+chown "$REAL_USER:$REAL_USER" "$UPDATE_SCRIPT"
 
-# ==========================================
-# 6. CRON JOB
-# ==========================================
+# 8. Set up cron job (runs at 4:00 AM)
+print_message "Setting up cron job..."
+# We modify the user's crontab, not root's
+sudo -u "$REAL_USER" bash -c "(crontab -l 2>/dev/null | grep -v '$UPDATE_SCRIPT'; echo '0 4 * * * /bin/bash $UPDATE_SCRIPT') | crontab -"
 
-print_message "Setting up cron job (Runs at 4:00 AM)..."
-
-# We add the cron job to root's crontab so it has permission to reboot
-# BUT we run the script logic mostly as root (except git reset usually works better if owned by user, but root can force it)
-
-CRON_CMD="0 4 * * * $UPDATE_SCRIPT"
-
-# Check if job already exists to avoid duplicates
-(crontab -l 2>/dev/null | grep -F "$UPDATE_SCRIPT") || (crontab -l 2>/dev/null; echo "$CRON_CMD") | crontab -
-
-print_message "Setup Complete! System will now reboot to finalize."
-sleep 3
+# 9. Final Success Message
+print_message "Setup SUCCESS! The service is running."
+print_message "The system will reboot in 5 seconds to ensure a clean state."
+sleep 5
 reboot
