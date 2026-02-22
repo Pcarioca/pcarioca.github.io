@@ -1,0 +1,86 @@
+/* Right icons */
+.right{
+  padding:14px 10px;
+  border-left:1px solid rgba(255,255,255,.08);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+}
+@media (max-width: 900px){
+  .right{
+    border-left:none;
+    border-top:1px solid rgba(255,255,255,.08);
+    flex-direction:row;
+    justify-content:center;
+    flex-wrap:wrap;
+    padding:12px 4px 2px;
+    gap:10px;
+  }
+  .center{
+    overflow:visible;
+    min-height:auto;
+    padding:6px 4px 2px;
+  }
+  .resource-groups{grid-template-columns: 1fr;}
+}
+
+.icbtn{
+  width:46px; height:46px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.14);
+  color: rgba(255,255,255,.86);
+  display:grid;
+  place-items:center;
+  text-decoration:none;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  transition: transform .14s ease, border-color .14s ease, box-shadow .14s ease, background .14s ease;
+}
+.icbtn::before{
+  content:"";
+  position:absolute; inset:-1px;
+  background:
+    radial-gradient(100px 100px at 30% 25%, rgba(var(--blue), .16), transparent 62%),
+    radial-gradient(120px 120px at 75% 80%, rgba(var(--purple), .12), transparent 65%);
+  opacity:.85;
+  pointer-events:none;
+}
+.icbtn:hover{
+  transform: translateY(-2px) scale(1.03);
+  border-color: rgba(var(--blue), .28);
+  box-shadow: 0 22px 54px rgba(0,0,0,.42);
+  background: rgba(255,255,255,.04);
+}
+.ic{
+  width:22px; height:22px;
+  display:grid;
+  place-items:center;
+  position:relative;
+  z-index:1;
+}
+.ic svg{width:22px; height:22px}
+
+.tip{
+  position:absolute;
+  right:56px;
+  top:50%;
+  transform: translateY(-50%) translateX(8px);
+  padding:6px 9px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(10,12,18,.78);
+  color: rgba(255,255,255,.82);
+  font-size:12px;
+  white-space:nowrap;
+  opacity:0;
+  pointer-events:none;
+  transition: opacity .12s ease, transform .12s ease;
+  backdrop-filter: blur(6px);
+}
+.icbtn:hover .tip{
+  opacity:1;
+  transform: translateY(-50%) translateX(0);
+}

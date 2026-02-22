@@ -1,0 +1,23 @@
+:root{
+  /* Base */
+  --bg0: #070816;
+  --bg1: #070a10;
+
+  /* Accent palette: blue / purple / deep green */
+  --blue: 96 165 250;
+  --purple: 167 139 250;
+  --green: 16 185 129;
+
+  --text: rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.62);
+  --border: rgba(255,255,255,.12);
+
+  --card: rgba(13, 16, 24, .72);
+  --card2: rgba(255,255,255,.03);
+
+  --mx: 50vw;
+  --my: 35vh;
+  --tiltX: 0deg;
+  --tiltY: 0deg;
+  --glow: .9;
+}

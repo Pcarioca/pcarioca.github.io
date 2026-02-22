@@ -1,0 +1,8 @@
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  #bg, .noise, #cursorGlow {display:none !important;}
+  .card{transform:none !important;}
+  .icbtn, .langbar a, .bullets li, .tag, .left-whoami-pill, .scramble-panel, .scramble-btn, .matrix-rain{transition:none !important;}
+  body.egg-chaos::after{animation:none !important;}
+  .paw-trail, .sparkle-burst{animation:none !important; opacity:.65 !important;}
+}

@@ -1,0 +1,49 @@
+.resource-groups{
+  margin-top: 8px;
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap:10px;
+}
+.resource-group{
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:16px;
+  background: rgba(0,0,0,.12);
+  padding:10px 11px;
+}
+.resource-group-title{
+  margin:0 0 8px;
+  font-size:13px;
+  font-family: Space Grotesk, Inter, system-ui;
+  color: rgba(255,255,255,.88);
+  letter-spacing:.2px;
+}
+.resource-list{
+  margin:0;
+  padding:0;
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.resource-item{
+  padding:8px 8px;
+  border-radius:11px;
+  border:1px solid rgba(255,255,255,.08);
+  background: rgba(0,0,0,.14);
+}
+.resource-link{
+  color: rgba(var(--blue), .94);
+  text-decoration:none;
+  font-size:13px;
+  font-weight:700;
+  line-height:1.25;
+}
+.resource-link:hover{
+  color: rgba(var(--purple), .94);
+}
+.resource-note{
+  margin:4px 0 0;
+  color: rgba(255,255,255,.67);
+  font-size:12px;
+  line-height:1.3;
+}
