@@ -2,7 +2,10 @@
 @media (prefers-reduced-motion: reduce){
   #bg, .noise, #cursorGlow {display:none !important;}
   .card{transform:none !important;}
-  .icbtn, .langbar a, .bullets li, .tag, .left-whoami-pill, .scramble-panel, .scramble-btn, .matrix-rain{transition:none !important;}
+  .icbtn, .langbar a, .bullets li, .tag, .left-whoami-pill, .scramble-panel, .scramble-btn, .matrix-rain, .hold-hud, .hold-game-layer, .hold-orb, .quick-tray{transition:none !important;}
   body.egg-chaos::after{animation:none !important;}
   .paw-trail, .sparkle-burst{animation:none !important; opacity:.65 !important;}
+  .hold-rhythm-pulse, .hold-memory-pulse, .hold-orbit-dot{animation:none !important;}
+  body.hold-color-morph{animation:none !important; filter:none !important;}
+  body.orbit-cursor #cursorGlow{animation:none !important;}
 }

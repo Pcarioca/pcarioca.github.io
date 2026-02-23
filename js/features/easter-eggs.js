@@ -339,28 +339,6 @@
     closeScramblePanel();
   }
 
-  function bindWcaLongPress() {
-    const btn = APP.refs.btnWca || $("#btnWca");
-    if (!btn || btn.dataset.eggLongpress === "1") return;
-    btn.dataset.eggLongpress = "1";
-
-    let timer = null;
-    const start = () => {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        openScramblePanel();
-      }, 560);
-    };
-    const cancel = () => clearTimeout(timer);
-
-    btn.addEventListener("mousedown", start);
-    btn.addEventListener("touchstart", start, { passive: true });
-    btn.addEventListener("mouseup", cancel);
-    btn.addEventListener("mouseleave", cancel);
-    btn.addEventListener("touchend", cancel, { passive: true });
-    btn.addEventListener("touchcancel", cancel, { passive: true });
-  }
-
   function bindAvatarMultiTap() {
     const avatar = APP.refs.profileImg || $("#profileImg");
     if (!avatar || avatar.dataset.eggTapWired === "1") return;
@@ -468,7 +446,6 @@
 
     initMatrixCanvas();
     initScramblePanelRefs();
-    bindWcaLongPress();
     bindAvatarMultiTap();
     bindGlobalEggShortcuts();
 
@@ -478,5 +455,11 @@
     APP.state.easterEggsInitialized = true;
   }
 
+  APP.api.toggleChaosMode = toggleChaosMode;
+  APP.api.startMatrixMode = startMatrixMode;
+  APP.api.startPawMode = startPawMode;
+  APP.api.openScramblePanel = openScramblePanel;
+  APP.api.closeScramblePanel = closeScramblePanel;
+  APP.api.refreshScramble = refreshScramble;
   APP.api.initEasterEggs = initEasterEggs;
 })();

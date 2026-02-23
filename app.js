@@ -14,6 +14,7 @@
     "./js/features/canvas.js",
     "./js/features/audio.js",
     "./js/features/easter-eggs.js",
+    "./js/features/hold-actions.js",
     "./js/bootstrap/init.js"
   ];
 

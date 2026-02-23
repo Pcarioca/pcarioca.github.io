@@ -1,0 +1,306 @@
+.hold-hud{
+  --hold-progress: 0;
+  position: fixed;
+  left: 50%;
+  top: 66px;
+  transform: translate(-50%, -8px) scale(.96);
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(4,8,16,.78);
+  color: rgba(255,255,255,.88);
+  box-shadow: 0 16px 40px rgba(0,0,0,.46);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .14s ease, transform .16s ease;
+}
+.hold-hud.show{
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+.hold-hud-ring{
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: conic-gradient(
+    rgba(var(--blue), .94) calc(var(--hold-progress) * 1turn),
+    rgba(255,255,255,.15) 0
+  );
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.12) inset,
+    0 0 14px rgba(var(--blue), .30);
+}
+.hold-hud-core{
+  position: absolute;
+  inset: 4px;
+  border-radius: 999px;
+  background: rgba(6,10,18,.94);
+}
+.hold-hud-label{
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  max-width: 42ch;
+  color: rgba(255,255,255,.9);
+}
+
+[data-hold-key]{
+  --hold-glow: rgba(var(--blue), .22);
+}
+[data-hold-key][data-hold-arming="1"]{
+  box-shadow:
+    0 0 0 1px rgba(var(--blue), .22) inset,
+    0 0 16px var(--hold-glow) !important;
+  border-color: rgba(var(--blue), .38) !important;
+}
+[data-hold-key][data-hold-fired="1"]{
+  animation: holdFire .26s ease;
+}
+@keyframes holdFire{
+  from{transform: scale(1);}
+  50%{transform: scale(1.03);}
+  to{transform: scale(1);}
+}
+
+.hold-game-layer{
+  position: fixed;
+  inset: 0;
+  z-index: 13;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .16s ease;
+}
+.hold-game-layer.active{
+  opacity: 1;
+  pointer-events: auto;
+}
+.hold-game-canvas{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.hold-game-ui{
+  position: absolute;
+  left: 50%;
+  top: 14px;
+  transform: translateX(-50%);
+  min-width: 220px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(4,8,16,.78);
+  box-shadow: 0 16px 38px rgba(0,0,0,.44);
+  color: rgba(255,255,255,.9);
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  pointer-events: none;
+}
+.hold-game-orbs{
+  position: absolute;
+  inset: 0;
+}
+.hold-orb{
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.2);
+  background:
+    radial-gradient(circle at 30% 30%, rgba(var(--blue), .84), rgba(var(--purple), .54));
+  box-shadow: 0 0 18px rgba(var(--blue), .42);
+  cursor: pointer;
+}
+.hold-orb-hit{
+  animation: holdOrbHit .18s ease;
+}
+@keyframes holdOrbHit{
+  from{transform: scale(1);}
+  to{transform: scale(.65); opacity: .2;}
+}
+
+.quick-tray{
+  position: fixed;
+  left: 12px;
+  bottom: 12px;
+  z-index: 12;
+  width: min(300px, calc(100vw - 24px));
+  border-radius: 15px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(5,9,16,.78);
+  box-shadow: 0 18px 44px rgba(0,0,0,.48);
+  backdrop-filter: blur(10px);
+  padding: 10px 10px 9px;
+  color: rgba(255,255,255,.9);
+}
+.quick-tray-title{
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-family: Space Grotesk, Inter, system-ui;
+  letter-spacing: .2px;
+}
+.quick-tray-group + .quick-tray-group{
+  margin-top: 8px;
+}
+.quick-tray-subtitle{
+  margin: 0 0 5px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .25px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.64);
+}
+.quick-tray-list{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.quick-chip{
+  padding: 5px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.05);
+  font-size: 11px;
+  line-height: 1.15;
+}
+.quick-chip.resource{
+  color: rgba(var(--blue), .95);
+}
+
+.hold-memory-pulse{
+  box-shadow:
+    0 0 0 1px rgba(var(--blue), .24) inset,
+    0 0 18px rgba(var(--blue), .28) !important;
+  border-color: rgba(var(--blue), .42) !important;
+  transform: translateY(-1px);
+}
+.hold-rhythm-pulse{
+  animation: holdRhythmPulse 1.1s ease-in-out 3;
+}
+@keyframes holdRhythmPulse{
+  0%{transform: translateY(0);}
+  35%{transform: translateY(-2px);}
+  100%{transform: translateY(0);}
+}
+
+.hold-orbit-dot{
+  position: fixed;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 12;
+  transform: translate(-50%, -50%);
+  background: rgba(var(--blue), .75);
+  box-shadow:
+    0 0 10px rgba(var(--blue), .45),
+    0 0 18px rgba(var(--purple), .28);
+  animation: holdOrbitDot .7s ease forwards;
+}
+@keyframes holdOrbitDot{
+  from{opacity:.95; transform: translate(-50%, -50%) scale(1);}
+  to{opacity:0; transform: translate(-50%, -50%) scale(1.9);}
+}
+
+.tag.hold-filter-active{
+  border-color: rgba(var(--green), .38) !important;
+  background: rgba(var(--green), .14) !important;
+  box-shadow: 0 0 14px rgba(var(--green), .24);
+}
+.hold-filter-hidden{
+  display: none !important;
+}
+
+.resource-group.hold-flash{
+  animation: holdResourceFlash .55s ease;
+}
+@keyframes holdResourceFlash{
+  0%{box-shadow: 0 0 0 rgba(var(--blue), 0);}
+  45%{box-shadow: 0 0 24px rgba(var(--blue), .28);}
+  100%{box-shadow: 0 0 0 rgba(var(--blue), 0);}
+}
+
+body.hold-blue-sweep::before,
+body.hold-cyan-flash::before,
+body.hold-green-burst::before,
+body.hold-violet-burst::before{
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 7;
+  opacity: .22;
+  animation: holdBurst .5s ease forwards;
+}
+body.hold-blue-sweep::before{
+  background: radial-gradient(560px 360px at 78% 22%, rgba(var(--blue), .34), transparent 70%);
+}
+body.hold-cyan-flash::before{
+  background: radial-gradient(560px 360px at 82% 44%, rgba(34,211,238,.36), transparent 70%);
+}
+body.hold-green-burst::before{
+  background: radial-gradient(680px 360px at 50% 50%, rgba(var(--green), .32), transparent 72%);
+}
+body.hold-violet-burst::before{
+  background: radial-gradient(680px 360px at 50% 50%, rgba(var(--purple), .32), transparent 72%);
+}
+@keyframes holdBurst{
+  from{opacity: .28;}
+  to{opacity: 0;}
+}
+
+body.hold-color-morph{
+  animation: holdColorMorph 6s linear infinite;
+}
+@keyframes holdColorMorph{
+  0%{filter: hue-rotate(0deg);}
+  50%{filter: hue-rotate(38deg);}
+  100%{filter: hue-rotate(0deg);}
+}
+
+body.orbit-cursor #cursorGlow{
+  animation: holdOrbitGlow 2.6s ease-in-out infinite;
+}
+@keyframes holdOrbitGlow{
+  0%{transform: translate(0,0) scale(1);}
+  25%{transform: translate(16px, -10px) scale(1.02);}
+  50%{transform: translate(0, -18px) scale(1.04);}
+  75%{transform: translate(-16px, -10px) scale(1.02);}
+  100%{transform: translate(0,0) scale(1);}
+}
+
+@media (max-width: 900px){
+  .hold-hud{
+    top: 54px;
+    max-width: calc(100vw - 18px);
+    padding: 6px 8px;
+  }
+  .hold-game-ui{
+    min-width: 185px;
+    top: 10px;
+    font-size: 12px;
+    padding: 7px 9px;
+  }
+  .hold-orb{
+    width: 42px;
+    height: 42px;
+  }
+  .quick-tray{
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    width: auto;
+    padding: 8px 8px 7px;
+  }
+}

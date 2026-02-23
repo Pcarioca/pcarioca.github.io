@@ -11,6 +11,7 @@
   if (typeof APP.api.initCanvas === "function") APP.api.initCanvas();
   if (typeof APP.api.initAudio === "function") APP.api.initAudio();
   if (typeof APP.api.initEasterEggs === "function") APP.api.initEasterEggs();
+  if (typeof APP.api.initHoldActions === "function") APP.api.initHoldActions();
 
   console.info("PCARIOCA_APP initialized");
 })();

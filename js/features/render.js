@@ -21,6 +21,7 @@
     const link = document.createElement("a");
     link.className = "resume";
     link.id = "resumeLink";
+    link.dataset.holdKey = "resumeLink";
     link.href = CONFIG.cvUrl;
     link.target = "_blank";
     link.rel = "noopener noreferrer";
@@ -39,8 +40,10 @@
     }
 
     bulletsEl.innerHTML = "";
-    content[lang].bullets.forEach((item) => {
+    content[lang].bullets.forEach((item, idx) => {
       const li = document.createElement("li");
+      li.dataset.holdKey = `bullet:${idx}`;
+      li.dataset.bulletIndex = String(idx);
       li.innerHTML = `${bulletIcons[item.icon] || ""}<div>${item.html}</div>`;
       bulletsEl.appendChild(li);
     });
@@ -56,9 +59,11 @@
     }
 
     tagsEl.innerHTML = "";
-    content[lang].tags.forEach((tag) => {
+    content[lang].tags.forEach((tag, idx) => {
       const span = document.createElement("span");
       span.className = "tag";
+      span.dataset.holdKey = `tag:${idx}`;
+      span.dataset.tagIndex = String(idx);
       span.textContent = tag;
       tagsEl.appendChild(span);
     });
@@ -76,21 +81,25 @@
     const sections = content[lang].leftWhoAmISections || [];
     container.innerHTML = "";
 
-    sections.forEach((section) => {
+    sections.forEach((section, sectionIdx) => {
       const wrap = document.createElement("section");
       wrap.className = "left-whoami-section";
+      wrap.dataset.sectionIndex = String(sectionIdx);
 
       const title = document.createElement("h3");
       title.className = "left-whoami-section-title";
+      title.dataset.holdKey = `whoami-section:${sectionIdx}`;
       title.textContent = section.title;
       wrap.appendChild(title);
 
       const pillsWrap = document.createElement("div");
       pillsWrap.className = "left-whoami-pills";
 
-      (section.pills || []).forEach((item) => {
+      (section.pills || []).forEach((item, pillIdx) => {
         const pill = document.createElement("span");
         pill.className = "left-whoami-pill";
+        pill.dataset.holdKey = `whoami-pill:${sectionIdx}:${pillIdx}`;
+        pill.dataset.pillLabel = item;
         pill.textContent = item;
         pillsWrap.appendChild(pill);
       });
@@ -113,9 +122,10 @@
     container.innerHTML = "";
     const groups = content[lang].resourceGroups || [];
 
-    groups.forEach((group) => {
+    groups.forEach((group, groupIdx) => {
       const groupCard = document.createElement("article");
       groupCard.className = "resource-group";
+      groupCard.dataset.groupIndex = String(groupIdx);
 
       const title = document.createElement("h3");
       title.className = "resource-group-title";
@@ -133,9 +143,12 @@
 
         const li = document.createElement("li");
         li.className = "resource-item";
+        li.dataset.resourceKey = item.linkKey;
 
         const a = document.createElement("a");
         a.className = "resource-link";
+        a.dataset.holdKey = `resource:${item.linkKey}`;
+        a.dataset.resourceKey = item.linkKey;
         a.href = href;
         a.target = "_blank";
         a.rel = "noopener noreferrer";

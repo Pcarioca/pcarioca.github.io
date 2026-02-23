@@ -35,6 +35,13 @@
     APP.api.renderTags(lang);
     APP.api.renderLeftWhoAmI(lang);
     APP.api.renderResourceGroups(lang);
+
+    if (typeof APP.api.wireInteractiveSounds === "function") {
+      APP.api.wireInteractiveSounds();
+    }
+    if (typeof APP.api.wireHoldActions === "function") {
+      APP.api.wireHoldActions();
+    }
   }
 
   function initLanguage() {
@@ -61,9 +68,6 @@
       a.addEventListener("click", (e) => {
         e.preventDefault();
         setLang(a.dataset.lang);
-        if (typeof APP.api.wireInteractiveSounds === "function") {
-          APP.api.wireInteractiveSounds();
-        }
       });
     });
 
@@ -72,15 +76,12 @@
 
       if (e.key === "1") {
         setLang("en");
-        if (typeof APP.api.wireInteractiveSounds === "function") APP.api.wireInteractiveSounds();
       }
       if (e.key === "2") {
         setLang("ro");
-        if (typeof APP.api.wireInteractiveSounds === "function") APP.api.wireInteractiveSounds();
       }
       if (e.key === "3") {
         setLang("de");
-        if (typeof APP.api.wireInteractiveSounds === "function") APP.api.wireInteractiveSounds();
       }
     });
 

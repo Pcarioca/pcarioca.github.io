@@ -121,6 +121,54 @@
     }
   }
 
+  function playHoldMotif(kind, variant = 0) {
+    if (!APP.state.audioUnlocked) return;
+
+    const profile = APP.state.holdSoundProfile || "classic";
+    const motifMap = {
+      success: ["./audio/c3.mp3", "./audio/e3.mp3", "./audio/g3.mp3"],
+      utility: ["./audio/e4.mp3", "./audio/g4.mp3", "./audio/b5.mp3"],
+      game: ["./audio/c3.mp3", "./audio/d4.mp3", "./audio/f4.mp3", "./audio/g4.mp3"],
+      lang: ["./audio/d4.mp3", "./audio/f4.mp3", "./audio/a3.mp3"],
+      copy: ["./audio/f4.mp3", "./audio/b5.mp3"],
+      pin: ["./audio/e3.mp3", "./audio/g3.mp3"],
+      star: ["./audio/d5.mp3", "./audio/b5.mp3", "./audio/g4.mp3"],
+      pulse: ["./audio/g3.mp3", "./audio/e4.mp3", "./audio/c3.mp3"]
+    };
+    const base = motifMap[kind] || motifMap.success;
+    const shift = Math.abs(Number(variant) || 0) % base.length;
+    const seq = base.map((_, idx) => base[(idx + shift) % base.length]);
+
+    if (profile === "arcade") {
+      seq.forEach((_, idx) => {
+        setTimeout(() => {
+          const freq = 440 + ((idx + shift) * 46);
+          playNote(freq, 0.04, { type: "triangle", volume: 0.055 });
+        }, idx * 65);
+      });
+      return;
+    }
+
+    seq.forEach((src, idx) => {
+      setTimeout(() => {
+        playPianoSample(src, { volume: 0.2, playbackRate: 1 + (idx * 0.02) });
+      }, idx * 78);
+    });
+  }
+
+  function playHoldChargeTick(progress = 0) {
+    if (!APP.state.audioUnlocked) return;
+    const now = performance.now();
+    APP.state.lastHoldChargeTickAt = APP.state.lastHoldChargeTickAt || 0;
+    if (now - APP.state.lastHoldChargeTickAt < 105) return;
+    APP.state.lastHoldChargeTickAt = now;
+
+    const p = Math.max(0, Math.min(1, Number(progress) || 0));
+    const freq = 300 + (p * 530);
+    const type = (APP.state.holdSoundProfile || "classic") === "arcade" ? "triangle" : "sine";
+    playNote(freq, 0.025, { type, volume: 0.032 + (p * 0.02) });
+  }
+
   function ensureWhoAmIMelodyState() {
     APP.state.whoAmIMelody = APP.state.whoAmIMelody || {
       expectedIndex: 0,
@@ -355,6 +403,7 @@
     APP.state.lastHoverSoundAt = 0;
     APP.state.lastPianoHoverSoundAt = 0;
     APP.state.lastMelodyHoverAt = 0;
+    APP.state.lastHoldChargeTickAt = 0;
     APP.state.pianoSamples = {};
     APP.state.whoAmIMelody = null;
 
@@ -421,6 +470,8 @@
 
   APP.api.playNote = playNote;
   APP.api.playPianoSample = playPianoSample;
+  APP.api.playHoldMotif = playHoldMotif;
+  APP.api.playHoldChargeTick = playHoldChargeTick;
   APP.api.resetWhoAmIMelody = resetWhoAmIMelody;
   APP.api.wireInteractiveSounds = wireInteractiveSounds;
   APP.api.initAudio = initAudio;
