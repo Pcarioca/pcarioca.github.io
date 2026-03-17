@@ -136,7 +136,8 @@
           items: [
             { linkKey: "saveTheChildrenActivity", label: "Save the Children Activity", note: "Volunteer activity evidence" },
             { linkKey: "saveTheChildrenRecommendation", label: "Save the Children Recommendation", note: "Recommendation letter" },
-            { linkKey: "universityTaRecommendation", label: "University TA Recommendation", note: "Teaching assistant recommendation letter" }
+            { linkKey: "universityTaRecommendation", label: "University TA Recommendation", note: "Teaching assistant recommendation letter" },
+            { linkKey: "associateProfessorRecommendation", label: "Associate Professor Recommendation", note: "Recommendation letter from Associate Professor" }
           ]
         }
       ]
@@ -276,7 +277,8 @@
           items: [
             { linkKey: "saveTheChildrenActivity", label: "Activitate Save the Children", note: "Dovada activitatii de voluntariat" },
             { linkKey: "saveTheChildrenRecommendation", label: "Recomandare Save the Children", note: "Scrisoare de recomandare" },
-            { linkKey: "universityTaRecommendation", label: "Recomandare Asistent Universitar", note: "Scrisoare de recomandare TA" }
+            { linkKey: "universityTaRecommendation", label: "Recomandare Asistent Universitar", note: "Scrisoare de recomandare TA" },
+            { linkKey: "associateProfessorRecommendation", label: "Recomandare Profesor Asociat", note: "Scrisoare de recomandare de la Profesor Asociat" }
           ]
         }
       ]
@@ -416,7 +418,8 @@
           items: [
             { linkKey: "saveTheChildrenActivity", label: "Save the Children Aktivitaet", note: "Nachweis der ehrenamtlichen Arbeit" },
             { linkKey: "saveTheChildrenRecommendation", label: "Save the Children Empfehlung", note: "Empfehlungsschreiben" },
-            { linkKey: "universityTaRecommendation", label: "Empfehlung Universitaet TA", note: "Empfehlung als Teaching Assistant" }
+            { linkKey: "universityTaRecommendation", label: "Empfehlung Universitaet TA", note: "Empfehlung als Teaching Assistant" },
+            { linkKey: "associateProfessorRecommendation", label: "Empfehlung Ausserordentlicher Professor", note: "Empfehlungsschreiben vom Ausserordentlichen Professor" }
           ]
         }
       ]
