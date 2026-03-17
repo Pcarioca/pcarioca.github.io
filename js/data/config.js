@@ -26,6 +26,7 @@
       logiscoolTrainer: "https://drive.google.com/file/d/1Z3IdOHZfWHMM0mmRZBOwFEOFD_bk-gxP/view",
       saveTheChildrenRecommendation: "https://drive.google.com/file/d/1G0zlnZxDPXZcHY6brqkfcCnTFDbI-tiQ/view",
       universityTaRecommendation: "https://drive.google.com/file/d/1yTVe22cfkpQ2TWw2SOqK_VNahoThwqrE/view",
+      associateProfessorRecommendation: "https://drive.google.com/file/d/1gZgXKSneI09FdekteXgSKc5dFf8Qnvbl/view",
       volunteerOfTheYear: "https://drive.google.com/file/d/18m0bPzo_TOrYNOQUt8tfCmKt3dgNtRco/view",
       saveTheChildrenActivity: "https://drive.google.com/file/d/1ADLfCqb1x-_JbbaVgGo8LFQI1Tw5uQnT/view",
       githubProfile: "https://github.com/Pcarioca"
