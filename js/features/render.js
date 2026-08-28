@@ -15,7 +15,7 @@
     subtitleP.innerHTML = "";
 
     const span = document.createElement("span");
-    span.textContent = content[lang].subtitle + " ";
+    span.textContent = content[lang].heroSupport + " ";
     subtitleP.appendChild(span);
 
     const link = document.createElement("a");
@@ -59,13 +59,29 @@
     }
 
     tagsEl.innerHTML = "";
-    content[lang].tags.forEach((tag, idx) => {
-      const span = document.createElement("span");
-      span.className = "tag";
-      span.dataset.holdKey = `tag:${idx}`;
-      span.dataset.tagIndex = String(idx);
-      span.textContent = tag;
-      tagsEl.appendChild(span);
+    let tagIndex = 0;
+    (content[lang].expertiseGroups || []).forEach((group) => {
+      const groupEl = document.createElement("article");
+      groupEl.className = "expertise-group";
+
+      const title = document.createElement("h3");
+      title.className = "expertise-group-title";
+      title.textContent = group.title;
+      groupEl.appendChild(title);
+
+      const tagsWrap = document.createElement("div");
+      tagsWrap.className = "tags";
+      (group.skills || []).forEach((tag) => {
+        const span = document.createElement("span");
+        span.className = "tag";
+        span.dataset.holdKey = `tag:${tagIndex}`;
+        span.dataset.tagIndex = String(tagIndex);
+        span.textContent = tag;
+        tagsWrap.appendChild(span);
+        tagIndex += 1;
+      });
+      groupEl.appendChild(tagsWrap);
+      tagsEl.appendChild(groupEl);
     });
   }
 
@@ -109,18 +125,16 @@
     });
   }
 
-  function renderResourceGroups(lang) {
-    const content = APP.data.content;
+  function renderResourceGroupsInto(lang, containerSelector, groups) {
     const CONFIG = APP.data.CONFIG;
-    const container = $("#resourceGroups");
+    const container = $(containerSelector);
 
     if (!container) {
-      console.warn("[app] Missing selector: #resourceGroups");
+      console.warn(`[app] Missing selector: ${containerSelector}`);
       return;
     }
 
     container.innerHTML = "";
-    const groups = content[lang].resourceGroups || [];
 
     groups.forEach((group, groupIdx) => {
       const groupCard = document.createElement("article");
@@ -135,31 +149,57 @@
       list.className = "resource-list";
 
       group.items.forEach((item) => {
-        const href = CONFIG.resourceLinks[item.linkKey];
-        if (!href) {
-          console.warn(`[app] Missing resource link for key: ${item.linkKey}`);
-          return;
-        }
-
         const li = document.createElement("li");
         li.className = "resource-item";
-        li.dataset.resourceKey = item.linkKey;
+        if (item.linkKey) {
+          const href = CONFIG.resourceLinks[item.linkKey];
+          if (!href) {
+            console.warn(`[app] Missing resource link for key: ${item.linkKey}`);
+            return;
+          }
 
-        const a = document.createElement("a");
-        a.className = "resource-link";
-        a.dataset.holdKey = `resource:${item.linkKey}`;
-        a.dataset.resourceKey = item.linkKey;
-        a.href = href;
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-        a.textContent = item.label;
-        li.appendChild(a);
+          li.dataset.resourceKey = item.linkKey;
+          const a = document.createElement("a");
+          a.className = "resource-link";
+          a.dataset.holdKey = `resource:${item.linkKey}`;
+          a.dataset.resourceKey = item.linkKey;
+          a.href = href;
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          a.textContent = item.label;
+          li.appendChild(a);
+        } else {
+          const label = document.createElement("span");
+          label.className = "resource-label";
+          label.textContent = item.label;
+          li.appendChild(label);
+        }
 
         if (item.note) {
           const note = document.createElement("p");
           note.className = "resource-note";
           note.textContent = item.note;
           li.appendChild(note);
+        }
+
+        if (item.noteLinks?.length) {
+          const links = document.createElement("p");
+          links.className = "resource-note-links";
+          item.noteLinks.forEach((noteLink, idx) => {
+            const href = CONFIG.resourceLinks[noteLink.linkKey];
+            if (!href) return;
+            if (idx > 0) links.appendChild(document.createTextNode(" · "));
+            const a = document.createElement("a");
+            a.className = "resource-link resource-note-link";
+            a.dataset.holdKey = `resource:${noteLink.linkKey}`;
+            a.dataset.resourceKey = noteLink.linkKey;
+            a.href = href;
+            a.target = "_blank";
+            a.rel = "noopener noreferrer";
+            a.textContent = noteLink.label;
+            links.appendChild(a);
+          });
+          if (links.childNodes.length) li.appendChild(links);
         }
 
         list.appendChild(li);
@@ -171,9 +211,169 @@
     });
   }
 
+  function renderResourceGroups(lang) {
+    renderResourceGroupsInto(lang, "#resourceGroups", APP.data.content[lang].resourceGroups || []);
+  }
+
+  function renderProjectGroups(lang) {
+    renderResourceGroupsInto(lang, "#projectGroups", APP.data.content[lang].projectGroups || []);
+  }
+
+  function renderRecognitionGroups(lang) {
+    renderResourceGroupsInto(lang, "#recognitionGroups", APP.data.content[lang].recognitionGroups || []);
+  }
+
+  function renderEducation(lang) {
+    const content = APP.data.content[lang];
+    const container = $("#educationItems");
+    if (!container) return;
+    container.innerHTML = "";
+
+    (content.education || []).forEach((item) => {
+      const card = document.createElement("article");
+      card.className = "education-item";
+
+      const title = document.createElement("h3");
+      title.className = "education-item-title";
+      title.textContent = item.title;
+      card.appendChild(title);
+
+      const institution = item.institutionLinkKey ? document.createElement("a") : document.createElement("p");
+      institution.className = "education-institution";
+      institution.textContent = item.institution;
+      if (item.institutionLinkKey) {
+        const href = APP.data.CONFIG.resourceLinks[item.institutionLinkKey];
+        if (href) {
+          institution.href = href;
+          institution.target = "_blank";
+          institution.rel = "noopener noreferrer";
+        }
+      }
+      card.appendChild(institution);
+
+      if (item.period) {
+        const period = document.createElement("span");
+        period.className = "education-period";
+        period.textContent = item.period;
+        card.appendChild(period);
+      }
+
+      if (item.focus) {
+        const focus = document.createElement("p");
+        focus.className = "education-focus";
+        focus.innerHTML = `<b>${content.focusLabel}:</b> ${item.focus}`;
+        card.appendChild(focus);
+      }
+      container.appendChild(card);
+    });
+  }
+
+  function renderTeaching(lang) {
+    const content = APP.data.content[lang];
+    const intro = $("#teachingIntro");
+    const container = $("#teachingItems");
+    if (!intro || !container) return;
+    intro.textContent = content.teachingIntro || "";
+    container.innerHTML = "";
+
+    (content.teachingItems || []).forEach((item) => {
+      const li = document.createElement("li");
+      li.className = "teaching-item";
+      const title = item.titleLinkKey ? document.createElement("a") : document.createElement("h3");
+      title.className = "teaching-item-title";
+      title.textContent = item.title;
+      if (item.titleLinkKey) {
+        const href = APP.data.CONFIG.resourceLinks[item.titleLinkKey];
+        if (href) {
+          title.href = href;
+          title.target = "_blank";
+          title.rel = "noopener noreferrer";
+        }
+      }
+      li.appendChild(title);
+      const note = document.createElement("p");
+      note.className = "teaching-item-note";
+      note.textContent = item.note;
+      li.appendChild(note);
+      (item.noteLinks || []).forEach((noteLink, idx) => {
+        const href = APP.data.CONFIG.resourceLinks[noteLink.linkKey];
+        if (!href) return;
+        const link = document.createElement("a");
+        link.className = "resource-link teaching-link";
+        link.dataset.holdKey = `resource:${noteLink.linkKey}`;
+        link.dataset.resourceKey = noteLink.linkKey;
+        link.href = href;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = noteLink.label;
+        if (idx > 0) li.appendChild(document.createTextNode(" · "));
+        li.appendChild(link);
+      });
+      container.appendChild(li);
+    });
+  }
+
+  function renderLanguages(lang) {
+    const content = APP.data.content[lang];
+    const container = $("#languagesList");
+    if (!container) return;
+    container.innerHTML = "";
+
+    (content.languages || []).forEach((item) => {
+      const li = document.createElement("li");
+      li.className = "language-item";
+      const primary = item.linkKey ? document.createElement("a") : document.createElement("span");
+      primary.className = item.linkKey ? "language-primary" : "language-text";
+      primary.textContent = `${item.name} — ${item.level}`;
+      if (item.linkKey) {
+        const href = APP.data.CONFIG.resourceLinks[item.linkKey];
+        if (href) {
+          primary.dataset.holdKey = `resource:${item.linkKey}`;
+          primary.dataset.resourceKey = item.linkKey;
+          primary.href = href;
+          primary.target = "_blank";
+          primary.rel = "noopener noreferrer";
+        }
+      }
+      li.appendChild(primary);
+      container.appendChild(li);
+    });
+  }
+
+  function renderWork(lang) {
+    const container = $("#workItems");
+    const content = APP.data.content[lang];
+    if (!container) return;
+    container.innerHTML = "";
+    (content.workItems || []).forEach((item) => {
+      const li = document.createElement("li");
+      li.className = "work-item";
+      const link = document.createElement("a");
+      link.className = "resource-link";
+      link.dataset.holdKey = `resource:${item.linkKey}`;
+      link.dataset.resourceKey = item.linkKey;
+      link.href = APP.data.CONFIG.resourceLinks[item.linkKey];
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = item.label;
+      li.appendChild(link);
+      const note = document.createElement("p");
+      note.className = "resource-note";
+      note.textContent = item.note;
+      li.appendChild(note);
+      container.appendChild(li);
+    });
+  }
+
   APP.api.renderSubtitle = renderSubtitle;
   APP.api.renderBullets = renderBullets;
   APP.api.renderTags = renderTags;
   APP.api.renderLeftWhoAmI = renderLeftWhoAmI;
   APP.api.renderResourceGroups = renderResourceGroups;
+  APP.api.renderProjectGroups = renderProjectGroups;
+  APP.api.renderRecognitionGroups = renderRecognitionGroups;
+  APP.api.renderEducation = renderEducation;
+  APP.api.renderWork = renderWork;
+  APP.api.renderTeaching = renderTeaching;
+  APP.api.renderLanguages = renderLanguages;
 })();

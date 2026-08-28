@@ -18,17 +18,17 @@
 
 #cursorGlow{
   position:fixed;
-  left: calc(var(--mx) - 220px);
-  top:  calc(var(--my) - 220px);
-  width:440px; height:440px;
+  left: calc(var(--mx) - 770px);
+  top:  calc(var(--my) - 270px);
+  width:1540px; height:940px;
   border-radius:50%;
   background:
     radial-gradient(circle at 30% 25%,
-      rgba(var(--blue), calc(.18 * var(--glow))), transparent 60%),
+      rgba(var(--blue), calc(.18 * var(--glow))), transparent 90%),
     radial-gradient(circle at 70% 75%,
-      rgba(var(--purple), calc(.14 * var(--glow))), transparent 62%);
-  filter: blur(14px);
+      rgba(var(--purple), calc(.14 * var(--glow))), transparent 12%);
+  filter: blur(94px);
   z-index:2;
   pointer-events:none;
-  opacity:.95;
+  opacity:.15;
 }

@@ -175,7 +175,7 @@
     }, durationMs);
 
     playPianoRun(["./audio/e4.mp3", "./audio/f4.mp3", "./audio/g4.mp3"], 95, 0.17);
-    notify("eggMatrixOn", "VISIONAI mode enabled.");
+    notify("eggMatrixOn", "Matrix mode enabled.");
   }
 
   function randomMove(prevFace, prevAxis) {
@@ -410,6 +410,8 @@
         closeAllEggModes();
         return;
       }
+
+      if (APP.state.holdGameState) return;
 
       if (e.shiftKey && e.key.toLowerCase() === "c") {
         e.preventDefault();

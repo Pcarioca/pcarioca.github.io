@@ -102,8 +102,231 @@
   text-align: center;
   font-size: 13px;
   font-weight: 700;
-  pointer-events: none;
+  pointer-events: auto;
 }
+.debug-game-title{
+  font-family: Space Grotesk, Inter, system-ui;
+  letter-spacing:.8px;
+  color:rgba(var(--blue), .96);
+}
+.debug-game-score,
+.debug-game-help{
+  margin-top:4px;
+  font-size:11px;
+  color:rgba(255,255,255,.72);
+}
+.debug-game-actions{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:8px;
+}
+.debug-game-actions button{
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:8px;
+  background:rgba(255,255,255,.08);
+  color:rgba(255,255,255,.92);
+  padding:5px 8px;
+  font:inherit;
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+}
+.debug-game-actions button:hover,
+.debug-game-actions button:focus-visible{
+  border-color:rgba(var(--blue), .5);
+  background:rgba(var(--blue), .18);
+  outline:none;
+}
+
+/* Compact hardware easter egg: Build the D Latch */
+.hold-game-layer.latch-open{
+  background:rgba(2,6,14,.62);
+  backdrop-filter:blur(5px);
+}
+.hold-game-layer.latch-open .hold-game-canvas,
+.hold-game-layer.latch-open .hold-game-orbs{
+  display:none;
+}
+.hold-game-layer.latch-open .hold-game-ui{
+  inset:0;
+  transform:none;
+  min-width:0;
+  width:auto;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  display:grid;
+  place-items:center;
+  pointer-events:none;
+}
+.latch-modal{
+  width:min(880px, calc(100vw - 32px));
+  max-height:calc(100vh - 32px);
+  overflow:auto;
+  pointer-events:auto;
+  border:1px solid rgba(var(--blue), .46);
+  border-radius:20px;
+  background:linear-gradient(145deg, rgba(11,18,34,.98), rgba(4,9,18,.98));
+  box-shadow:0 24px 72px rgba(0,0,0,.6), 0 0 34px rgba(var(--blue), .12);
+  color:rgba(255,255,255,.9);
+}
+.latch-modal-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:18px;
+  padding:22px 24px 12px;
+}
+.latch-modal h2{
+  margin:0;
+  font:700 clamp(22px, 3vw, 30px)/1.1 Space Grotesk, Inter, system-ui;
+  letter-spacing:-.5px;
+}
+.latch-modal-head p{
+  margin:7px 0 0;
+  color:rgba(203,213,225,.72);
+  font-size:14px;
+}
+.latch-close{
+  appearance:none;
+  width:34px;
+  height:34px;
+  border:0;
+  border-radius:10px;
+  background:transparent;
+  color:rgba(226,232,240,.74);
+  font:300 30px/1 Inter, system-ui;
+  cursor:pointer;
+}
+.latch-close:hover,
+.latch-close:focus-visible{
+  color:#fff;
+  background:rgba(255,255,255,.08);
+  outline:2px solid rgba(var(--blue), .58);
+  outline-offset:2px;
+}
+.latch-body{
+  display:grid;
+  grid-template-columns:160px minmax(0, 1fr);
+  gap:18px;
+  padding:0 24px 18px;
+}
+.latch-tray{
+  align-self:center;
+  padding:13px;
+  border:1px solid rgba(148,163,184,.2);
+  border-radius:14px;
+  background:rgba(15,23,42,.5);
+}
+.latch-tray h3{
+  margin:0 0 10px;
+  font:600 12px/1.2 Space Grotesk, Inter, system-ui;
+  letter-spacing:.3px;
+  text-transform:uppercase;
+  color:rgba(191,219,254,.8);
+}
+.latch-gate{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-top:8px;
+  padding:10px 9px;
+  border:1px solid rgba(148,163,184,.28);
+  border-radius:10px;
+  background:rgba(15,23,42,.76);
+  color:rgba(226,232,240,.92);
+  font:600 13px/1 Inter, system-ui;
+  cursor:grab;
+  touch-action:manipulation;
+}
+.latch-gate:hover,
+.latch-gate.is-selected,
+.latch-gate:focus-visible{
+  border-color:rgba(var(--blue), .7);
+  background:rgba(var(--blue), .13);
+  box-shadow:0 0 16px rgba(var(--blue), .15);
+  outline:none;
+}
+.latch-gate.is-placed{opacity:.34; cursor:default;}
+.latch-mini{
+  display:grid;
+  place-items:center;
+  width:30px;
+  height:22px;
+  border:1px solid rgba(var(--blue), .72);
+  border-radius:4px 12px 12px 4px;
+  color:rgba(147,197,253,.95);
+  font-size:10px;
+}
+.latch-mini.not{border-radius:0; border:0; font-size:18px; letter-spacing:-5px;}
+.latch-schematic{position:relative; min-width:0; aspect-ratio:760 / 340;}
+.latch-circuit{position:absolute; inset:0; width:100%; height:100%; overflow:visible;}
+.latch-wire{
+  fill:none;
+  stroke:rgba(148,163,184,.44);
+  stroke-width:2.1;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  transition:stroke .16s ease, filter .16s ease;
+}
+.latch-wire.is-high{stroke:rgba(96,165,250,.98); filter:drop-shadow(0 0 4px rgba(96,165,250,.85));}
+.latch-node{fill:rgba(15,23,42,.9); stroke:rgba(148,163,184,.72); stroke-width:2;}
+.latch-node.is-high{fill:rgba(96,165,250,.92); stroke:rgba(191,219,254,.98); filter:drop-shadow(0 0 5px rgba(96,165,250,.9));}
+.latch-gate-svg{fill:rgba(9,16,30,.9); stroke:rgba(165,180,252,.8); stroke-width:1.8;}
+.latch-gate-svg text{fill:rgba(226,232,240,.86); stroke:none; font:700 10px Inter, system-ui;}
+.latch-fixed-gate{fill:rgba(15,23,42,.92);}
+.latch-slot-svg{fill:rgba(15,23,42,.5); stroke:rgba(147,197,253,.62); stroke-dasharray:5 4; stroke-width:1.5;}
+.latch-slot-label{fill:rgba(191,219,254,.68); font:700 11px Inter, system-ui;}
+.latch-signal-label,.latch-output-label{fill:rgba(241,245,249,.92); font:600 18px Space Grotesk, Inter, system-ui;}
+.latch-net-label{fill:rgba(191,219,254,.64); font:700 12px Inter, system-ui;}
+.latch-drop-layer{position:absolute; inset:0; z-index:2; pointer-events:none;}
+.latch-slot{position:absolute; border:1px solid transparent; border-radius:9px; background:transparent; pointer-events:auto; cursor:crosshair; touch-action:manipulation;}
+.latch-slot:hover:not([disabled]),
+.latch-slot:focus-visible:not([disabled]){border-color:rgba(var(--blue), .72); background:rgba(var(--blue), .09); outline:none;}
+.latch-slot.is-filled{cursor:default; pointer-events:none;}
+.slot-not{left:22.5%; top:60%; width:10%; height:19%;}
+.slot-upper{left:41%; top:24%; width:11%; height:20%;}
+.slot-lower{left:41%; top:63%; width:11%; height:20%;}
+.slot-nor-upper{left:62.2%; top:25%; width:11%; height:20%;}
+.slot-nor-lower{left:62.2%; top:70%; width:11%; height:20%;}
+.latch-reject{animation:latchReject .28s ease; border-color:rgba(248,113,113,.92)!important; background:rgba(248,113,113,.12)!important;}
+@keyframes latchReject{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.latch-footer{
+  display:grid;
+  grid-template-columns:auto minmax(0, 1fr) auto;
+  align-items:center;
+  gap:14px;
+  border-top:1px solid rgba(148,163,184,.17);
+  padding:15px 24px 19px;
+}
+.latch-status{grid-column:2; grid-row:1; margin:0; font-size:13px; color:rgba(203,213,225,.74); text-align:center;}
+.latch-controls{grid-column:1; grid-row:1; display:flex; gap:12px; justify-self:start;}
+.latch-controls button{
+  width:62px;
+  height:62px;
+  min-width:62px;
+  padding:0;
+  border:1px solid rgba(var(--blue), .72);
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, rgba(191,219,254,.24), rgba(var(--blue), .08) 60%, rgba(15,23,42,.9));
+  color:rgba(219,234,254,.96);
+  font:700 12px/1.35 Space Grotesk, Inter, system-ui;
+  cursor:pointer;
+  box-shadow:0 0 0 4px rgba(var(--blue), .06), inset 0 0 14px rgba(var(--blue), .1);
+}
+.latch-controls button:hover:not([disabled]),
+.latch-controls button:focus-visible:not([disabled]){background:radial-gradient(circle at 35% 30%, rgba(219,234,254,.36), rgba(var(--blue), .23) 60%, rgba(15,23,42,.9)); box-shadow:0 0 0 4px rgba(var(--blue), .1), 0 0 20px rgba(var(--blue), .38); outline:none;}
+.latch-controls button:disabled{opacity:.42; cursor:not-allowed;}
+.latch-controls strong{display:block; margin-top:2px; font-size:16px; line-height:1;}
+.latch-leds{grid-column:3; grid-row:1; display:flex; gap:14px; justify-self:end; font-size:12px; color:rgba(226,232,240,.82);}
+.latch-leds span{display:flex; align-items:center; gap:7px; white-space:nowrap; font-weight:700;}
+.latch-led{width:14px; height:14px; border-radius:50%; border:1px solid rgba(148,163,184,.62); background:radial-gradient(circle at 35% 30%, rgba(100,116,139,.9), rgba(30,41,59,.88)); box-shadow:inset 0 0 5px rgba(0,0,0,.55);}
+.latch-led.is-on{background:radial-gradient(circle at 35% 30%, rgba(239,246,255,1), rgba(96,165,250,1) 42%, rgba(37,99,235,.86)); border-color:rgba(191,219,254,1); box-shadow:0 0 14px rgba(96,165,250,.98), 0 0 28px rgba(96,165,250,.42);}
 .hold-game-orbs{
   position: absolute;
   inset: 0;
@@ -292,6 +515,20 @@ body.orbit-cursor #cursorGlow{
     font-size: 12px;
     padding: 7px 9px;
   }
+  .hold-game-layer.latch-open .hold-game-ui{padding:0;}
+  .latch-modal{width:min(680px, calc(100vw - 18px)); max-height:calc(100vh - 18px); border-radius:16px;}
+  .latch-modal-head{padding:17px 17px 10px;}
+  .latch-modal-head p{font-size:12px;}
+  .latch-body{grid-template-columns:1fr; gap:10px; padding:0 17px 13px;}
+  .latch-tray{display:grid; grid-template-columns:auto repeat(3, 1fr); align-items:center; gap:7px; padding:9px;}
+  .latch-tray h3{margin:0; font-size:10px;}
+  .latch-gate{margin:0; padding:8px 6px; justify-content:center; font-size:11px;}
+  .latch-mini{display:none;}
+  .latch-footer{grid-template-columns:1fr; gap:10px; padding:12px 17px 15px;}
+  .latch-status,.latch-controls,.latch-leds{grid-column:auto; grid-row:auto;}
+  .latch-controls{width:100%;}
+  .latch-controls button{flex:1; min-width:0;}
+  .latch-leds{justify-content:flex-end;}
   .hold-orb{
     width: 42px;
     height: 42px;

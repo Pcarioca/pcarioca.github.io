@@ -426,74 +426,333 @@
     APP.refs.holdGameUi.textContent = text;
   }
 
-  function startOrbCatchGame() {
+  function startLegacyOrbCatchGame() {
     stopActiveGame();
     activateGameLayer();
     sizeGameCanvas();
 
     const hold = ensureState();
-    const orbsWrap = APP.refs.holdGameOrbs;
-    if (!orbsWrap) return;
-
-    const game = {
-      kind: "orb-catch",
-      score: 0,
-      timeLeft: 10,
-      timers: []
+    const layer = APP.refs.holdGameLayer;
+    const canvas = APP.refs.holdGameCanvas;
+    const ui = APP.refs.holdGameUi;
+    if (!layer || !canvas || !ui) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    const readBest = () => {
+      try { return Number(localStorage.getItem("debugSystemBest") || 0); } catch { return 0; }
     };
+    const writeBest = (value) => {
+      try { localStorage.setItem("debugSystemBest", String(value)); } catch { /* preference storage is optional */ }
+    };
+    const game = {
+      kind: "debug-system",
+      score: 0,
+      best: readBest(),
+      level: 1,
+      phase: "ready",
+      packets: [],
+      keys: new Set(),
+      player: { x: window.innerWidth / 2, y: window.innerHeight - 92, size: 24 },
+      lastFrame: 0,
+      spawnElapsed: 0,
+      raf: 0,
+      cleanup: null
+    };
+    const gameText = (key, fallback) => t(key, fallback);
     hold.activeGame = game;
     APP.state.holdGameState = game;
     dispatch("pcarioca:hold:game-start", { kind: game.kind });
-    APP.api.playHoldMotif?.("game");
-    notify("holdOrbGameStart", "Orb Catch started.");
 
-    const spawnOrb = () => {
-      const orb = document.createElement("button");
-      orb.type = "button";
-      orb.className = "hold-orb";
-      const x = 24 + Math.random() * Math.max(20, window.innerWidth - 90);
-      const y = 80 + Math.random() * Math.max(40, window.innerHeight - 180);
-      orb.style.left = `${x}px`;
-      orb.style.top = `${y}px`;
-
-      let hit = false;
-      orb.addEventListener("pointerdown", () => {
-        if (hit) return;
-        hit = true;
-        game.score += 1;
-        orb.classList.add("hold-orb-hit");
-        APP.api.playHoldChargeTick?.(Math.min(1, game.score / 12));
-        setTimeout(() => orb.remove(), 130);
+    const renderUi = () => {
+      const action = game.phase === "ready" ? gameText("debugGameStart", "Start") : gameText("debugGameRestart", "Restart");
+      const status = game.phase === "over" ? gameText("debugGameCorrupted", "SYSTEM CORRUPTED") : gameText("debugGameHelp", "Collect blue packets. Avoid red bugs. Use ← → or A / D.");
+      ui.innerHTML = `<div class="debug-game-title">${gameText("debugGameTitle", "DEBUG THE SYSTEM")}</div><div class="debug-game-score">${gameText("debugGameScore", "Score")} ${game.score} · ${gameText("debugGameBest", "Best")} ${game.best} · ${gameText("debugGameLevel", "Level")} ${game.level}</div><div class="debug-game-help">${status}</div><div class="debug-game-actions"><button type="button" data-debug-action="start">${action}</button><button type="button" data-debug-action="left" aria-label="${gameText("debugGameMoveLeft", "Move left")}">←</button><button type="button" data-debug-action="right" aria-label="${gameText("debugGameMoveRight", "Move right")}">→</button><button type="button" data-debug-action="exit">${gameText("debugGameExit", "Exit")}</button></div>`;
+    };
+    const draw = () => {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      ctx.fillStyle = "rgba(3, 8, 16, .58)";
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+      ctx.strokeStyle = "rgba(96,165,250,.13)";
+      ctx.lineWidth = 1;
+      for (let x = 0; x < window.innerWidth; x += 42) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, window.innerHeight); ctx.stroke(); }
+      for (let y = 0; y < window.innerHeight; y += 42) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(window.innerWidth, y); ctx.stroke(); }
+      game.packets.forEach((packet) => {
+        ctx.fillStyle = packet.bad ? "rgba(248,113,113,.92)" : "rgba(96,165,250,.92)";
+        ctx.fillRect(packet.x - packet.size / 2, packet.y - packet.size / 2, packet.size, packet.size);
+        ctx.strokeStyle = packet.bad ? "rgba(254,202,202,.9)" : "rgba(224,242,254,.9)";
+        ctx.strokeRect(packet.x - packet.size / 2, packet.y - packet.size / 2, packet.size, packet.size);
       });
-
-      orbsWrap.appendChild(orb);
-      const ttl = setTimeout(() => {
-        orb.remove();
-      }, 1250);
-      game.timers.push(ttl);
+      ctx.fillStyle = "rgba(16,185,129,.96)";
+      ctx.fillRect(game.player.x - game.player.size / 2, game.player.y - game.player.size / 2, game.player.size, game.player.size);
+      ctx.strokeStyle = "rgba(236,253,245,.95)";
+      ctx.strokeRect(game.player.x - game.player.size / 2, game.player.y - game.player.size / 2, game.player.size, game.player.size);
     };
-
-    const tickUi = () => {
-      setGameUi(`${t("holdOrbGameStart", "Orb Catch")} · ${game.timeLeft}s · ${game.score}`);
+    const reset = () => {
+      game.score = 0;
+      game.level = 1;
+      game.packets = [];
+      game.spawnElapsed = 0;
+      game.player.x = window.innerWidth / 2;
+      game.player.y = window.innerHeight - 92;
+      game.phase = "running";
+      game.lastFrame = performance.now();
+      renderUi();
+      APP.api.playHoldMotif?.("game");
     };
-
-    tickUi();
-    spawnOrb();
-
-    const spawnInterval = setInterval(spawnOrb, 620);
-    const timerInterval = setInterval(() => {
-      game.timeLeft -= 1;
-      tickUi();
-      if (game.timeLeft <= 0) {
-        clearInterval(spawnInterval);
-        clearInterval(timerInterval);
-        notify("holdOrbGameEnd", `Orb Catch score: ${game.score}`);
-        APP.api.playHoldMotif?.("success", game.score);
-        stopActiveGame();
+    const end = () => {
+      game.phase = "over";
+      game.keys.clear();
+      game.best = Math.max(game.best, game.score);
+      writeBest(game.best);
+      renderUi();
+      notify("holdOrbGameEnd", `Debug score: ${game.score}`);
+    };
+    const step = (now) => {
+      const dt = Math.min(48, now - game.lastFrame || 16);
+      game.lastFrame = now;
+      if (game.phase === "running") {
+        const direction = (game.keys.has("arrowright") || game.keys.has("d")) - (game.keys.has("arrowleft") || game.keys.has("a"));
+        game.player.x = clamp(game.player.x + direction * (0.34 * dt), 24, window.innerWidth - 24);
+        game.level = 1 + Math.floor(game.score / 6);
+        game.spawnElapsed += dt;
+        const spawnEvery = Math.max(260, 760 - (game.level * 55));
+        if (game.spawnElapsed >= spawnEvery) {
+          game.spawnElapsed = 0;
+          game.packets.push({ x: 22 + Math.random() * Math.max(20, window.innerWidth - 44), y: 72, size: 14 + Math.random() * 8, speed: 0.10 + game.level * 0.026, bad: Math.random() < Math.min(.34, .12 + game.level * .025) });
+        }
+        game.packets.forEach((packet) => { packet.y += packet.speed * dt; });
+        game.packets = game.packets.filter((packet) => packet.y < window.innerHeight + 36);
+        for (let i = game.packets.length - 1; i >= 0; i -= 1) {
+          const packet = game.packets[i];
+          const hit = Math.abs(packet.x - game.player.x) < (packet.size + game.player.size) / 2 && Math.abs(packet.y - game.player.y) < (packet.size + game.player.size) / 2;
+          if (!hit) continue;
+          game.packets.splice(i, 1);
+          if (packet.bad) { end(); break; }
+          game.score += 1;
+          APP.api.playPianoSample?.("./audio/g4.mp3", { volume: 0.11 });
+          renderUi();
+        }
       }
-    }, 1000);
+      draw();
+      game.raf = requestAnimationFrame(step);
+    };
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") { event.preventDefault(); stopActiveGame(); return; }
+      const key = event.key.toLowerCase();
+      if (["arrowleft", "arrowright", "a", "d"].includes(key) && game.phase === "running") {
+        event.preventDefault();
+        game.keys.add(key);
+      }
+    };
+    const onKeyUp = (event) => game.keys.delete(event.key.toLowerCase());
+    const onUiClick = (event) => {
+      const button = event.target.closest("[data-debug-action]");
+      if (!button) return;
+      const action = button.dataset.debugAction;
+      if (action === "start") reset();
+      if (action === "exit") stopActiveGame();
+      if (action === "left" && game.phase === "running") game.player.x = clamp(game.player.x - 42, 24, window.innerWidth - 24);
+      if (action === "right" && game.phase === "running") game.player.x = clamp(game.player.x + 42, 24, window.innerWidth - 24);
+    };
+    const onResize = () => sizeGameCanvas();
+    const onVisibilityChange = () => {
+      if (document.hidden) stopActiveGame();
+    };
+    window.addEventListener("keydown", onKeyDown, true);
+    window.addEventListener("keyup", onKeyUp, true);
+    window.addEventListener("resize", onResize);
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    ui.addEventListener("click", onUiClick);
+    game.cleanup = () => {
+      window.removeEventListener("keydown", onKeyDown, true);
+      window.removeEventListener("keyup", onKeyUp, true);
+      window.removeEventListener("resize", onResize);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      ui.removeEventListener("click", onUiClick);
+    };
+    renderUi();
+    draw();
+    game.raf = requestAnimationFrame(step);
+  }
 
-    game.timers.push(spawnInterval, timerInterval);
+  function startOrbCatchGame() {
+    stopActiveGame();
+    activateGameLayer();
+
+    const hold = ensureState();
+    const layer = APP.refs.holdGameLayer;
+    const ui = APP.refs.holdGameUi;
+    if (!layer || !ui) return;
+
+    const game = {
+      kind: "d-latch",
+      placed: { not: false, upper: false, lower: false, norUpper: false, norLower: false },
+      selectedGate: null,
+      d: 0,
+      enabled: 0,
+      q: 0,
+      cleanup: null
+    };
+    const text = (key, fallback) => t(key, fallback);
+    const slotGate = { not: "not", upper: "and", lower: "and", norUpper: "nor", norLower: "nor" };
+    let restoreOverflow = "";
+    const previousFocus = document.activeElement;
+
+    hold.activeGame = game;
+    APP.state.holdGameState = game;
+    layer.classList.add("latch-open");
+    restoreOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    dispatch("pcarioca:hold:game-start", { kind: game.kind });
+
+    const signalClass = (on) => on ? " is-high" : "";
+    const wire = (name, path, on) => `<path class="latch-wire${signalClass(on)}" data-wire="${name}" d="${path}" />`;
+    const node = (x, y, on) => `<circle class="latch-node${signalClass(on)}" cx="${x}" cy="${y}" r="4" />`;
+    const notGate = (x, y, placed) => placed
+      ? `<g class="latch-gate-svg"><path d="M ${x} ${y} L ${x} ${y + 48} L ${x + 48} ${y + 24} Z"/><circle cx="${x + 55}" cy="${y + 24}" r="6"/><text x="${x + 17}" y="${y + 30}">NOT</text></g>`
+      : `<rect class="latch-slot-svg" x="${x - 8}" y="${y - 8}" width="76" height="64" rx="8"/><text class="latch-slot-label" x="${x + 18}" y="${y + 31}">NOT</text>`;
+    const andGate = (x, y, placed, label) => placed
+      ? `<g class="latch-gate-svg"><path d="M ${x} ${y} H ${x + 32} A 30 30 0 0 1 ${x + 32} ${y + 60} H ${x} Z"/><text x="${x + 10}" y="${y + 36}">AND</text></g>`
+      : `<rect class="latch-slot-svg" x="${x - 8}" y="${y - 8}" width="76" height="66" rx="8"/><text class="latch-slot-label" x="${x + 14}" y="${y + 32}">${label}</text>`;
+    const norGate = (x, y, placed) => placed
+      ? `<g class="latch-gate-svg latch-fixed-gate"><path d="M ${x} ${y} Q ${x + 20} ${y + 25} ${x} ${y + 50} Q ${x + 48} ${y + 50} ${x + 58} ${y + 25} Q ${x + 48} ${y} ${x} ${y} Z"/><circle cx="${x + 64}" cy="${y + 25}" r="5"/><text x="${x + 15}" y="${y + 30}">NOR</text></g>`
+      : `<rect class="latch-slot-svg" x="${x - 8}" y="${y - 8}" width="82" height="66" rx="8"/><text class="latch-slot-label" x="${x + 17}" y="${y + 31}">NOR</text>`;
+
+    const isComplete = () => game.placed.not && game.placed.upper && game.placed.lower && game.placed.norUpper && game.placed.norLower;
+    const syncLatch = () => {
+      if (game.enabled) game.q = game.d;
+    };
+    const play = (src, volume = 0.12) => APP.api.playPianoSample?.(src, { volume });
+
+    const circuitSvg = () => {
+      const dn = Number(!game.d);
+      const r = Number(game.enabled && dn);
+      const s = Number(game.enabled && game.d);
+      const qbar = Number(!game.q);
+      return `<svg class="latch-circuit" viewBox="0 0 760 340" role="img" aria-label="Gated D latch schematic. D is ${game.d}; Enable is ${game.enabled}; Q is ${game.q}; Q bar is ${qbar}.">
+        <text class="latch-signal-label" x="14" y="96">D</text>
+        <text class="latch-signal-label" x="14" y="176">E</text>
+        ${wire("d", "M 55 90 H 280 V 104 H 320 M 130 90 V 234 H 180", game.d)}
+        ${wire("enable-upper", "M 55 170 H 122 M 138 170 H 260 V 146 H 320", game.enabled)}
+        ${wire("enable-bridge", "M 122 170 C 126 162 134 162 138 170", game.enabled)}
+        ${wire("enable-lower", "M 260 170 V 276 H 320", game.enabled)}
+        ${wire("not-d", "M 241 234 H 320", dn)}
+        ${wire("s", "M 382 120 H 440 V 104 H 480", s)}
+        ${wire("r", "M 382 250 H 440 V 254 H 480", r)}
+        ${wire("cross-q", "M 549 115 H 610 V 210 H 450 V 276 H 480", game.q)}
+        ${wire("cross-qbar", "M 549 265 H 650 V 55 H 430 V 126 H 480", qbar)}
+        ${wire("q", "M 549 115 H 690", game.q)}
+        ${wire("qbar", "M 549 265 H 690", qbar)}
+        ${node(55, 90, game.d)}${node(55, 170, game.enabled)}${node(130, 90, game.d)}${node(260, 170, game.enabled)}${node(690, 115, game.q)}${node(690, 265, qbar)}
+        ${notGate(180, 210, game.placed.not)}
+        ${andGate(320, 90, game.placed.upper, "AND")}
+        ${andGate(320, 220, game.placed.lower, "AND")}
+        ${norGate(480, 90, game.placed.norUpper)}${norGate(480, 240, game.placed.norLower)}
+        <text class="latch-output-label" x="704" y="121">Q</text><text class="latch-output-label" x="704" y="271">Q̅</text>
+        <text class="latch-net-label" x="274" y="221">D̅</text><text class="latch-net-label" x="418" y="98">S</text><text class="latch-net-label" x="418" y="248">R</text>
+      </svg>`;
+    };
+
+    const render = () => {
+      const complete = isComplete();
+      const qbar = Number(!game.q);
+      const status = complete ? text("latchComplete", "Circuit complete. Try it.") : text("latchPrompt", "Place the three gates, then test the latch.");
+      ui.innerHTML = `<div class="latch-modal" role="dialog" aria-modal="true" aria-labelledby="latchTitle" aria-describedby="latchInstructions" tabindex="-1">
+        <header class="latch-modal-head"><div><h2 id="latchTitle">${text("latchTitle", "Build the D Latch")}</h2><p id="latchInstructions">${text("latchSubtitle", "Drag the logic gates into place, then test D and Enable.")}</p></div><button class="latch-close" type="button" data-latch-action="close" aria-label="${text("latchClose", "Close D latch puzzle")}">×</button></header>
+        <div class="latch-body">
+          <section class="latch-tray" aria-label="${text("latchTray", "Gate tray")}"><h3>${text("latchTray", "Gate tray")}</h3>
+            <button type="button" class="latch-gate${game.placed.not ? " is-placed" : ""}${game.selectedGate === "not" ? " is-selected" : ""}" data-latch-gate="not" draggable="${!game.placed.not}" ${game.placed.not ? "disabled" : ""} aria-pressed="${game.selectedGate === "not"}"><span class="latch-mini not">▷○</span>NOT</button>
+            <button type="button" class="latch-gate${game.placed.upper ? " is-placed" : ""}${game.selectedGate === "and-1" ? " is-selected" : ""}" data-latch-gate="and-1" draggable="${!game.placed.upper}" ${game.placed.upper ? "disabled" : ""} aria-pressed="${game.selectedGate === "and-1"}"><span class="latch-mini">D</span>AND</button>
+            <button type="button" class="latch-gate${game.placed.lower ? " is-placed" : ""}${game.selectedGate === "and-2" ? " is-selected" : ""}" data-latch-gate="and-2" draggable="${!game.placed.lower}" ${game.placed.lower ? "disabled" : ""} aria-pressed="${game.selectedGate === "and-2"}"><span class="latch-mini">D</span>AND</button>
+            <button type="button" class="latch-gate${game.placed.norUpper ? " is-placed" : ""}${game.selectedGate === "nor-1" ? " is-selected" : ""}" data-latch-gate="nor-1" draggable="${!game.placed.norUpper}" ${game.placed.norUpper ? "disabled" : ""} aria-pressed="${game.selectedGate === "nor-1"}"><span class="latch-mini">N</span>NOR</button>
+            <button type="button" class="latch-gate${game.placed.norLower ? " is-placed" : ""}${game.selectedGate === "nor-2" ? " is-selected" : ""}" data-latch-gate="nor-2" draggable="${!game.placed.norLower}" ${game.placed.norLower ? "disabled" : ""} aria-pressed="${game.selectedGate === "nor-2"}"><span class="latch-mini">N</span>NOR</button>
+          </section>
+          <section class="latch-schematic" aria-label="${text("latchCircuit", "D latch circuit")}">
+            <div class="latch-drop-layer">
+              <button type="button" class="latch-slot slot-not${game.placed.not ? " is-filled" : ""}" data-latch-slot="not" aria-label="${text("latchNotSlot", "NOT gate position")}" ${game.placed.not ? "disabled" : ""}></button>
+              <button type="button" class="latch-slot slot-upper${game.placed.upper ? " is-filled" : ""}" data-latch-slot="upper" aria-label="${text("latchUpperSlot", "Upper AND gate position")}" ${game.placed.upper ? "disabled" : ""}></button>
+              <button type="button" class="latch-slot slot-lower${game.placed.lower ? " is-filled" : ""}" data-latch-slot="lower" aria-label="${text("latchLowerSlot", "Lower AND gate position")}" ${game.placed.lower ? "disabled" : ""}></button>
+              <button type="button" class="latch-slot slot-nor-upper${game.placed.norUpper ? " is-filled" : ""}" data-latch-slot="norUpper" aria-label="Upper NOR gate position" ${game.placed.norUpper ? "disabled" : ""}></button>
+              <button type="button" class="latch-slot slot-nor-lower${game.placed.norLower ? " is-filled" : ""}" data-latch-slot="norLower" aria-label="Lower NOR gate position" ${game.placed.norLower ? "disabled" : ""}></button>
+            </div>${circuitSvg()}
+          </section>
+        </div>
+        <footer class="latch-footer"><p class="latch-status" aria-live="polite">${status}</p><div class="latch-controls"><button type="button" data-latch-action="toggle-d" ${complete ? "" : "disabled"} aria-label="${text("latchToggleD", "Toggle D")}: ${game.d}">${text("latchD", "D")}: <strong>${game.d}</strong></button><button type="button" data-latch-action="toggle-enable" ${complete ? "" : "disabled"} aria-label="${text("latchToggleEnable", "Toggle Enable")}: ${game.enabled}">${text("latchEnable", "Enable")}: <strong>${game.enabled}</strong></button></div><div class="latch-leds" aria-label="${text("latchOutputs", "Latch outputs")}"><span>Q: ${game.q}<i class="latch-led${game.q ? " is-on" : ""}"></i></span><span>Q̅: ${qbar}<i class="latch-led${qbar ? " is-on" : ""}"></i></span></div></footer>
+      </div>`;
+    };
+
+    const reject = (slot) => {
+      slot?.classList.add("latch-reject");
+      setTimeout(() => slot?.classList.remove("latch-reject"), 280);
+      play("./audio/d4.mp3", 0.08);
+    };
+    const placeGate = (gateId, slotId, slot) => {
+      const gateType = gateId === "not" ? "not" : gateId.startsWith("nor") ? "nor" : "and";
+      if (slotGate[slotId] !== gateType || game.placed[slotId]) return reject(slot);
+      game.placed[slotId] = true;
+      game.selectedGate = null;
+      play("./audio/g4.mp3", 0.1);
+      render();
+      if (isComplete()) play("./audio/e4.mp3", 0.1);
+    };
+    const onUiClick = (event) => {
+      const close = event.target.closest("[data-latch-action='close']");
+      if (close) { stopActiveGame(); return; }
+      const gate = event.target.closest("[data-latch-gate]");
+      if (gate && !gate.disabled) { game.selectedGate = gate.dataset.latchGate; render(); return; }
+      const slot = event.target.closest("[data-latch-slot]");
+      if (slot) { if (game.selectedGate) placeGate(game.selectedGate, slot.dataset.latchSlot, slot); else reject(slot); return; }
+      const action = event.target.closest("[data-latch-action]")?.dataset.latchAction;
+      if (action === "toggle-d" && isComplete()) { game.d = Number(!game.d); syncLatch(); play("./audio/e4.mp3", 0.08); render(); }
+      if (action === "toggle-enable" && isComplete()) { game.enabled = Number(!game.enabled); syncLatch(); play("./audio/f4.mp3", 0.08); render(); }
+    };
+    const onDragStart = (event) => {
+      const gate = event.target.closest("[data-latch-gate]");
+      if (!gate || gate.disabled) return;
+      event.dataTransfer?.setData("text/plain", gate.dataset.latchGate);
+      if (event.dataTransfer) event.dataTransfer.effectAllowed = "move";
+      game.selectedGate = gate.dataset.latchGate;
+    };
+    const onDragOver = (event) => {
+      if (event.target.closest("[data-latch-slot]")) event.preventDefault();
+    };
+    const onDrop = (event) => {
+      const slot = event.target.closest("[data-latch-slot]");
+      if (!slot) return;
+      event.preventDefault();
+      placeGate(event.dataTransfer?.getData("text/plain") || game.selectedGate, slot.dataset.latchSlot, slot);
+    };
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") { event.preventDefault(); stopActiveGame(); return; }
+      if (event.key !== "Tab") return;
+      const focusable = [...ui.querySelectorAll("button:not([disabled])")];
+      if (!focusable.length) return;
+      const index = focusable.indexOf(document.activeElement);
+      if (index === -1) { event.preventDefault(); focusable[0].focus(); return; }
+      if (event.shiftKey && index <= 0) { event.preventDefault(); focusable[focusable.length - 1].focus(); }
+      if (!event.shiftKey && index === focusable.length - 1) { event.preventDefault(); focusable[0].focus(); }
+    };
+    const onVisibilityChange = () => { if (document.hidden) stopActiveGame(); };
+
+    ui.addEventListener("click", onUiClick);
+    ui.addEventListener("dragstart", onDragStart);
+    ui.addEventListener("dragover", onDragOver);
+    ui.addEventListener("drop", onDrop);
+    window.addEventListener("keydown", onKeyDown, true);
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    game.cleanup = () => {
+      ui.removeEventListener("click", onUiClick);
+      ui.removeEventListener("dragstart", onDragStart);
+      ui.removeEventListener("dragover", onDragOver);
+      ui.removeEventListener("drop", onDrop);
+      window.removeEventListener("keydown", onKeyDown, true);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      document.body.style.overflow = restoreOverflow;
+      layer.classList.remove("latch-open");
+      previousFocus?.focus?.();
+    };
+    render();
+    requestAnimationFrame(() => ui.querySelector(".latch-close")?.focus());
   }
 
   function startTraceGame() {
@@ -610,7 +869,6 @@
       if (game.timeLeft <= 0) {
         clearInterval(timerInterval);
         notify("holdTraceGameEnd", `Trace score: ${game.score}`);
-        APP.api.playHoldMotif?.("success", game.score);
         stopActiveGame();
       }
     }, 1000);
@@ -646,7 +904,6 @@
       if (game.timeLeft <= 0) {
         clearInterval(timerInterval);
         notify("holdInspectionEnd", "Inspection complete.");
-        APP.api.playHoldMotif?.("success", 2);
         stopActiveGame();
       }
     }, 1000);

@@ -34,6 +34,12 @@
     APP.api.renderBullets(lang);
     APP.api.renderTags(lang);
     APP.api.renderLeftWhoAmI(lang);
+    APP.api.renderWork(lang);
+    APP.api.renderEducation(lang);
+    APP.api.renderTeaching(lang);
+    APP.api.renderLanguages(lang);
+    APP.api.renderProjectGroups(lang);
+    APP.api.renderRecognitionGroups(lang);
     APP.api.renderResourceGroups(lang);
 
     if (typeof APP.api.wireInteractiveSounds === "function") {

@@ -33,13 +33,46 @@
     resize();
 
     const N = Math.max(60, Math.floor((innerWidth * innerHeight) / 26000));
-    const pts = new Array(N).fill(0).map(() => ({
-      x: Math.random() * W,
-      y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.3 * DPR,
-      vy: (Math.random() - 0.5) * 0.3 * DPR,
-      r: (Math.random() * 1.6 + 0.6) * DPR
-    }));
+    const MAX_CLICK_POINTS = 90;
+    const makePoint = (x = Math.random() * W, y = Math.random() * H, isClickPoint = false) => {
+      const baseR = (Math.random() * 0.6 + 0.6) * DPR;
+      return {
+        x,
+        y,
+        vx: (Math.random() - 0.5) * 0.01 * DPR,
+        vy: (Math.random() - 0.5) * 0.01 * DPR,
+        r: isClickPoint ? Math.max(baseR, 3 * DPR) : baseR,
+        baseR
+      };
+    };
+    const pts = new Array(N).fill(0).map(() => makePoint());
+
+    function spawnPointAt(clientX, clientY) {
+      const rect = canvas.getBoundingClientRect();
+      const x = (clientX - rect.left) * DPR;
+      const y = (clientY - rect.top) * DPR;
+      if (x < 0 || y < 0 || x > W || y > H) return;
+
+      pts.push(makePoint(x, y, true));
+      if (pts.length > N + MAX_CLICK_POINTS) pts.splice(N, 1);
+      console.info("[canvas] particle spawned", { x: Math.round(clientX), y: Math.round(clientY), particles: pts.length });
+    }
+
+    // Capture pointer input before the long-hold/background interaction layer
+    // can suppress the subsequent click event. The wrapper above the canvas is
+    // still treated as background, while real portfolio controls are excluded.
+    window.addEventListener("pointerdown", (event) => {
+      if (event.button != null && event.button !== 0) return;
+      const target = event.target;
+      if (target?.closest?.(".langbar, #audioPill, #holdGameLayer, #quickTray, #scramblePanel, a, button, input, select, textarea")) {
+        console.debug("[canvas] particle ignored for control", target);
+        return;
+      }
+      spawnPointAt(event.clientX, event.clientY);
+    }, true);
+
+    APP.api.spawnBackgroundPoint = spawnPointAt;
+    console.info("[canvas] background particle listener armed");
 
     let t = 0;
     function frame() {
@@ -60,12 +93,15 @@
       ctx.fillRect(0, 0, W, H);
 
       // Particles
+      var maxD = 365 * DPR;
       for (const p of pts) {
-        const ax = (gx - p.x) * 0.0000009;
-        const ay = (gy - p.y) * 0.0000009;
+        maxD += 2;
+        p.r += (p.baseR - p.r) * 0.035;
+        const ax = (gx - p.x) * 0.00000001 * (Math.random() - 1);
+        const ay = (gy - p.y) * 0.00000001 * (Math.random() - 1);
 
-        p.vx += Math.cos(t + p.y * 0.002) * 0.0008 * DPR + ax;
-        p.vy += Math.sin(t + p.x * 0.002) * 0.0008 * DPR + ay;
+        p.vx += (Math.cos(t + p.y * 0.002) * 0.0008 * DPR + ax)*0.1;
+        p.vy += (Math.sin(t + p.x * 0.002) * 0.0008 * DPR + ay)*0.1;
 
         p.x += p.vx * 60;
         p.y += p.vy * 60;
@@ -76,14 +112,15 @@
         if (p.y > H + 50) p.y = -50;
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255,255,255,.18)";
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI);
+        ctx.fillStyle = "rgba(255,255,255,.98)";
         ctx.fill();
       }
 
       // Connections
-      const maxD = 165 * DPR;
+
       for (let i = 0; i < pts.length; i += 1) {
+
         for (let j = i + 1; j < pts.length; j += 1) {
           const a = pts[i];
           const b = pts[j];
@@ -92,7 +129,7 @@
           const d2 = dx * dx + dy * dy;
           if (d2 < maxD * maxD) {
             const d = Math.sqrt(d2);
-            const alpha = (1 - d / maxD) * 0.16;
+            const alpha = (1 - d / maxD) * 0.56;
             ctx.strokeStyle = `rgba(96,165,250,${alpha})`;
             ctx.lineWidth = 1 * DPR;
             ctx.beginPath();

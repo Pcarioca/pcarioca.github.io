@@ -4,24 +4,24 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="author" content="Paul-Andrei Munteanu" />
-  <meta name="description" content="Paul-Andrei Munteanu - Software Developer and Computer Engineering student focused on AI computer vision, embedded systems, and real-world deployments." />
-  <meta name="keywords" content="Paul-Andrei Munteanu, AI, Computer Vision, DepthAI, OAK-D, Raspberry Pi, Embedded Systems, SQL Server, Docker, Mender OTA, SB Software, BBC Technologies" />
+  <meta name="description" content="Paul-Andrei Munteanu - Computer Engineering student and software developer focused on embedded systems, computer architecture, hardware-software integration, and systems programming." />
+  <meta name="keywords" content="Paul-Andrei Munteanu, Computer Engineering, Embedded Systems, Computer Architecture, Digital Logic, FPGA, Electronics, Systems Programming, Software Development" />
   <meta name="color-scheme" content="dark" />
-  <meta property="og:title" content="Paul-Andrei Munteanu | AI and Computer Vision Engineer" />
-  <meta property="og:description" content="Engineering portfolio focused on intelligent systems, computer vision deployments, and end-to-end hardware-software integration." />
+  <meta property="og:title" content="Paul-Andrei Munteanu | Computer Engineering Portfolio" />
+  <meta property="og:description" content="Computer Engineering portfolio focused on embedded systems, computer architecture, hardware-software integration, and software development." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://pcarioca.github.io/" />
   <meta property="og:image" content="https://pcarioca.github.io/assets/andrei.jpg" />
   <link rel="canonical" href="https://pcarioca.github.io/" />
-  <title>Paul-Andrei Munteanu | AI and Computer Vision Engineer</title>
+  <title>Paul-Andrei Munteanu | Computer Engineering Portfolio</title>
 
   <link rel="icon" href="https://pcarioca.github.io/assets/icon/heart.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="./styles.css?v=12" />
-  <script src="./app.js?v=12" defer></script>
+  <link rel="stylesheet" href="./styles.css?v=16" />
+  <script src="./app.js?v=19" defer></script>
 
   <script type="application/ld+json">
     {
@@ -31,10 +31,6 @@
       "url": "https://pcarioca.github.io/",
       "image": "https://pcarioca.github.io/assets/andrei.jpg",
       "jobTitle": "Software Developer",
-      "worksFor": [
-        { "@type": "Organization", "name": "SB Software" },
-        { "@type": "Organization", "name": "BBC Technologies" }
-      ],
       "alumniOf": {
         "@type": "CollegeOrUniversity",
         "name": "Universitatea Politehnica Timisoara"
@@ -45,16 +41,14 @@
       ],
       "knowsLanguage": ["English", "Romanian", "German"],
       "knowsAbout": [
-        "Artificial Intelligence",
-        "Computer Vision",
+        "Computer Engineering",
         "Embedded Systems",
-        "DepthAI",
-        "OAK-D",
-        "Raspberry Pi",
-        "SQL Server",
-        "Docker",
-        "Mender OTA",
-        "Automation"
+        "Computer Architecture",
+        "Digital Logic",
+        "Electronics",
+        "FPGA",
+        "Systems Programming",
+        "Hardware-Software Integration"
       ]
     }
   </script>
@@ -110,18 +104,26 @@
         <section class="center">
           <header class="profile-header">
             <h1 class="name" data-i18n="name">Paul-Andrei Munteanu</h1>
+            <p class="hero-headline" data-i18n="heroHeadline">Computer Engineering | Embedded Systems | Computer Architecture | Software Development</p>
+            <p class="hero-role" data-i18n="heroRole">Computer Engineering Student &amp; Software Developer</p>
             <p class="subtitle">
-              <span data-i18n="subtitle">Software Developer at SB Software / BBC Technologies and Computer Engineering student at Universitatea Politehnica Timisoara.</span>
+              <span data-i18n="heroSupport">Computer Engineering student and software developer interested in hardware-oriented systems and the interaction between software and physical computing platforms.</span>
               <a class="resume" id="resumeLink" data-hold-key="resumeLink" target="_blank" rel="noopener noreferrer" href="#">
                 <span data-i18n="resume">Read my resume.</span>
               </a>
             </p>
+            <nav class="hero-actions" aria-label="Primary links">
+              <a id="heroResume" class="hero-action hero-action-primary" data-hold-key="resumeLink" target="_blank" rel="noopener noreferrer" href="#" data-i18n="heroResume">View Resume</a>
+              <a id="heroGithub" class="hero-action" data-hold-key="btnGithub" target="_blank" rel="noopener noreferrer" href="#" data-i18n="heroGithub">GitHub</a>
+              <a id="heroLinkedIn" class="hero-action" data-hold-key="btnLinkedIn" target="_blank" rel="noopener noreferrer" href="#" data-i18n="heroLinkedIn">LinkedIn</a>
+              <a id="heroContact" class="hero-action" data-hold-key="btnMail" href="#" data-i18n="heroContact">Contact</a>
+            </nav>
           </header>
 
           <section class="content-section statement" aria-labelledby="statementTitle">
             <h2 class="section-title" id="statementTitle" data-i18n="statementTitle">Engineering Statement</h2>
             <p class="statement-text" id="statementText" data-i18n="statementText">
-              I build intelligent systems that solve real-world problems by bridging hardware and software with engineering discipline.
+              I understand computers across the full stack, from electronic circuits and digital logic to embedded software, operating systems, networks, and cloud-connected systems.
             </p>
           </section>
 
@@ -132,11 +134,42 @@
 
           <section class="content-section" aria-labelledby="expertiseHeading">
             <h2 class="section-title" id="expertiseHeading" data-i18n="expertiseTitle">Technical Expertise</h2>
-            <div class="tags" id="tags"></div>
+            <div class="expertise-groups" id="tags"></div>
+          </section>
+
+          <section class="content-section" aria-labelledby="workHeading">
+            <h2 class="section-title" id="workHeading" data-i18n="workTitle">Work Experience</h2>
+            <ul class="work-list" id="workItems"></ul>
+          </section>
+
+          <section class="content-section" aria-labelledby="educationHeading">
+            <h2 class="section-title" id="educationHeading" data-i18n="educationTitle">Education</h2>
+            <div class="education-list" id="educationItems"></div>
+          </section>
+
+          <section class="content-section" aria-labelledby="teachingHeading">
+            <h2 class="section-title" id="teachingHeading" data-i18n="teachingTitle">Teaching &amp; Mentoring</h2>
+            <p class="section-intro" id="teachingIntro"></p>
+            <ul class="teaching-list" id="teachingItems"></ul>
+          </section>
+
+          <section class="content-section" aria-labelledby="languagesHeading">
+            <h2 class="section-title" id="languagesHeading" data-i18n="languagesTitle">Languages</h2>
+            <ul class="language-list" id="languagesList"></ul>
+          </section>
+
+          <section class="content-section" aria-labelledby="projectsHeading">
+            <h2 class="section-title" id="projectsHeading" data-i18n="selectedProjectsTitle">Selected Projects</h2>
+            <div class="resource-groups" id="projectGroups"></div>
+          </section>
+
+          <section class="content-section" aria-labelledby="recognitionHeading">
+            <h2 class="section-title" id="recognitionHeading" data-i18n="recognitionTitle">Awards, Certifications &amp; Recognition</h2>
+            <div class="resource-groups" id="recognitionGroups"></div>
           </section>
 
           <section class="content-section" aria-labelledby="resourcesHeading">
-            <h2 class="section-title" id="resourcesHeading" data-i18n="resourcesTitle">Projects, Certifications, and References</h2>
+            <h2 class="section-title" id="resourcesHeading" data-i18n="resourcesTitle">Volunteering, Erasmus &amp; Academic References</h2>
             <div class="resource-groups" id="resourceGroups"></div>
           </section>
         </section>
