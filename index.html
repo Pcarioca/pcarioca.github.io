@@ -4,11 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="author" content="Paul-Andrei Munteanu" />
-  <meta name="description" content="Paul-Andrei Munteanu - Computer Engineering student and software developer focused on embedded systems, computer architecture, hardware-software integration, and systems programming." />
+  <meta name="description" content="Paul-Andrei Munteanu - Computer Engineering student and software developer focused on digital electronics, computer architecture, embedded systems, FPGA, and IoT." />
   <meta name="keywords" content="Paul-Andrei Munteanu, Computer Engineering, Embedded Systems, Computer Architecture, Digital Logic, FPGA, Electronics, Systems Programming, Software Development" />
   <meta name="color-scheme" content="dark" />
   <meta property="og:title" content="Paul-Andrei Munteanu | Computer Engineering Portfolio" />
-  <meta property="og:description" content="Computer Engineering portfolio focused on embedded systems, computer architecture, hardware-software integration, and software development." />
+  <meta property="og:description" content="Computer Engineering portfolio focused on digital electronics, computer architecture, embedded systems, FPGA, IoT, and software development." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://pcarioca.github.io/" />
   <meta property="og:image" content="https://pcarioca.github.io/assets/andrei.jpg" />
@@ -20,8 +20,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="./styles.css?v=16" />
-  <script src="./app.js?v=19" defer></script>
+  <link rel="stylesheet" href="./styles.css?v=21" />
+  <script src="./app.js?v=22" defer></script>
 
   <script type="application/ld+json">
     {
@@ -47,8 +47,7 @@
         "Digital Logic",
         "Electronics",
         "FPGA",
-        "Systems Programming",
-        "Hardware-Software Integration"
+        "Systems Programming"
       ]
     }
   </script>
@@ -90,12 +89,9 @@
           </div>
 
           <section class="left-whoami" aria-labelledby="leftWhoAmITitle">
-            <h2 id="leftWhoAmITitle" class="left-whoami-title" data-i18n="leftWhoAmITitle">Who I am</h2>
+            <h2 id="leftWhoAmITitle" class="left-whoami-title" data-i18n="leftWhoAmITitle">About Me</h2>
             <div id="leftWhoAmIScroll" class="left-whoami-scroll">
               <div id="leftWhoAmISections" class="left-whoami-sections"></div>
-              <p id="leftWhoAmINote" class="left-whoami-note" data-i18n="leftWhoAmINote">
-                I like building real systems end-to-end, not just demos.
-              </p>
             </div>
           </section>
         </aside>
@@ -105,32 +101,8 @@
           <header class="profile-header">
             <h1 class="name" data-i18n="name">Paul-Andrei Munteanu</h1>
             <p class="hero-headline" data-i18n="heroHeadline">Computer Engineering | Embedded Systems | Computer Architecture | Software Development</p>
-            <p class="hero-role" data-i18n="heroRole">Computer Engineering Student &amp; Software Developer</p>
-            <p class="subtitle">
-              <span data-i18n="heroSupport">Computer Engineering student and software developer interested in hardware-oriented systems and the interaction between software and physical computing platforms.</span>
-              <a class="resume" id="resumeLink" data-hold-key="resumeLink" target="_blank" rel="noopener noreferrer" href="#">
-                <span data-i18n="resume">Read my resume.</span>
-              </a>
-            </p>
-            <nav class="hero-actions" aria-label="Primary links">
-              <a id="heroResume" class="hero-action hero-action-primary" data-hold-key="resumeLink" target="_blank" rel="noopener noreferrer" href="#" data-i18n="heroResume">View Resume</a>
-              <a id="heroGithub" class="hero-action" data-hold-key="btnGithub" target="_blank" rel="noopener noreferrer" href="#" data-i18n="heroGithub">GitHub</a>
-              <a id="heroLinkedIn" class="hero-action" data-hold-key="btnLinkedIn" target="_blank" rel="noopener noreferrer" href="#" data-i18n="heroLinkedIn">LinkedIn</a>
-              <a id="heroContact" class="hero-action" data-hold-key="btnMail" href="#" data-i18n="heroContact">Contact</a>
-            </nav>
+            <p class="subtitle" data-i18n="heroSupport">Computer Engineering student and software developer interested in hardware systems, from digital electronics and computer architecture to embedded and IoT systems.</p>
           </header>
-
-          <section class="content-section statement" aria-labelledby="statementTitle">
-            <h2 class="section-title" id="statementTitle" data-i18n="statementTitle">Engineering Statement</h2>
-            <p class="statement-text" id="statementText" data-i18n="statementText">
-              I understand computers across the full stack, from electronic circuits and digital logic to embedded software, operating systems, networks, and cloud-connected systems.
-            </p>
-          </section>
-
-          <section class="content-section" aria-labelledby="aboutHeading">
-            <h2 class="section-title" id="aboutHeading" data-i18n="aboutTitle">About Me</h2>
-            <ul class="bullets" id="bullets"></ul>
-          </section>
 
           <section class="content-section" aria-labelledby="expertiseHeading">
             <h2 class="section-title" id="expertiseHeading" data-i18n="expertiseTitle">Technical Expertise</h2>
@@ -147,51 +119,24 @@
             <div class="education-list" id="educationItems"></div>
           </section>
 
-          <section class="content-section" aria-labelledby="teachingHeading">
-            <h2 class="section-title" id="teachingHeading" data-i18n="teachingTitle">Teaching &amp; Mentoring</h2>
-            <p class="section-intro" id="teachingIntro"></p>
-            <ul class="teaching-list" id="teachingItems"></ul>
-          </section>
-
-          <section class="content-section" aria-labelledby="languagesHeading">
-            <h2 class="section-title" id="languagesHeading" data-i18n="languagesTitle">Languages</h2>
-            <ul class="language-list" id="languagesList"></ul>
-          </section>
-
           <section class="content-section" aria-labelledby="projectsHeading">
             <h2 class="section-title" id="projectsHeading" data-i18n="selectedProjectsTitle">Selected Projects</h2>
             <div class="resource-groups" id="projectGroups"></div>
           </section>
 
           <section class="content-section" aria-labelledby="recognitionHeading">
-            <h2 class="section-title" id="recognitionHeading" data-i18n="recognitionTitle">Awards, Certifications &amp; Recognition</h2>
+            <h2 class="section-title" id="recognitionHeading" data-i18n="recognitionTitle">Selected Highlights</h2>
             <div class="resource-groups" id="recognitionGroups"></div>
           </section>
 
           <section class="content-section" aria-labelledby="resourcesHeading">
-            <h2 class="section-title" id="resourcesHeading" data-i18n="resourcesTitle">Volunteering, Erasmus &amp; Academic References</h2>
+            <h2 class="section-title" id="resourcesHeading" data-i18n="resourcesTitle">Academic References</h2>
             <div class="resource-groups" id="resourceGroups"></div>
           </section>
         </section>
 
         <!-- RIGHT -->
         <aside class="right" aria-label="Links">
-          <a class="icbtn" id="btnGithub" data-hold-key="btnGithub" target="_blank" rel="noopener noreferrer" href="#">
-            <span class="ic" aria-hidden="true">
-              <!-- GitHub -->
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.75 5.6.75 12c0 5.1 3.15 9.42 7.52 10.95.55.1.76-.25.76-.55v-2.1c-3.06.68-3.7-1.34-3.7-1.34-.5-1.31-1.22-1.66-1.22-1.66-1-.7.08-.69.08-.69 1.1.08 1.68 1.17 1.68 1.17.98 1.72 2.57 1.22 3.2.93.1-.73.38-1.22.68-1.5-2.44-.28-5-1.26-5-5.62 0-1.24.43-2.25 1.14-3.05-.12-.28-.5-1.44.1-3 0 0 .92-.3 3.02 1.17a10.2 10.2 0 0 1 2.75-.38c.93 0 1.86.13 2.75.38 2.1-1.48 3.02-1.17 3.02-1.17.6 1.56.22 2.72.1 3 .71.8 1.14 1.81 1.14 3.05 0 4.37-2.57 5.34-5.02 5.62.39.35.74 1.03.74 2.08v3.08c0 .3.2.66.77.55A11.3 11.3 0 0 0 23.25 12C23.25 5.6 18.27.5 12 .5z" /></svg>
-            </span>
-            <span class="tip">GitHub</span>
-          </a>
-
-          <button class="icbtn" id="btnMail" data-hold-key="btnMail" type="button">
-            <span class="ic" aria-hidden="true">
-              <!-- @ -->
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 6.32 17.74.9.9 0 1 0-1.12-1.4A8.2 8.2 0 1 1 20.2 12c0 2.14-.8 3.2-1.8 3.2-.9 0-1.4-.64-1.4-1.7V8.3a.9.9 0 0 0-1.8 0v.48A4.2 4.2 0 1 0 12.8 16c1.1 0 2.1-.42 2.7-1.1.35 1.2 1.35 1.9 2.7 1.9 2.2 0 3.6-2 3.6-4.8A10 10 0 0 0 12 2Zm0 7a2.4 2.4 0 1 1 0 4.8A2.4 2.4 0 0 1 12 9Z" /></svg>
-            </span>
-            <span class="tip" data-i18n="copyEmailTip">Copy email</span>
-          </button>
-
           <a class="icbtn" id="btnWca" data-hold-key="btnWca" target="_blank" rel="noopener noreferrer" href="#">
             <span class="ic" aria-hidden="true">
               <!-- Cube -->
@@ -200,13 +145,34 @@
             <span class="tip">WCA</span>
           </a>
 
-          <a class="icbtn" id="btnLinkedIn" data-hold-key="btnLinkedIn" target="_blank" rel="noopener noreferrer" href="#">
+          <a class="icbtn" id="btnResume" data-hold-key="resumeLink" target="_blank" rel="noopener noreferrer" href="#" aria-label="View Resume" data-i18n-aria="heroResume">
             <span class="ic" aria-hidden="true">
-              <!-- LinkedIn -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2.75h8l4 4V21.25H6z"/><path d="M14 2.75v4h4"/><path d="M8.75 12h6.5M8.75 15.5h6.5"/></svg>
+            </span>
+            <span class="tip" data-i18n="heroResume">View Resume</span>
+          </a>
+
+          <a class="icbtn" id="btnGithub" data-hold-key="btnGithub" target="_blank" rel="noopener noreferrer" href="#" aria-label="GitHub" data-i18n-aria="heroGithub">
+            <span class="ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.75 5.6.75 12c0 5.1 3.15 9.42 7.52 10.95.55.1.76-.25.76-.55v-2.1c-3.06.68-3.7-1.34-3.7-1.34-.5-1.31-1.22-1.66-1.22-1.66-1-.7.08-.69.08-.69 1.1.08 1.68 1.17 1.68 1.17.98 1.72 2.57 1.22 3.2.93.1-.73.38-1.22.68-1.5-2.44-.28-5-1.26-5-5.62 0-1.24.43-2.25 1.14-3.05-.12-.28-.5-1.44.1-3 0 0 .92-.3 3.02 1.17a10.2 10.2 0 0 1 2.75-.38c.93 0 1.86.13 2.75.38 2.1-1.48 3.02-1.17 3.02-1.17.6 1.56.22 2.72.1 3 .71.8 1.14 1.81 1.14 3.05 0 4.37-2.57 5.34-5.02 5.62.39.35.74 1.03.74 2.08v3.08c0 .3.2.66.77.55A11.3 11.3 0 0 0 23.25 12C23.25 5.6 18.27.5 12 .5z" /></svg>
+            </span>
+            <span class="tip" data-i18n="heroGithub">GitHub</span>
+          </a>
+
+          <a class="icbtn" id="btnLinkedIn" data-hold-key="btnLinkedIn" target="_blank" rel="noopener noreferrer" href="#" aria-label="LinkedIn" data-i18n-aria="heroLinkedIn">
+            <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5ZM.5 23.5h4V7.98h-4V23.5ZM8.5 7.98h3.83v2.12h.05c.53-1 1.84-2.12 3.79-2.12 4.05 0 4.8 2.67 4.8 6.14v9.38h-4v-8.31c0-1.98-.04-4.52-2.76-4.52-2.76 0-3.18 2.15-3.18 4.38v8.45h-4V7.98Z" /></svg>
             </span>
-            <span class="tip">LinkedIn</span>
+            <span class="tip" data-i18n="heroLinkedIn">LinkedIn</span>
           </a>
+
+          <a class="icbtn" id="btnMail" data-hold-key="btnMail" href="#" aria-label="Contact" data-i18n-aria="heroContact">
+            <span class="ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m4.5 7 7.5 5.5L19.5 7"/></svg>
+            </span>
+            <span class="tip" data-i18n="heroContact">Contact</span>
+          </a>
+
         </aside>
       </section>
 

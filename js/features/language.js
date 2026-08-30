@@ -30,14 +30,16 @@
       }
     });
 
+    $$('[data-i18n-aria]').forEach((el) => {
+      const value = content[lang]?.[el.getAttribute("data-i18n-aria")];
+      if (typeof value === "string") el.setAttribute("aria-label", value);
+    });
+
     APP.api.renderSubtitle(lang);
-    APP.api.renderBullets(lang);
     APP.api.renderTags(lang);
     APP.api.renderLeftWhoAmI(lang);
     APP.api.renderWork(lang);
     APP.api.renderEducation(lang);
-    APP.api.renderTeaching(lang);
-    APP.api.renderLanguages(lang);
     APP.api.renderProjectGroups(lang);
     APP.api.renderRecognitionGroups(lang);
     APP.api.renderResourceGroups(lang);

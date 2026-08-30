@@ -33,46 +33,13 @@
     resize();
 
     const N = Math.max(60, Math.floor((innerWidth * innerHeight) / 26000));
-    const MAX_CLICK_POINTS = 90;
-    const makePoint = (x = Math.random() * W, y = Math.random() * H, isClickPoint = false) => {
-      const baseR = (Math.random() * 0.6 + 0.6) * DPR;
-      return {
-        x,
-        y,
-        vx: (Math.random() - 0.5) * 0.01 * DPR,
-        vy: (Math.random() - 0.5) * 0.01 * DPR,
-        r: isClickPoint ? Math.max(baseR, 3 * DPR) : baseR,
-        baseR
-      };
-    };
-    const pts = new Array(N).fill(0).map(() => makePoint());
-
-    function spawnPointAt(clientX, clientY) {
-      const rect = canvas.getBoundingClientRect();
-      const x = (clientX - rect.left) * DPR;
-      const y = (clientY - rect.top) * DPR;
-      if (x < 0 || y < 0 || x > W || y > H) return;
-
-      pts.push(makePoint(x, y, true));
-      if (pts.length > N + MAX_CLICK_POINTS) pts.splice(N, 1);
-      console.info("[canvas] particle spawned", { x: Math.round(clientX), y: Math.round(clientY), particles: pts.length });
-    }
-
-    // Capture pointer input before the long-hold/background interaction layer
-    // can suppress the subsequent click event. The wrapper above the canvas is
-    // still treated as background, while real portfolio controls are excluded.
-    window.addEventListener("pointerdown", (event) => {
-      if (event.button != null && event.button !== 0) return;
-      const target = event.target;
-      if (target?.closest?.(".langbar, #audioPill, #holdGameLayer, #quickTray, #scramblePanel, a, button, input, select, textarea")) {
-        console.debug("[canvas] particle ignored for control", target);
-        return;
-      }
-      spawnPointAt(event.clientX, event.clientY);
-    }, true);
-
-    APP.api.spawnBackgroundPoint = spawnPointAt;
-    console.info("[canvas] background particle listener armed");
+    const pts = new Array(N).fill(0).map(() => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.01 * DPR,
+      vy: (Math.random() - 0.5) * 0.01 * DPR,
+      r: (Math.random() * 0.6 + 0.6) * DPR
+    }));
 
     let t = 0;
     function frame() {
@@ -86,17 +53,16 @@
       const gx = mx * DPR;
       const gy = my * DPR;
       const g = ctx.createRadialGradient(gx, gy, 0, gx, gy, Math.max(W, H) * 0.55);
-      g.addColorStop(0, "rgba(96,165,250,.10)");
-      g.addColorStop(0.55, "rgba(167,139,250,.06)");
-      g.addColorStop(1, "rgba(0,0,0,0)");
+      g.addColorStop(0, "rgba(96, 165, 250, 0.26)");
+      g.addColorStop(0.55, "rgba(167, 139, 250, 0.25)");
+      g.addColorStop(1, "rgba(45, 39, 39, 0.21)");
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, W, H);
 
       // Particles
-      var maxD = 365 * DPR;
+      var maxD = 105 * DPR;
       for (const p of pts) {
-        maxD += 2;
-        p.r += (p.baseR - p.r) * 0.035;
+        // maxD += 2;
         const ax = (gx - p.x) * 0.00000001 * (Math.random() - 1);
         const ay = (gy - p.y) * 0.00000001 * (Math.random() - 1);
 
@@ -122,6 +88,7 @@
       for (let i = 0; i < pts.length; i += 1) {
 
         for (let j = i + 1; j < pts.length; j += 1) {
+          
           const a = pts[i];
           const b = pts[j];
           const dx = a.x - b.x;

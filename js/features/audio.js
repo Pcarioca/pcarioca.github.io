@@ -88,7 +88,7 @@
   }
 
   function interactiveTarget(target) {
-    return target?.closest?.("#btnGithub, #btnWca, #btnLinkedIn, #btnMail, .hero-action, .resource-link, .education-institution, .teaching-item-title, .language-primary, .tag, .bullets li, .left-whoami-section-title, .left-whoami-pill, .langbar a[data-lang], .scramble-btn");
+    return target?.closest?.(".icbtn, .resource-link, .education-institution, .tag, .left-whoami-section-title, .left-whoami-pill, .langbar a[data-lang], .scramble-btn");
   }
 
   function wireInteractiveSounds() {
@@ -97,7 +97,7 @@
     document.addEventListener("click", (event) => {
       const target = interactiveTarget(event.target);
       if (!target || target.id === "audioPill" || target.closest("#audioPill")) return;
-      if (target.matches("#resumeLink, #heroResume")) {
+      if (target.matches("#btnResume")) {
         playResumeJingle();
         return;
       }

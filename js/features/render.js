@@ -4,7 +4,6 @@
 
   function renderSubtitle(lang) {
     const content = APP.data.content;
-    const CONFIG = APP.data.CONFIG;
     const subtitleP = $(".subtitle");
 
     if (!subtitleP) {
@@ -12,21 +11,7 @@
       return;
     }
 
-    subtitleP.innerHTML = "";
-
-    const span = document.createElement("span");
-    span.textContent = content[lang].heroSupport + " ";
-    subtitleP.appendChild(span);
-
-    const link = document.createElement("a");
-    link.className = "resume";
-    link.id = "resumeLink";
-    link.dataset.holdKey = "resumeLink";
-    link.href = CONFIG.cvUrl;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    link.textContent = content[lang].resume;
-    subtitleP.appendChild(link);
+    subtitleP.textContent = content[lang].heroSupport;
   }
 
   function renderBullets(lang) {
@@ -35,7 +20,6 @@
     const bulletsEl = $("#bullets");
 
     if (!bulletsEl) {
-      console.warn("[app] Missing selector: #bullets");
       return;
     }
 

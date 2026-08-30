@@ -6,32 +6,24 @@
       name: "Paul-Andrei Munteanu",
       heroHeadline: "Computer Engineering | Embedded Systems | Computer Architecture | Software Development",
       heroRole: "Computer Engineering Student & Software Developer",
-      heroSupport: "Computer Engineering student and software developer interested in hardware-oriented systems and the interaction between software and physical computing platforms.",
+      heroSupport: "Computer Engineering student and software developer interested in hardware systems, from digital electronics and computer architecture to embedded and IoT systems. I’m looking for hardware-oriented roles where I can put my technical background to practical use and continue developing as an engineer.",
       heroResume: "View Resume",
       heroGithub: "GitHub",
       heroLinkedIn: "LinkedIn",
       heroContact: "Contact",
-      leftWhoAmITitle: "Who I am",
-      leftWhoAmINote: "I enjoy understanding how things work, then building them carefully.",
+      leftWhoAmITitle: "About Me",
       leftWhoAmISections: [
-        { title: "Traits", pills: ["Systems thinker", "Curious", "Detail-oriented", "Independent learner", "Practical problem solver"] },
-        { title: "Tech identity", pills: ["Computer Engineering", "Embedded Systems", "Low-Level Software", "Hardware-Software Integration"] },
-        { title: "Interests", pills: ["Computer Architecture", "Electronics", "Psychology & Learning", "Engineering Education"] },
+        { title: "Professional Interests", pills: ["Computer Engineering", "Computer Architecture", "Digital Electronics", "Electronics", "Embedded Systems", "FPGA", "IoT"] },
+        { title: "Traits", pills: ["Systems thinker", "Independent learner", "Practical problem solver", "Patient"] },
+        { title: "Languages", pills: ["Romanian · Native", "English · C1 Advanced", "German · B2/C1"] },
         { title: "Hobbies", pills: ["Speedcubing", "Electronics tinkering", "Tennis", "Coffee"] }
       ],
-      resume: "Open my resume.",
-      statementTitle: "Engineering Statement",
-      statementText: "I understand computers across the full stack, from electronic circuits and digital logic to embedded software, operating systems, networks, and cloud-connected systems.",
-      aboutTitle: "About Me",
       expertiseTitle: "Technical Expertise",
       workTitle: "Work Experience",
       educationTitle: "Education",
-      teachingTitle: "Teaching & Mentoring",
-      languagesTitle: "Languages",
       selectedProjectsTitle: "Selected Projects",
-      recognitionTitle: "Awards, Certifications & Recognition",
-      resourcesTitle: "Volunteering, Erasmus & Academic References",
-      focusLabel: "Focus areas",
+      recognitionTitle: "Selected Highlights",
+      resourcesTitle: "Academic References",
       copyEmailTip: "Copy email",
       footerLeft: "Tip:",
       audioTip: "Tip: click here to enable sounds",
@@ -96,86 +88,47 @@
       holdTraceGameEnd: "Trace complete.",
       holdInspectionStart: "Inspection timer started.",
       holdInspectionEnd: "Inspection complete.",
-      bullets: [
-        { icon: "cap", html: "<b>Computer Engineering student</b> at Politehnica University Timișoara, focused on hardware-oriented systems." },
-        { icon: "code", html: "<b>Software developer</b> with experience building and maintaining production software and distributed systems." },
-        { icon: "chip", html: "Interested in <b>computer architecture, embedded systems, digital electronics, FPGA, IoT, networking, and low-level programming</b>." },
-        { icon: "cap", html: "Experienced in <b>technical teaching and mentoring</b>, from complete beginners to university students and competition preparation." },
-        { icon: "ai", html: "I like understanding systems end-to-end: the interaction between <b>hardware, software, networks, and infrastructure</b>." }
-      ],
       expertiseGroups: [
         { title: "Hardware & Computer Engineering", skills: ["Computer Architecture", "Digital Logic", "Electronic Circuits", "Embedded Systems", "FPGA / HDL", "Microcontrollers", "Sensors & Actuators", "PWM", "Control Systems"] },
-        { title: "Systems", skills: ["Linux", "Low-Level Programming", "Operating Systems", "Computer Networks", "TCP/IP", "IoT", "Edge Computing", "Hardware-Software Integration"] },
-        { title: "Programming", skills: ["C", "Python", "C#", "Java", "JavaScript"] },
-        { title: "Software Engineering", skills: ["Git", "APIs", "Backend Development", "Databases", "Testing", "Debugging", "System Integration", "Automation"] },
-        { title: "Teaching", skills: ["Technical Tutoring", "Programming Education", "Educational Psychology", "Mentoring"] }
+        { title: "Systems", skills: ["Linux", "Low-Level Programming", "Operating Systems", "Computer Networks", "TCP/IP", "IoT", "Edge Computing"] },
+        { title: "Programming", skills: ["C", "C#", "Java", "Python", "React"] },
+        { title: "Software Engineering", skills: ["Git", "APIs", "Databases", "Debugging", "Automation", "AI-assisted development"] },
+        { title: "Teaching & Communication", skills: ["Technical Tutoring", "Educational Psychology", "Mentoring"] }
       ],
       education: [
-        { title: "BSc Computer Engineering", institution: "Faculty of Automation and Computers, Politehnica University Timișoara", institutionLinkKey: "acUpt", period: "2023 - 2027", focus: "Computer Architecture · Embedded Systems · Digital Logic · Electronics · Operating Systems · Networks · FPGA · Software Engineering" },
-        { title: "Pedagogical Training Module", institution: "Educational Psychology & Teaching Practice", period: "", focus: "" }
-      ],
-      teachingIntro: "Experience teaching programming and computer science to children, high-school students, and university students, including complete beginners and students preparing for ICT and AcadNet competitions.",
-      teachingItems: [
-        { title: "Private tutoring", note: "Individual programming and computer science support." },
-        { title: "Logiscool Reșița", titleLinkKey: "logiscool", note: "Programming education for children and teenagers.", noteLinks: [{ linkKey: "logiscoolTrainer", label: "Teaching reference" }, { linkKey: "logiscoolTrainerDocument", label: "Trainer document" }] },
-        { title: "Volunteer tutoring & mentoring", note: "Supporting learners through structured practice and guidance." },
-        { title: "University laboratory tutoring", note: "Helping university students understand technical concepts and coursework." }
-      ],
-      languages: [
-        { name: "Romanian", level: "Native" },
-        { name: "English", level: "C1 Advanced / Cambridge", linkKey: "cambridgeC1" },
-        { name: "German", level: "DSD / B2-C1 level", linkKey: "deutschesSprachDiplomB2" }
+        { title: "Computer Engineering", institution: "Faculty of Automation and Computers, Politehnica University Timișoara", institutionLinkKey: "acUpt", period: "2023 – 2027" },
+        { title: "Pedagogical Training Module", institution: "Training in educational psychology and pedagogy, strengthening communication, mentoring, and the ability to explain technical concepts clearly.", period: "2023 – 2026" }
       ],
       workItems: [
-        { linkKey: "visionAi", label: "VisionAI", note: "Professional software development." },
-        { linkKey: "fiscalXpert", label: "FiscalXpert", note: "Professional software development." },
+        { linkKey: "visionAi", label: "VisionAI", note: "Professional software development across production systems." },
+        { linkKey: "fiscalXpert", label: "FiscalXpert", note: "Professional software development across production systems." },
         { linkKey: "superprof", label: "Private Tutor / Superprof", note: "Programming and computer science tutoring." },
         { linkKey: "logiscool", label: "Logiscool Reșița", note: "Programming trainer." }
       ],
       projectGroups: [{
         title: "Personal & Academic Work",
         items: [
-          { linkKey: "githubProfile", label: "GitHub Profile", note: "Personal and academic repository portfolio" },
-          { linkKey: "pidControlResearch", label: "PID Control Research & Educational Platform", note: "Raspberry Pi · Python · IMU · PWM · PID Control · Brushless Motors — Closed-loop control platform designed to explore PID control, real-time sensor measurements, motor actuation, and system stability." },
-          { linkKey: "operatingSystemsProject", label: "Operating Systems Project", note: "C · Linux · Systems Programming — Low-level programming project exploring operating-system concepts and systems programming in C." },
-          { linkKey: "markovLanguageModel", label: "Markov Language Model", note: "Programming · Probability · NLP — Experimental language model based on Markov chains and probabilistic text generation." },
-          { linkKey: "electronicsProjects", label: "Electronics Projects", note: "Collection of personal experiments involving digital electronics, embedded systems, circuit design, and computer engineering." },
-          { linkKey: "githubProfile", label: "More projects on GitHub →", note: "Explore the complete repository portfolio" }
+          { linkKey: "pidControlResearch", label: "PID Control Research & Educational Platform", note: "Raspberry Pi · Python · IMU · PWM · PID Control · Brushless Motors — Closed-loop experimental control platform." },
+          { linkKey: "operatingSystemsProject", label: "Operating Systems Project", note: "C · Linux · Systems Programming — Low-level systems programming project." },
+          { linkKey: "markovLanguageModel", label: "Markov Language Model", note: "Probability · NLP — Experimental Markov-chain language model." },
+          { linkKey: "electronicsProjects", label: "Electronics Projects", note: "Digital electronics · Embedded systems · Circuit design — Collection of personal hardware experiments." }
         ]
       }],
       recognitionGroups: [{
-        title: "Selected Recognition",
+        title: "Selected Highlights",
         items: [
-          { linkKey: "infoeducatieDiploma", label: "National Finalist, InfoEducație – Web Development", note: "Web development", noteLinks: [{ linkKey: "infoeducatieResults", label: "Official results" }] },
-          { linkKey: "euCodeWeekHackathon", label: "2nd Place, EU Code Week Hackathon", note: "Fake News Identifier" },
-          { linkKey: "volunteerOfTheYear", label: "Volunteer of the Year 2021", note: "Recognition for social impact" },
-          { linkKey: "microsoftTechnologyAssociate", label: "Microsoft Technology Associate", note: "Official Certiport verification", noteLinks: [{ linkKey: "microsoftTechnologyAssociateDocument", label: "Credential document" }] },
-          { linkKey: "protoshopGim", label: "Protoshop GIM / 3D Printing Instructor", note: "Selected teaching recognition" }
+          { linkKey: "infoeducatieResults", label: "National Finalist, InfoEducație – Web Development (2022)" },
+          { linkKey: "euCodeWeekHackathon", label: "2nd Place, EU Code Week Hackathon (2021)" },
+          { linkKey: "microsoftTechnologyAssociate", label: "Microsoft Technology Associate (2020)" }
         ]
       }],
       resourceGroups: [
         {
-          title: "Volunteering",
+          title: "Academic References",
           items: [
-            { linkKey: "saveTheChildrenActivity", label: "Save the Children", note: "Volunteer activity", noteLinks: [{ linkKey: "saveTheChildrenRecommendation", label: "Recommendation" }] },
-            { linkKey: "magnifyWellness", label: "Magnify Wellness – Technology Team Director", note: "Volunteer leadership role" },
-            { linkKey: "studentBuddyProgramme", label: "Student Buddy Programme UPT", note: "Student support programme" },
-            { linkKey: "volunteerTutorMentor", label: "Volunteer Tutor & Mentor", note: "Codeville · Magnify Wellness · Română versus Informatică" }
-          ]
-        },
-        {
-          title: "Erasmus Projects",
-          items: [
-            { linkKey: "humanityBeyondBorders", label: "Humanity Beyond Borders Youth Exchange", note: "Erasmus Youth Exchange participation" },
-            { linkKey: "healthyLifeErasmus", label: "A Healthy Life in a Healthy Environment – Erasmus+", note: "Erasmus+ project", noteLinks: [{ linkKey: "healthyLifeErasmusDocument", label: "Project document" }] }
-          ]
-        },
-        {
-          title: "Academic Recommendations",
-          items: [
-            { linkKey: "universityTaRecommendation", label: "University TA Recommendation", note: "Teaching assistant recommendation letter" },
-            { linkKey: "associateProfessorRecommendation", label: "Associate Professor Recommendation", note: "Academic recommendation letter" },
-            { linkKey: "academicRecommendation", label: "Politehnica University Timișoara Recommendation", note: "Academic recommendation letter" }
+            { linkKey: "universityTaRecommendation", label: "University TA Recommendation", note: "Academic recommendation." },
+            { linkKey: "associateProfessorRecommendation", label: "Associate Professor Recommendation", note: "Academic recommendation." },
+            { linkKey: "academicRecommendation", label: "University Laboratory Teaching Certificate", note: "Confirms supervised laboratory teaching activity." }
           ]
         }
       ]
@@ -185,32 +138,24 @@
       name: "Paul-Andrei Munteanu",
       heroHeadline: "Ingineria Calculatoarelor | Sisteme Embedded | Arhitectura Calculatoarelor | Dezvoltare Software",
       heroRole: "Student la Ingineria Calculatoarelor și Software Developer",
-      heroSupport: "Student la Ingineria Calculatoarelor și software developer, interesat de sisteme orientate spre hardware și de interacțiunea dintre software și platformele fizice de calcul.",
+      heroSupport: "Student la Ingineria Calculatoarelor și software developer, interesat de sisteme hardware, de la electronică digitală și arhitectura calculatoarelor la sisteme embedded și IoT. Caut roluri orientate spre hardware în care să îmi folosesc pregătirea tehnică în practică și să mă dezvolt în continuare ca inginer.",
       heroResume: "Vezi CV-ul",
       heroGithub: "GitHub",
       heroLinkedIn: "LinkedIn",
       heroContact: "Contact",
-      leftWhoAmITitle: "Cine sunt",
-      leftWhoAmINote: "Îmi place să înțeleg cum funcționează lucrurile și apoi să le construiesc cu grijă.",
+      leftWhoAmITitle: "Despre mine",
       leftWhoAmISections: [
-        { title: "Trăsături", pills: ["Gândire sistemică", "Curios", "Atent la detalii", "Învățare independentă", "Rezolv probleme practic"] },
-        { title: "Identitate tehnică", pills: ["Ingineria Calculatoarelor", "Sisteme Embedded", "Software low-level", "Integrare hardware-software"] },
-        { title: "Interese", pills: ["Arhitectura Calculatoarelor", "Electronică", "Psihologie și învățare", "Educație inginerească"] },
-        { title: "Hobby-uri", pills: ["Speedcubing", "Mesterit în electronică", "Tenis", "Cafea"] }
+        { title: "Interese profesionale", pills: ["Ingineria Calculatoarelor", "Arhitectura Calculatoarelor", "Electronică digitală", "Electronică", "Sisteme Embedded", "FPGA", "IoT"] },
+        { title: "Trăsături", pills: ["Gândire sistemică", "Învățare independentă", "Rezolv probleme practic", "Răbdător"] },
+        { title: "Limbi", pills: ["Română · Nativă", "Engleză · C1 Advanced", "Germană · B2/C1"] },
+        { title: "Hobby-uri", pills: ["Speedcubing", "Meșterit în electronică", "Tenis", "Cafea"] }
       ],
-      resume: "Deschide CV-ul.",
-      statementTitle: "Declarație inginerească",
-      statementText: "Înțeleg calculatoarele pe întregul lor stack, de la circuite electronice și logică digitală până la software embedded, sisteme de operare, rețele și sisteme conectate la cloud.",
-      aboutTitle: "Despre mine",
       expertiseTitle: "Expertiză tehnică",
       workTitle: "Experiență profesională",
       educationTitle: "Educație",
-      teachingTitle: "Predare și mentorat",
-      languagesTitle: "Limbi",
       selectedProjectsTitle: "Proiecte selectate",
-      recognitionTitle: "Premii, certificări și recunoaștere",
-      resourcesTitle: "Voluntariat, Erasmus și recomandări academice",
-      focusLabel: "Direcții de interes",
+      recognitionTitle: "Realizări selectate",
+      resourcesTitle: "Recomandări academice",
       copyEmailTip: "Copiază emailul",
       footerLeft: "Sfat:",
       audioTip: "Sfat: apasă aici pentru a activa sunetele",
@@ -275,86 +220,47 @@
       holdTraceGameEnd: "Trasare încheiată.",
       holdInspectionStart: "Cronometrul de inspecție a pornit.",
       holdInspectionEnd: "Inspecție finalizată.",
-      bullets: [
-        { icon: "cap", html: "<b>Student la Ingineria Calculatoarelor</b> la Politehnica Timișoara, cu focus pe sisteme orientate spre hardware." },
-        { icon: "code", html: "<b>Software developer</b> cu experiență în dezvoltarea și mentenanța software-ului de producție și a sistemelor distribuite." },
-        { icon: "chip", html: "Interesat de <b>arhitectura calculatoarelor, sisteme embedded, electronică digitală, FPGA, IoT, rețele și programare low-level</b>." },
-        { icon: "cap", html: "Experiență în <b>predare tehnică și mentorat</b>, de la începători compleți până la studenți și pregătire pentru competiții." },
-        { icon: "ai", html: "Îmi place să înțeleg sistemele cap-coadă: interacțiunea dintre <b>hardware, software, rețele și infrastructură</b>." }
-      ],
       expertiseGroups: [
         { title: "Hardware și Ingineria Calculatoarelor", skills: ["Arhitectura Calculatoarelor", "Logică digitală", "Circuite electronice", "Sisteme Embedded", "FPGA / HDL", "Microcontrolere", "Senzori și actuatori", "PWM", "Sisteme de control"] },
-        { title: "Sisteme", skills: ["Linux", "Programare low-level", "Sisteme de operare", "Rețele de calculatoare", "TCP/IP", "IoT", "Edge Computing", "Integrare hardware-software"] },
-        { title: "Programare", skills: ["C", "Python", "C#", "Java", "JavaScript"] },
-        { title: "Inginerie software", skills: ["Git", "API-uri", "Dezvoltare backend", "Baze de date", "Testare", "Debugging", "Integrare de sisteme", "Automatizare"] },
-        { title: "Predare", skills: ["Meditații tehnice", "Educație în programare", "Psihologie educațională", "Mentorat"] }
+        { title: "Sisteme", skills: ["Linux", "Programare low-level", "Sisteme de operare", "Rețele de calculatoare", "TCP/IP", "IoT", "Edge Computing"] },
+        { title: "Programare", skills: ["C", "C#", "Java", "Python", "React"] },
+        { title: "Inginerie software", skills: ["Git", "API-uri", "Baze de date", "Debugging", "Automatizare", "Dezvoltare asistată de AI"] },
+        { title: "Predare și comunicare", skills: ["Meditații tehnice", "Psihologie educațională", "Mentorat"] }
       ],
       education: [
-        { title: "BSc Ingineria Calculatoarelor", institution: "Facultatea de Automatică și Calculatoare, Universitatea Politehnica Timișoara", institutionLinkKey: "acUpt", period: "2023 - 2027", focus: "Arhitectura Calculatoarelor · Sisteme Embedded · Logică digitală · Electronică · Sisteme de operare · Rețele · FPGA · Inginerie software" },
-        { title: "Modul de formare pedagogică", institution: "Psihologie educațională și practică pedagogică", period: "", focus: "" }
-      ],
-      teachingIntro: "Experiență în predarea programării și informaticii pentru copii, elevi de liceu și studenți, inclusiv începători compleți și elevi care se pregătesc pentru competițiile ICT și AcadNet.",
-      teachingItems: [
-        { title: "Meditații private", note: "Sprijin individual pentru programare și informatică." },
-        { title: "Logiscool Reșița", titleLinkKey: "logiscool", note: "Educație în programare pentru copii și adolescenți.", noteLinks: [{ linkKey: "logiscoolTrainer", label: "Referință de predare" }, { linkKey: "logiscoolTrainerDocument", label: "Document de trainer" }] },
-        { title: "Predare și mentorat voluntar", note: "Sprijin pentru învățare prin exercițiu și îndrumare structurată." },
-        { title: "Laboratoare universitare", note: "Ajutor pentru înțelegerea conceptelor tehnice și a materiei de curs." }
-      ],
-      languages: [
-        { name: "Română", level: "Nativă" },
-        { name: "Engleză", level: "C1 Advanced / Cambridge", linkKey: "cambridgeC1" },
-        { name: "Germană", level: "DSD / nivel B2-C1", linkKey: "deutschesSprachDiplomB2" }
+        { title: "Ingineria Calculatoarelor", institution: "Facultatea de Automatică și Calculatoare, Universitatea Politehnica Timișoara", institutionLinkKey: "acUpt", period: "2023 – 2027" },
+        { title: "Modul de formare pedagogică", institution: "Formare în psihologie educațională și pedagogie, care consolidează comunicarea, mentoratul și capacitatea de a explica clar concepte tehnice.", period: "2023 – 2026" }
       ],
       workItems: [
-        { linkKey: "visionAi", label: "VisionAI", note: "Dezvoltare software profesională." },
-        { linkKey: "fiscalXpert", label: "FiscalXpert", note: "Dezvoltare software profesională." },
+        { linkKey: "visionAi", label: "VisionAI", note: "Dezvoltare software profesională pentru sisteme de producție." },
+        { linkKey: "fiscalXpert", label: "FiscalXpert", note: "Dezvoltare software profesională pentru sisteme de producție." },
         { linkKey: "superprof", label: "Meditator privat / Superprof", note: "Meditații la programare și informatică." },
         { linkKey: "logiscool", label: "Logiscool Reșița", note: "Trainer de programare." }
       ],
       projectGroups: [{
         title: "Proiecte personale și academice",
         items: [
-          { linkKey: "githubProfile", label: "Profil GitHub", note: "Portofoliu de repository-uri personale și academice" },
-          { linkKey: "pidControlResearch", label: "Cercetare PID și platformă educațională", note: "Raspberry Pi · Python · IMU · PWM · control PID · motoare brushless — Platformă de control în buclă închisă pentru explorarea controlului PID, a măsurătorilor în timp real, a acționării motoarelor și a stabilității sistemului." },
-          { linkKey: "operatingSystemsProject", label: "Proiect de sisteme de operare", note: "C · Linux · programare de sisteme — Proiect low-level despre concepte de sisteme de operare și programare de sisteme în C." },
-          { linkKey: "markovLanguageModel", label: "Markov Language Model", note: "Programare · probabilități · NLP — Model experimental de limbaj bazat pe lanțuri Markov și generare probabilistică de text." },
-          { linkKey: "electronicsProjects", label: "Proiecte de electronică", note: "Colecție de experimente personale cu electronică digitală, sisteme embedded, proiectare de circuite și ingineria calculatoarelor." },
-          { linkKey: "githubProfile", label: "Mai multe proiecte pe GitHub →", note: "Vezi portofoliul complet de repository-uri" }
+          { linkKey: "pidControlResearch", label: "Cercetare PID și platformă educațională", note: "Raspberry Pi · Python · IMU · PWM · control PID · motoare brushless — Platformă experimentală de control în buclă închisă." },
+          { linkKey: "operatingSystemsProject", label: "Proiect de sisteme de operare", note: "C · Linux · programare de sisteme — Proiect de programare low-level." },
+          { linkKey: "markovLanguageModel", label: "Markov Language Model", note: "Probabilități · NLP — Model experimental de limbaj bazat pe lanțuri Markov." },
+          { linkKey: "electronicsProjects", label: "Proiecte de electronică", note: "Electronică digitală · Sisteme embedded · Proiectare de circuite — Colecție de experimente personale hardware." }
         ]
       }],
       recognitionGroups: [{
-        title: "Recunoaștere selectată",
+        title: "Realizări selectate",
         items: [
-          { linkKey: "infoeducatieDiploma", label: "Finalist național, InfoEducație – Web Development", note: "Web development", noteLinks: [{ linkKey: "infoeducatieResults", label: "Rezultate oficiale" }] },
-          { linkKey: "euCodeWeekHackathon", label: "Locul 2, EU Code Week Hackathon", note: "Fake News Identifier" },
-          { linkKey: "volunteerOfTheYear", label: "Volunteer of the Year 2021", note: "Recunoaștere pentru impact social" },
-          { linkKey: "microsoftTechnologyAssociate", label: "Microsoft Technology Associate", note: "Verificare oficială Certiport", noteLinks: [{ linkKey: "microsoftTechnologyAssociateDocument", label: "Document de certificare" }] },
-          { linkKey: "protoshopGim", label: "Instructor Protoshop GIM / imprimare 3D", note: "Recunoaștere în predare" }
+          { linkKey: "infoeducatieResults", label: "Finalist național, InfoEducație – Web Development (2022)" },
+          { linkKey: "euCodeWeekHackathon", label: "Locul 2, EU Code Week Hackathon (2021)" },
+          { linkKey: "microsoftTechnologyAssociate", label: "Microsoft Technology Associate (2020)" }
         ]
       }],
       resourceGroups: [
         {
-          title: "Voluntariat",
-          items: [
-            { linkKey: "saveTheChildrenActivity", label: "Salvați Copiii", note: "Activitate de voluntariat", noteLinks: [{ linkKey: "saveTheChildrenRecommendation", label: "Recomandare" }] },
-            { linkKey: "magnifyWellness", label: "Magnify Wellness – Director al echipei tehnice", note: "Rol de coordonare în voluntariat" },
-            { linkKey: "studentBuddyProgramme", label: "Student Buddy Programme UPT", note: "Program de sprijin pentru studenți" },
-            { linkKey: "volunteerTutorMentor", label: "Meditator și mentor voluntar", note: "Codeville · Magnify Wellness · Română versus Informatică" }
-          ]
-        },
-        {
-          title: "Proiecte Erasmus",
-          items: [
-            { linkKey: "humanityBeyondBorders", label: "Schimb de tineret Humanity Beyond Borders", note: "Participare la un schimb de tineret Erasmus" },
-            { linkKey: "healthyLifeErasmus", label: "A Healthy Life in a Healthy Environment – Erasmus+", note: "Proiect Erasmus+", noteLinks: [{ linkKey: "healthyLifeErasmusDocument", label: "Documentul proiectului" }] }
-          ]
-        },
-        {
           title: "Recomandări academice",
           items: [
-            { linkKey: "universityTaRecommendation", label: "Recomandare pentru activitatea de TA", note: "Scrisoare de recomandare pentru activitatea de teaching assistant" },
-            { linkKey: "associateProfessorRecommendation", label: "Recomandare de la profesor asociat", note: "Scrisoare de recomandare academică" },
-            { linkKey: "academicRecommendation", label: "Recomandare Politehnica Timișoara", note: "Scrisoare de recomandare academică" }
+            { linkKey: "universityTaRecommendation", label: "Recomandare pentru activitatea de TA", note: "Recomandare academică." },
+            { linkKey: "associateProfessorRecommendation", label: "Recomandare de la profesor asociat", note: "Recomandare academică." },
+            { linkKey: "academicRecommendation", label: "Certificat de activitate didactică în laboratoare universitare", note: "Confirmă activitatea de predare supravegheată în laborator." }
           ]
         }
       ]
@@ -364,32 +270,24 @@
       name: "Paul-Andrei Munteanu",
       heroHeadline: "Computer Engineering | Embedded Systems | Computerarchitektur | Softwareentwicklung",
       heroRole: "Student der Computertechnik & Softwareentwickler",
-      heroSupport: "Student der Computertechnik und Softwareentwickler mit Interesse an hardwareorientierten Systemen und dem Zusammenspiel von Software und physischen Rechenplattformen.",
+      heroSupport: "Student der Computertechnik und Softwareentwickler mit Interesse an Hardwaresystemen – von digitaler Elektronik und Computerarchitektur bis zu Embedded- und IoT-Systemen. Ich suche hardwareorientierte Aufgaben, in denen ich mein technisches Fundament praktisch einsetzen und mich als Ingenieur weiterentwickeln kann.",
       heroResume: "Lebenslauf ansehen",
       heroGithub: "GitHub",
       heroLinkedIn: "LinkedIn",
       heroContact: "Kontakt",
-      leftWhoAmITitle: "Wer ich bin",
-      leftWhoAmINote: "Ich möchte verstehen, wie Dinge funktionieren, und sie anschließend sorgfältig bauen.",
+      leftWhoAmITitle: "Über mich",
       leftWhoAmISections: [
-        { title: "Eigenschaften", pills: ["Systemdenker", "Neugierig", "Detailorientiert", "Selbstständiger Lerner", "Praktischer Problemlöser"] },
-        { title: "Technische Identität", pills: ["Computertechnik", "Embedded Systems", "Low-Level-Software", "Hardware-Software-Integration"] },
-        { title: "Interessen", pills: ["Computerarchitektur", "Elektronik", "Psychologie und Lernen", "Ingenieurpädagogik"] },
+        { title: "Berufliche Interessen", pills: ["Computertechnik", "Computerarchitektur", "Digitale Elektronik", "Elektronik", "Embedded Systems", "FPGA", "IoT"] },
+        { title: "Eigenschaften", pills: ["Systemdenker", "Selbstständiger Lerner", "Praktischer Problemlöser", "Geduldig"] },
+        { title: "Sprachen", pills: ["Rumänisch · Muttersprache", "Englisch · C1 Advanced", "Deutsch · B2/C1"] },
         { title: "Hobbys", pills: ["Speedcubing", "Elektronik-Tüftelei", "Tennis", "Kaffee"] }
       ],
-      resume: "Lebenslauf öffnen.",
-      statementTitle: "Ingenieurstatement",
-      statementText: "Ich verstehe Computer über den gesamten Stack hinweg – von elektronischen Schaltungen und digitaler Logik über Embedded Software, Betriebssysteme und Netzwerke bis zu cloudverbundenen Systemen.",
-      aboutTitle: "Über mich",
       expertiseTitle: "Technische Schwerpunkte",
       workTitle: "Berufserfahrung",
       educationTitle: "Ausbildung",
-      teachingTitle: "Lehre & Mentoring",
-      languagesTitle: "Sprachen",
       selectedProjectsTitle: "Ausgewählte Projekte",
-      recognitionTitle: "Auszeichnungen, Zertifikate & Anerkennung",
-      resourcesTitle: "Ehrenamt, Erasmus & akademische Empfehlungen",
-      focusLabel: "Schwerpunkte",
+      recognitionTitle: "Ausgewählte Erfolge",
+      resourcesTitle: "Akademische Empfehlungen",
       copyEmailTip: "E-Mail kopieren",
       footerLeft: "Tipp:",
       audioTip: "Tipp: hier klicken, um Sounds zu aktivieren",
@@ -454,86 +352,47 @@
       holdTraceGameEnd: "Nachzeichnen beendet.",
       holdInspectionStart: "Inspektionstimer gestartet.",
       holdInspectionEnd: "Inspektion abgeschlossen.",
-      bullets: [
-        { icon: "cap", html: "<b>Student der Computertechnik</b> an der Politehnica University Timișoara mit Schwerpunkt auf hardwareorientierten Systemen." },
-        { icon: "code", html: "<b>Softwareentwickler</b> mit Erfahrung in der Entwicklung und Wartung von Produktionssoftware und verteilten Systemen." },
-        { icon: "chip", html: "Interesse an <b>Computerarchitektur, Embedded Systems, digitaler Elektronik, FPGA, IoT, Netzwerken und Low-Level-Programmierung</b>." },
-        { icon: "cap", html: "Erfahrung in <b>technischer Lehre und Mentoring</b> – von kompletten Anfängern bis zu Universitätsstudierenden und Wettbewerbsvorbereitung." },
-        { icon: "ai", html: "Ich möchte Systeme ganzheitlich verstehen: das Zusammenspiel von <b>Hardware, Software, Netzwerken und Infrastruktur</b>." }
-      ],
       expertiseGroups: [
         { title: "Hardware & Computertechnik", skills: ["Computerarchitektur", "Digitale Logik", "Elektronische Schaltungen", "Embedded Systems", "FPGA / HDL", "Mikrocontroller", "Sensoren & Aktoren", "PWM", "Regelungstechnik"] },
-        { title: "Systeme", skills: ["Linux", "Low-Level-Programmierung", "Betriebssysteme", "Computernetzwerke", "TCP/IP", "IoT", "Edge Computing", "Hardware-Software-Integration"] },
-        { title: "Programmierung", skills: ["C", "Python", "C#", "Java", "JavaScript"] },
-        { title: "Software Engineering", skills: ["Git", "APIs", "Backend-Entwicklung", "Datenbanken", "Tests", "Debugging", "Systemintegration", "Automatisierung"] },
-        { title: "Lehre", skills: ["Technische Nachhilfe", "Programmierunterricht", "Pädagogische Psychologie", "Mentoring"] }
+        { title: "Systeme", skills: ["Linux", "Low-Level-Programmierung", "Betriebssysteme", "Computernetzwerke", "TCP/IP", "IoT", "Edge Computing"] },
+        { title: "Programmierung", skills: ["C", "C#", "Java", "Python", "React"] },
+        { title: "Software Engineering", skills: ["Git", "APIs", "Datenbanken", "Debugging", "Automatisierung", "KI-gestützte Entwicklung"] },
+        { title: "Lehre & Kommunikation", skills: ["Technische Nachhilfe", "Pädagogische Psychologie", "Mentoring"] }
       ],
       education: [
-        { title: "BSc Computer Engineering", institution: "Fakultät für Automatisierung und Computertechnik, Politehnica University Timișoara", institutionLinkKey: "acUpt", period: "2023 - 2027", focus: "Computerarchitektur · Embedded Systems · Digitale Logik · Elektronik · Betriebssysteme · Netzwerke · FPGA · Software Engineering" },
-        { title: "Pädagogisches Ausbildungsmodul", institution: "Pädagogische Psychologie & Unterrichtspraxis", period: "", focus: "" }
-      ],
-      teachingIntro: "Erfahrung im Unterrichten von Programmierung und Informatik für Kinder, Schülerinnen und Schüler sowie Universitätsstudierende – einschließlich kompletter Anfänger und der Vorbereitung auf ICT- und AcadNet-Wettbewerbe.",
-      teachingItems: [
-        { title: "Private Nachhilfe", note: "Individuelle Unterstützung in Programmierung und Informatik." },
-        { title: "Logiscool Reșița", titleLinkKey: "logiscool", note: "Programmierunterricht für Kinder und Jugendliche.", noteLinks: [{ linkKey: "logiscoolTrainer", label: "Lehrreferenz" }, { linkKey: "logiscoolTrainerDocument", label: "Trainerdokument" }] },
-        { title: "Freiwillige Nachhilfe & Mentoring", note: "Begleitung von Lernenden durch strukturiertes Üben und Beratung." },
-        { title: "Universitäre Laborbetreuung", note: "Unterstützung beim Verständnis technischer Konzepte und Studieninhalte." }
-      ],
-      languages: [
-        { name: "Rumänisch", level: "Muttersprache" },
-        { name: "Englisch", level: "C1 Advanced / Cambridge", linkKey: "cambridgeC1" },
-        { name: "Deutsch", level: "DSD / Niveau B2-C1", linkKey: "deutschesSprachDiplomB2" }
+        { title: "Computertechnik", institution: "Fakultät für Automatisierung und Computertechnik, Politehnica University Timișoara", institutionLinkKey: "acUpt", period: "2023 – 2027" },
+        { title: "Pädagogisches Ausbildungsmodul", institution: "Ausbildung in pädagogischer Psychologie und Didaktik, die Kommunikation, Mentoring und die verständliche Erklärung technischer Konzepte stärkt.", period: "2023 – 2026" }
       ],
       workItems: [
-        { linkKey: "visionAi", label: "VisionAI", note: "Professionelle Softwareentwicklung." },
-        { linkKey: "fiscalXpert", label: "FiscalXpert", note: "Professionelle Softwareentwicklung." },
+        { linkKey: "visionAi", label: "VisionAI", note: "Professionelle Softwareentwicklung für Produktionssysteme." },
+        { linkKey: "fiscalXpert", label: "FiscalXpert", note: "Professionelle Softwareentwicklung für Produktionssysteme." },
         { linkKey: "superprof", label: "Privatlehrer / Superprof", note: "Nachhilfe in Programmierung und Informatik." },
         { linkKey: "logiscool", label: "Logiscool Reșița", note: "Programmiertrainer." }
       ],
       projectGroups: [{
         title: "Persönliche & akademische Projekte",
         items: [
-          { linkKey: "githubProfile", label: "GitHub-Profil", note: "Portfolio persönlicher und akademischer Repositories" },
-          { linkKey: "pidControlResearch", label: "PID-Regelungsforschung & Lernplattform", note: "Raspberry Pi · Python · IMU · PWM · PID-Regelung · bürstenlose Motoren — Geschlossene Regelungsplattform zur Untersuchung von PID-Regelung, Echtzeitmessungen, Motoransteuerung und Systemstabilität." },
-          { linkKey: "operatingSystemsProject", label: "Betriebssysteme-Projekt", note: "C · Linux · Systemprogrammierung — Low-Level-Projekt zu Betriebssystemkonzepten und Systemprogrammierung in C." },
-          { linkKey: "markovLanguageModel", label: "Markov Language Model", note: "Programmierung · Wahrscheinlichkeit · NLP — Experimentelles Sprachmodell auf Basis von Markov-Ketten und probabilistischer Textgenerierung." },
-          { linkKey: "electronicsProjects", label: "Elektronikprojekte", note: "Sammlung persönlicher Experimente mit digitaler Elektronik, Embedded Systems, Schaltungsentwurf und Computertechnik." },
-          { linkKey: "githubProfile", label: "Weitere Projekte auf GitHub →", note: "Das vollständige Repository-Portfolio ansehen" }
+          { linkKey: "pidControlResearch", label: "PID-Regelungsforschung & Lernplattform", note: "Raspberry Pi · Python · IMU · PWM · PID-Regelung · bürstenlose Motoren — Geschlossene experimentelle Regelungsplattform." },
+          { linkKey: "operatingSystemsProject", label: "Betriebssysteme-Projekt", note: "C · Linux · Systemprogrammierung — Low-Level-Systemprogrammierungsprojekt." },
+          { linkKey: "markovLanguageModel", label: "Markov Language Model", note: "Wahrscheinlichkeit · NLP — Experimentelles Sprachmodell auf Basis von Markov-Ketten." },
+          { linkKey: "electronicsProjects", label: "Elektronikprojekte", note: "Digitale Elektronik · Embedded Systems · Schaltungsentwurf — Sammlung persönlicher Hardwareexperimente." }
         ]
       }],
       recognitionGroups: [{
-        title: "Ausgewählte Anerkennung",
+        title: "Ausgewählte Erfolge",
         items: [
-          { linkKey: "infoeducatieDiploma", label: "Nationaler Finalist, InfoEducație – Web Development", note: "Webentwicklung", noteLinks: [{ linkKey: "infoeducatieResults", label: "Offizielle Ergebnisse" }] },
-          { linkKey: "euCodeWeekHackathon", label: "2. Platz, EU Code Week Hackathon", note: "Fake News Identifier" },
-          { linkKey: "volunteerOfTheYear", label: "Volunteer of the Year 2021", note: "Anerkennung für gesellschaftliches Engagement" },
-          { linkKey: "microsoftTechnologyAssociate", label: "Microsoft Technology Associate", note: "Offizielle Certiport-Verifizierung", noteLinks: [{ linkKey: "microsoftTechnologyAssociateDocument", label: "Zertifikatsdokument" }] },
-          { linkKey: "protoshopGim", label: "Protoshop GIM / 3D-Druck-Instruktor", note: "Ausgewählte Lehranerkennung" }
+          { linkKey: "infoeducatieResults", label: "Nationaler Finalist, InfoEducație – Web Development (2022)" },
+          { linkKey: "euCodeWeekHackathon", label: "2. Platz, EU Code Week Hackathon (2021)" },
+          { linkKey: "microsoftTechnologyAssociate", label: "Microsoft Technology Associate (2020)" }
         ]
       }],
       resourceGroups: [
         {
-          title: "Ehrenamt",
-          items: [
-            { linkKey: "saveTheChildrenActivity", label: "Save the Children", note: "Ehrenamtliche Tätigkeit", noteLinks: [{ linkKey: "saveTheChildrenRecommendation", label: "Empfehlung" }] },
-            { linkKey: "magnifyWellness", label: "Magnify Wellness – Leiter des Technology Teams", note: "Ehrenamtliche Führungsrolle" },
-            { linkKey: "studentBuddyProgramme", label: "Student Buddy Programme UPT", note: "Unterstützungsprogramm für Studierende" },
-            { linkKey: "volunteerTutorMentor", label: "Freiwilliger Tutor & Mentor", note: "Codeville · Magnify Wellness · Română versus Informatică" }
-          ]
-        },
-        {
-          title: "Erasmus-Projekte",
-          items: [
-            { linkKey: "humanityBeyondBorders", label: "Humanity Beyond Borders Youth Exchange", note: "Teilnahme an einem Erasmus-Jugendaustausch" },
-            { linkKey: "healthyLifeErasmus", label: "A Healthy Life in a Healthy Environment – Erasmus+", note: "Erasmus+-Projekt", noteLinks: [{ linkKey: "healthyLifeErasmusDocument", label: "Projektdokument" }] }
-          ]
-        },
-        {
           title: "Akademische Empfehlungen",
           items: [
-            { linkKey: "universityTaRecommendation", label: "Empfehlung für die TA-Tätigkeit", note: "Empfehlungsschreiben als Teaching Assistant" },
-            { linkKey: "associateProfessorRecommendation", label: "Empfehlung eines Associate Professors", note: "Akademisches Empfehlungsschreiben" },
-            { linkKey: "academicRecommendation", label: "Empfehlung der Politehnica Timișoara", note: "Akademisches Empfehlungsschreiben" }
+            { linkKey: "universityTaRecommendation", label: "Empfehlung für die TA-Tätigkeit", note: "Akademische Empfehlung." },
+            { linkKey: "associateProfessorRecommendation", label: "Empfehlung eines Associate Professors", note: "Akademische Empfehlung." },
+            { linkKey: "academicRecommendation", label: "Zertifikat für universitäre Laborlehre", note: "Bestätigt die betreute Lehrtätigkeit in Laborveranstaltungen." }
           ]
         }
       ]

@@ -116,7 +116,7 @@
   background: rgba(0,0,0,.16);
 }
 .left-whoami-title{
-  margin:0 0 9px;
+  margin:0 0 7px;
   font-family: Space Grotesk, Inter, system-ui;
   font-size: 14px;
   font-weight: 700;
@@ -126,7 +126,7 @@
 .left-whoami-sections{
   display:flex;
   flex-direction:column;
-  gap:8px;
+  gap:6px;
 }
 .left-whoami-scroll{
   min-height:0;
@@ -151,13 +151,16 @@
   background: rgba(var(--purple), .42);
 }
 .left-whoami-section{
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:12px;
-  background: rgba(0,0,0,.14);
+  padding:3px 0;
+}
+.left-whoami-section:first-child{
   padding:7px 8px 8px;
+  border:1px solid rgba(var(--blue), .16);
+  border-radius:12px;
+  background:linear-gradient(135deg, rgba(var(--blue), .08), rgba(0,0,0,.08));
 }
 .left-whoami-section-title{
-  margin:0 0 6px;
+  margin:0 0 4px;
   font-size:11px;
   font-weight:700;
   letter-spacing:.22px;
@@ -167,12 +170,12 @@
 .left-whoami-pills{
   display:flex;
   flex-wrap:wrap;
-  gap:7px;
+  gap:5px;
 }
 .left-whoami-pill{
   display:inline-flex;
   align-items:center;
-  padding:6px 9px;
+  padding:5px 8px;
   border-radius:999px;
   border:1px solid rgba(255,255,255,.12);
   background: rgba(0,0,0,.20);
@@ -182,6 +185,13 @@
   line-height:1.2;
   transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease;
 }
+.left-whoami-section:nth-child(3) .left-whoami-pill{
+  font-size:10.5px;
+  color:rgba(219,234,254,.78);
+}
+.left-whoami-section:last-child{
+  opacity:.78;
+}
 .left-whoami-pill:hover{
   transform: translateY(-1px);
   border-color: rgba(var(--blue), .35);
@@ -189,12 +199,6 @@
   box-shadow:
     0 0 0 1px rgba(var(--blue), .14) inset,
     0 0 14px rgba(var(--blue), .20);
-}
-.left-whoami-note{
-  margin:9px 0 0;
-  color: rgba(255,255,255,.67);
-  font-size:12px;
-  line-height:1.35;
 }
 @media (max-width:900px){
   .left-whoami{
@@ -204,6 +208,7 @@
   }
   .left-whoami-scroll{
     max-height: clamp(180px, 38vh, 300px);
+    overflow:auto;
     padding-right:3px;
   }
   .left-whoami-section{
@@ -216,8 +221,5 @@
   .left-whoami-pill{
     padding:5px 8px;
     font-size:10.5px;
-  }
-  .left-whoami-note{
-    font-size:11px;
   }
 }

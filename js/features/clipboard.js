@@ -23,8 +23,7 @@
     const refs = APP.refs;
 
     refs.btnMail = $("#btnMail");
-    if (!refs.btnMail) {
-      console.warn("[app] Missing selector: #btnMail");
+    if (!refs.btnMail || refs.btnMail.tagName === "A") {
       return;
     }
 
