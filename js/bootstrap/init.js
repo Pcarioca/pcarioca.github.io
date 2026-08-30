@@ -7,6 +7,8 @@
   if (typeof APP.api.initLinks === "function") APP.api.initLinks();
   if (typeof APP.api.initLanguage === "function") APP.api.initLanguage();
   if (typeof APP.api.initClipboard === "function") APP.api.initClipboard();
+  if (typeof APP.api.initUtilityRail === "function") APP.api.initUtilityRail();
+  if (typeof APP.api.initThemeController === "function") APP.api.initThemeController();
   if (typeof APP.api.initMotion === "function") APP.api.initMotion();
   if (typeof APP.api.initCanvas === "function") APP.api.initCanvas();
   if (typeof APP.api.initAudio === "function") APP.api.initAudio();

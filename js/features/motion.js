@@ -10,10 +10,14 @@
 
     APP.state.mx = innerWidth * 0.5;
     APP.state.my = innerHeight * 0.35;
+    APP.state.pointerEnergy = 0;
 
-    window.addEventListener("mousemove", (e) => {
+    window.addEventListener("pointermove", (e) => {
+      const previousX = APP.state.mx;
+      const previousY = APP.state.my;
       APP.state.mx = e.clientX;
       APP.state.my = e.clientY;
+      APP.state.pointerEnergy = Math.min(1, Math.hypot(APP.state.mx - previousX, APP.state.my - previousY) / 36);
       setCSSVar("--mx", APP.state.mx + "px");
       setCSSVar("--my", APP.state.my + "px");
 
@@ -31,12 +35,13 @@
 
       const g = 0.75 + Math.min(0.35, Math.hypot(dx, dy) * 0.18);
       setCSSVar("--glow", g.toFixed(2));
-    });
+    }, { passive: true, capture: true });
 
     window.addEventListener("mouseleave", () => {
       setCSSVar("--tiltY", "0deg");
       setCSSVar("--tiltX", "0deg");
       setCSSVar("--glow", ".85");
+      APP.state.pointerEnergy = 0;
     });
 
     APP.state.motionInitialized = true;

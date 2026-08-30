@@ -19,6 +19,7 @@
 
     APP.state.currentLang = lang;
     document.documentElement.lang = lang;
+    $$('[data-language-code]').forEach((el) => { el.textContent = lang.toUpperCase(); });
     langLinks.forEach((a) => a.classList.toggle("active", a.dataset.lang === lang));
 
     $$('[data-i18n]').forEach((el) => {
@@ -43,6 +44,7 @@
     APP.api.renderProjectGroups(lang);
     APP.api.renderRecognitionGroups(lang);
     APP.api.renderResourceGroups(lang);
+    APP.api.refreshRail?.();
 
     if (typeof APP.api.wireInteractiveSounds === "function") {
       APP.api.wireInteractiveSounds();

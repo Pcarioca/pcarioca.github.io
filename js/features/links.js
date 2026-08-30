@@ -29,9 +29,6 @@
       });
     }
 
-    refs.btnMail = $("#btnMail");
-    if (refs.btnMail) refs.btnMail.href = `mailto:${CONFIG.email}`;
-
     refs.btnWca = $("#btnWca");
     if (refs.btnWca) setOptionalLink(refs.btnWca, CONFIG.links.wca);
   }

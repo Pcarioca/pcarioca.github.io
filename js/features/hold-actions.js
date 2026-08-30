@@ -18,7 +18,6 @@
     ".langbar a[data-lang]",
     ".icbtn",
     ".resume",
-    "#card",
     "#bg",
     "#profileImg",
     "#audioPill"
@@ -1058,7 +1057,6 @@
     if (key.startsWith("whoami-section:")) return target?.textContent?.trim() || "Section action";
     if (key.startsWith("resource:")) return target?.textContent?.trim() || "Resource action";
     if (key.startsWith("bullet:")) return "Bullet action";
-    if (key === "card") return t("holdOrbGameStart", "Start Orb Catch");
     if (key === "bg") return t("holdTraceGameStart", "Start Constellation Trace");
     if (key === "btnWca") return t("holdInspectionStart", "Inspection timer");
     if (key === "audioPill") return "Toggle hold audio profile";
@@ -1067,7 +1065,7 @@
   }
 
   function classifyActionType(key) {
-    if (key === "card" || key === "bg") return "game";
+    if (key === "bg") return "game";
     if (key === "btnWca") return "game";
     return "utility";
   }
@@ -1134,11 +1132,6 @@
       pulseBodyClass("hold-blue-sweep", 500);
       APP.api.playHoldMotif?.("utility", 4);
       return { actionType: "utility" };
-    }
-
-    if (key === "card") {
-      startOrbCatchGame();
-      return { actionType: "game" };
     }
 
     if (key === "bg") {
@@ -1453,6 +1446,7 @@
   }
 
   APP.api.triggerHoldAction = triggerHoldAction;
+  APP.api.startDLatchGame = startOrbCatchGame;
   APP.api.wireHoldActions = wireHoldActions;
   APP.api.cancelAllHoldModes = cancelAllHoldModes;
   APP.api.initHoldActions = initHoldActions;

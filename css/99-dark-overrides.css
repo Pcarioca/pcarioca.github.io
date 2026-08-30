@@ -1,55 +1,19 @@
-/* =========================
-   FORCE DARK THEME (NUCLEAR)
-   ========================= */
-html, body{
-  background: #070816 !important;
-  color: rgba(255,255,255,.92) !important;
-}
-
-body{
-  /* dark background + color accents */
-  background-image:
-    radial-gradient(1000px 600px at 50% 35%,
-      rgba(96,165,250,.14), transparent 55%),
-    radial-gradient(900px 700px at 85% 20%,
-      rgba(167,139,250,.12), transparent 60%),
-    radial-gradient(900px 700px at 20% 92%,
-      rgba(16,185,129,.10), transparent 60%),
-    linear-gradient(180deg, #070816, #05060c) !important;
-}
-
-#bg{ opacity: .85 !important; }          /* canvas background */
-.noise{ opacity: .07 !important; }       /* grain */
-#cursorGlow{ opacity: .65 !important; }  /* mouse glow (reduce white wash) */
-
-.card{
-  background: rgba(12,14,22,.74) !important;  /* glassy dark */
-  border-color: rgba(255,255,255,.14) !important;
-  box-shadow:
-    0 26px 80px rgba(0,0,0,.60),
-    0 0 0 1px rgba(255,255,255,.07) inset !important;
-}
-
-.card-glow{
-  opacity: .75 !important;
-}
-
-.name{ color: rgba(255,255,255,.96) !important; }
-.subtitle{ color: rgba(255,255,255,.68) !important; }
-
-.bullets li{
-  background: rgba(0,0,0,.18) !important;
-  border-color: rgba(255,255,255,.10) !important;
-}
-
-.tag{
-  background: rgba(0,0,0,.20) !important;
-  border-color: rgba(255,255,255,.12) !important;
-  color: rgba(255,255,255,.80) !important;
-}
-
-.icbtn{
-  background: rgba(0,0,0,.18) !important;
-  border-color: rgba(255,255,255,.14) !important;
-  color: rgba(255,255,255,.90) !important;
-}
+html,body{background:var(--bg0);color:var(--text);transition:background-color .3s ease,color .3s ease;}
+body{background-image:radial-gradient(1000px 600px at var(--mx) var(--my),rgba(var(--blue),.14),transparent 55%),radial-gradient(900px 700px at 85% 20%,rgba(var(--purple),.11),transparent 60%),radial-gradient(900px 700px at 20% 92%,rgba(var(--green),.09),transparent 60%),linear-gradient(180deg,var(--bg0),var(--bg1));transition:background .32s ease,color .3s ease;}
+#bg{opacity:.98;pointer-events:none;transition:opacity .3s ease;}
+.noise{opacity:.07;}
+#cursorGlow{opacity:.52;}
+.card{background:var(--surface);border-color:rgba(var(--blue),.28);box-shadow:0 26px 80px rgba(0,0,0,.58),0 0 0 1px rgba(var(--blue),.13) inset;backdrop-filter:blur(15px) saturate(1.12);transition:background .3s ease,border-color .3s ease,box-shadow .3s ease;}
+.left-whoami,.expertise-group,.resource-group,.education-item{border-color:rgba(var(--blue),.24);}
+.left-whoami{background:var(--surface-soft);}
+.tag,.left-whoami-pill{color:var(--text);border-color:var(--border);background:var(--surface-soft);}
+.name{color:var(--text);}.subtitle,.resource-note,.education-institution{color:var(--muted);}
+.section-title,.expertise-group-title,.resource-group-title,.education-item-title,.left-whoami-title,.resource-label,.left-whoami-pill{color:var(--text);}
+.left-whoami-section-title,.education-focus,.section-intro,.teaching-item-note{color:var(--muted);}
+.resource-item,.work-item,.education-item,.expertise-group,.resource-group{background:var(--surface-soft);border-color:rgba(var(--blue),.22);}
+.resource-link,.education-item a{color:rgba(var(--blue),.96);}
+.center{scrollbar-color:rgba(var(--blue),.58) var(--surface-soft);}
+:focus-visible{outline:2px solid rgba(var(--blue),.9);outline-offset:3px;}
+:root[data-theme="paper-electronics"] .noise{opacity:.035;mix-blend-mode:multiply;}
+:root[data-theme="paper-electronics"] #cursorGlow{opacity:.16;}
+:root[data-theme="paper-electronics"] .card{box-shadow:0 22px 55px rgba(41,37,36,.18),0 0 0 1px var(--border) inset;}

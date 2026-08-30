@@ -10,6 +10,8 @@
     "./js/features/links.js",
     "./js/features/language.js",
     "./js/features/clipboard.js",
+    "./js/features/utility-rail.js",
+    "./js/features/theme-controller.js",
     "./js/features/motion.js",
     "./js/features/canvas.js",
     "./js/features/audio.js",

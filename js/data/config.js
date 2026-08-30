@@ -3,6 +3,7 @@
 
   APP.data.CONFIG = {
     email: "incognitopaul97@gmail.com",
+    phone: "+40 722962130",
     cvUrl: "https://drive.google.com/drive/folders/1cdtBNJAwsgYrJ-r0kIk-PLOlwQn2jM8M?usp=sharing",
 
     // If ./assets/andrei.jpg is missing, fallback to a known public image.
